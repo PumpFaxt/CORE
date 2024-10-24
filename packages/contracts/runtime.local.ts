@@ -96,22 +96,21 @@ async function deployContract<
   C extends keyof typeof definitions,
   T extends Parameters<
     typeof deployer.deployContract<(typeof definitions[C])["abi"], viem.Chain>
-  >[0],
+  >["0"],
 >(
   contractName: C,
   args: T["args"],
-  parameters?: Omit<
-    T,
-    "bytecode" | "abi" | "args"
-  >,
+  parameters?: Omit<T, "bytecode" | "abi">,
 ) {
   const contractDefinition = definitions[contractName];
   const txnRcpt = await tx(
     deployer.deployContract({
-      ...contractDefinition,
+      abi: contractDefinition.abi,
+      bytecode: contractDefinition.bytecode,
       args: args,
       ...parameters,
-    }),
+      // deno-lint-ignore no-explicit-any
+    } as any),
   );
 
   if (!txnRcpt.contractAddress) throw new Error("Failed to deploy contract");

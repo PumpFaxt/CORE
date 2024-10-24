@@ -6,6 +6,7 @@
     "jsr:@std/expect@*": "1.0.5",
     "jsr:@std/internal@^1.0.4": "1.0.4",
     "npm:@nomicfoundation/hardhat-toolbox-viem@*": "3.0.0_@nomicfoundation+hardhat-ignition-viem@0.15.6__@nomicfoundation+hardhat-ignition@0.15.6___@nomicfoundation+hardhat-verify@2.0.11____hardhat@2.22.14_____ts-node@10.9.2______@types+node@22.5.4______typescript@5.6.3_____typescript@5.6.3_____@types+node@22.5.4____ts-node@10.9.2_____@types+node@22.5.4_____typescript@5.6.3____typescript@5.6.3____@types+node@22.5.4___hardhat@2.22.14____ts-node@10.9.2_____@types+node@22.5.4_____typescript@5.6.3____typescript@5.6.3____@types+node@22.5.4___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__@nomicfoundation+hardhat-viem@2.0.5___hardhat@2.22.14____ts-node@10.9.2_____@types+node@22.5.4_____typescript@5.6.3____typescript@5.6.3____@types+node@22.5.4___typescript@5.0.4___viem@2.21.33____typescript@5.6.3____ws@8.18.0___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___@types+node@22.5.4__@nomicfoundation+ignition-core@0.15.6__hardhat@2.22.14___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__viem@2.21.33___typescript@5.6.3___ws@8.18.0__@nomicfoundation+hardhat-verify@2.0.11___hardhat@2.22.14____ts-node@10.9.2_____@types+node@22.5.4_____typescript@5.6.3____typescript@5.6.3____@types+node@22.5.4___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__ts-node@10.9.2___@types+node@22.5.4___typescript@5.6.3__typescript@5.6.3__@types+node@22.5.4_@nomicfoundation+hardhat-network-helpers@1.0.12__hardhat@2.22.14___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__ts-node@10.9.2___@types+node@22.5.4___typescript@5.6.3__typescript@5.6.3__@types+node@22.5.4_@nomicfoundation+hardhat-verify@2.0.11__hardhat@2.22.14___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__ts-node@10.9.2___@types+node@22.5.4___typescript@5.6.3__typescript@5.6.3__@types+node@22.5.4_@nomicfoundation+hardhat-viem@2.0.5__hardhat@2.22.14___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__typescript@5.0.4__viem@2.21.33___typescript@5.6.3___ws@8.18.0__ts-node@10.9.2___@types+node@22.5.4___typescript@5.6.3__@types+node@22.5.4_@types+chai@4.3.20_@types+chai-as-promised@7.1.8_@types+mocha@10.0.9_@types+node@22.5.4_chai@4.5.0_hardhat@2.22.14_hardhat-gas-reporter@1.0.10__hardhat@2.22.14___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__ts-node@10.9.2___@types+node@22.5.4___typescript@5.6.3__typescript@5.6.3__@types+node@22.5.4_solidity-coverage@0.8.13__hardhat@2.22.14___ts-node@10.9.2____@types+node@22.5.4____typescript@5.6.3___typescript@5.6.3___@types+node@22.5.4__ts-node@10.9.2___@types+node@22.5.4___typescript@5.6.3__typescript@5.6.3__@types+node@22.5.4_ts-node@10.9.2__@types+node@22.5.4__typescript@5.6.3_typescript@5.6.3_viem@2.21.33__typescript@5.6.3__ws@8.18.0_hardhat@2.22.14__ts-node@10.9.2___@types+node@22.5.4___typescript@5.6.3__typescript@5.6.3__@types+node@22.5.4",
+    "npm:@openzeppelin/contracts@^5.1.0": "5.1.0",
     "npm:@types/node@*": "22.5.4",
     "npm:hardhat@*": "2.22.14",
     "npm:hardhat@2.22.14": "2.22.14",
@@ -638,6 +639,9 @@
         "@nomicfoundation/solidity-analyzer-linux-x64-musl",
         "@nomicfoundation/solidity-analyzer-win32-x64-msvc"
       ]
+    },
+    "@openzeppelin/contracts@5.1.0": {
+      "integrity": "sha512-p1ULhl7BXzjjbha5aqst+QMLY+4/LCWADXOCsmLHRM77AqiPjnd9vvUN9sosUfhL9JGKpZ0TjEGxgvnizmWGSA=="
     },
     "@scure/base@1.1.9": {
       "integrity": "sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg=="
@@ -3212,6 +3216,7 @@
     "members": {
       "packages/contracts": {
         "dependencies": [
+          "npm:@openzeppelin/contracts@^5.1.0",
           "npm:hardhat@^2.22.14",
           "npm:viem@^2.21.33"
         ]
