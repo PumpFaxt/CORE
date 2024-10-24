@@ -1,4 +1,4 @@
-name: CI
+name: Deno lint fmt test
 
 on: [push, pull_request]
 
