@@ -1,9 +1,10 @@
 {
   "tasks": {
-    "compile": "hardhat compile & deno run --allow-all sync.develop.ts",
+    "compile": "hardhat compile && deno run --allow-all sync.develop.ts",
     "localnode": "hardhat node"
   },
   "imports": {
+    "@openzeppelin/contracts": "npm:@openzeppelin/contracts@^5.1.0",
     "hardhat": "npm:hardhat@^2.22.14",
     "viem": "npm:viem@^2.21.33"
   },

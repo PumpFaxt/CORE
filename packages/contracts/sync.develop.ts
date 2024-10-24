@@ -32,11 +32,12 @@ async function main() {
     });
   }
 
+  fs.writeFileSync(
+    "definitions/develop.ts",
+    `import type {Address} from "viem"`,
+  );
+
   for (const definition of resolvedDefinitions) {
-    fs.writeFileSync(
-      "definitions/develop.ts",
-      `import type {Address} from "viem"`,
-    );
     fs.appendFileSync(
       "definitions/develop.ts",
       `
@@ -47,6 +48,7 @@ const ${definition.name} = {
 `,
     );
   }
+
   fs.appendFileSync(
     "definitions/develop.ts",
     `export default {${files.join(", ")}};`,
