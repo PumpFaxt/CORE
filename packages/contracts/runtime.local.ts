@@ -1,33 +1,34 @@
-import crypto from "node:crypto"
-import * as viem from "viem"
-import type { Address, Hash } from "viem"
-import { hardhat as hardhatNetwork } from "viem/chains"
-import { privateKeyToAccount } from "viem/accounts"
+import crypto from "node:crypto";
+import * as viem from "viem";
+import type { Address, Hash } from "viem";
+import { hardhat as hardhatNetwork } from "viem/chains";
+import { privateKeyToAccount } from "viem/accounts";
+import definitions from "./definitions/develop.ts";
 
 const hardhatNodeAccounts = [
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
   "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
   "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
-] as const
+] as const;
 
-const transport = viem.http(hardhatNetwork.rpcUrls.default.http.at(0))
+const transport = viem.http(hardhatNetwork.rpcUrls.default.http.at(0));
 
-const clients = []
+const clients = [];
 for (const key of hardhatNodeAccounts) {
-  const account = privateKeyToAccount(key)
+  const account = privateKeyToAccount(key);
   clients.push(
     viem
       .createWalletClient({ account, transport, chain: hardhatNetwork })
       .extend(viem.publicActions),
-  )
+  );
 }
 
 const publicClient = viem.createPublicClient({
   transport,
   chain: hardhatNetwork,
-})
+});
 
-const deployer = clients[0]
+const deployer = clients[0];
 
 const networkAdmin = viem
   .createTestClient({
@@ -36,75 +37,92 @@ const networkAdmin = viem
     chain: hardhatNetwork,
   })
   .extend(viem.walletActions)
-  .extend(viem.publicActions)
+  .extend(viem.publicActions);
 
-type Fixture<T> = () => Promise<T>
-type Snapshot<T> = { id: Address; data: T }
+type Fixture<T> = () => Promise<T>;
+type Snapshot<T> = { id: Address; data: T };
 
-const snapshots: Record<string, Snapshot<unknown>> = {}
+const snapshots: Record<string, Snapshot<unknown>> = {};
 
 function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function loadFixture<T>(fixture: Fixture<T>): Promise<T> {
   const fnHash = crypto
     .createHash("sha256")
     .update(fixture.toString())
-    .digest("hex")
+    .digest("hex");
 
   if (snapshots[fnHash] === undefined) {
-    const data = await fixture()
-    const snapshotId = await networkAdmin.snapshot()
-    snapshots[fnHash] = { id: snapshotId, data: data }
+    const data = await fixture();
+    const snapshotId = await networkAdmin.snapshot();
+    snapshots[fnHash] = { id: snapshotId, data: data };
 
-    return data
+    return data;
   } else {
-    const snapshot = snapshots[fnHash]
-    await networkAdmin.revert({ id: snapshot.id })
+    const snapshot = snapshots[fnHash];
+    await networkAdmin.revert({ id: snapshot.id });
 
-    const data = await snapshot.data
-    return data as T
+    const data = await snapshot.data;
+    return data as T;
   }
 }
 
 async function getNetworkLatestTime(): Promise<bigint> {
-  const latestBlock = await networkAdmin.getBlock()
+  const latestBlock = await networkAdmin.getBlock();
 
-  return latestBlock.timestamp
+  return latestBlock.timestamp;
 }
 
 const time = {
   increase: networkAdmin.increaseTime,
   latest: getNetworkLatestTime,
-}
+};
 
 async function mineOne() {
-  await networkAdmin.mine({ blocks: 1 })
+  await networkAdmin.mine({ blocks: 1 });
 }
-const block = { time, mine: networkAdmin.mine, mineOne }
+const block = { time, mine: networkAdmin.mine, mineOne };
 
 async function tx(txn: Promise<Hash>) {
-  await sleep(5)
+  await sleep(5);
   return await publicClient.getTransactionReceipt({
     hash: await txn,
-  })
+  });
 }
 
-async function deployContract(
-  parameters: Parameters<typeof deployer.deployContract>[0],
+async function deployContract<
+  C extends keyof typeof definitions,
+  T extends Parameters<
+    typeof deployer.deployContract<(typeof definitions[C])["abi"], viem.Chain>
+  >[0],
+>(
+  contractName: C,
+  args: T["args"],
+  parameters?: Omit<
+    T,
+    "bytecode" | "abi" | "args"
+  >,
 ) {
-  const txnRcpt = await tx(deployer.deployContract(parameters))
+  const contractDefinition = definitions[contractName];
+  const txnRcpt = await tx(
+    deployer.deployContract({
+      ...contractDefinition,
+      args: args,
+      ...parameters,
+    }),
+  );
 
-  if (!txnRcpt.contractAddress) throw new Error("Failed to deploy contract")
+  if (!txnRcpt.contractAddress) throw new Error("Failed to deploy contract");
 
   const contract = viem.getContract({
-    abi: parameters.abi,
+    abi: contractDefinition.abi,
     address: txnRcpt.contractAddress,
     client: deployer,
-  })
+  });
 
-  return contract
+  return contract;
 }
 
 const runtime = {
@@ -114,6 +132,6 @@ const runtime = {
   block,
   deployContract,
   sleep,
-}
+};
 
-export default runtime
+export default runtime;

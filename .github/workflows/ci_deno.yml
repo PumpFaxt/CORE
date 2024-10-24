@@ -29,7 +29,7 @@ jobs:
         working-directory: ./packages/contracts
         run: deno task compile
 
-      - name: Run tests
+      - name: Run Contracts tests
         working-directory: ./packages/contracts
         run: |
           nohup deno task localnode >/dev/null 2>&1 &

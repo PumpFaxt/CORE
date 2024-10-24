@@ -1,13 +1,11 @@
 {
   "tasks": {
-    "compile": "hardhat compile",
+    "compile": "hardhat compile & deno run --allow-all sync.develop.ts",
     "localnode": "hardhat node"
   },
   "imports": {
     "hardhat": "npm:hardhat@^2.22.14",
     "viem": "npm:viem@^2.21.33"
   },
-  "fmt": {
-    "exclude": ["artifacts", "cache"]
-  }
+  "exclude": ["artifacts", "cache", "definitions"]
 }
