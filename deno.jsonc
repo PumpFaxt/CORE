@@ -1,7 +1,7 @@
 {
   "version": "0.0.0",
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "hook": "deno run --allow-read --allow-run --allow-write https://deno.land/x/deno_hooks@0.1.1/mod.ts"
   },
   "imports": {
     "@std/expect": "jsr:@std/expect",

@@ -6,5 +6,8 @@
   "imports": {
     "hardhat": "npm:hardhat@^2.22.14",
     "viem": "npm:viem@^2.21.33"
+  },
+  "fmt": {
+    "exclude": ["artifacts", "cache"]
   }
 }
