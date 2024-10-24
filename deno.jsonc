@@ -17,7 +17,7 @@
   "fmt": {
     "semiColons": false,
     "indentWidth": 2,
-    "useTabs": true
+    "useTabs": false
   },
   "lint": {
     "rules": {
