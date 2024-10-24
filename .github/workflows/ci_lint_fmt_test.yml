@@ -15,6 +15,9 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Download Deno Deps
+        run: deno i
+
       - name: Run Deno fmt check
         run: deno fmt --check
 
