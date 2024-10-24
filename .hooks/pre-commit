@@ -3,4 +3,7 @@
 
 deno fmt --check
 deno lint
+
+cd packages/contracts
+nohup deno task localnode >/dev/null 2>&1 &
 deno test --allow-net
