@@ -3,3 +3,6 @@
 
 # Ignore all .env files
 **/*.env
+
+# nohup log files
+**/nohup.out
