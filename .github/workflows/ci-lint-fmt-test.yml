@@ -4,8 +4,8 @@ on: [push, pull_request]
 
 jobs:
   deno_lint_fmt_test:
+    name: Lint Format and Test all deno files
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
