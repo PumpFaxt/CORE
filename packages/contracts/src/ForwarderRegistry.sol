@@ -1,61 +1,67 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.27;
 
+import "./AuxillaryList.sol";
+
 contract ForwarderRegistry {
-    address[] private _forwarders;
-    mapping(address => uint256) private _forwarderIndexes;
-    mapping(address => bool) private _forwarderExists;
+    AuxillaryList private _forwarders;
+    AuxillaryList private _admins;
 
     mapping(address => uint256) private _nonces;
 
     modifier onlyForwarder() {
         require(
-            _forwarderExists[msg.sender],
+            _forwarders.contains(msg.sender),
             "Only Forwarders are allowed to call this method"
         );
         _;
     }
 
+    modifier onlyAdmin() {
+        require(
+            _admins.contains(msg.sender),
+            "Only Admins are allowed to call this method"
+        );
+        _;
+    }
+
     constructor() {
-        addForwarder(address(0));
-        addForwarder(msg.sender);
+        _forwarders = new AuxillaryList();
+        _admins = new AuxillaryList();
+
+        registerForwarder(address(0));
+        registerForwarder(msg.sender);
     }
 
-    function addForwarder(address address_) public {
-        require(!_forwarderExists[address_], "Address already exists");
-
-        _forwarders.push(address_);
-        _forwarderIndexes[address_] = _forwarders.length - 1;
-        _forwarderExists[address_] = true;
+    function addAdmin(address address_) public onlyAdmin {
+        _admins.safeAdd(address_);
     }
 
-    function removeForwarder(address address_) external {
-        require(_forwarderExists[address_], "Address does not exist");
+    function removeAdmin(address address_) public onlyAdmin {
+        _admins.safeRemove(address_);
+    }
 
-        uint256 deletionIndex = _forwarderIndexes[address_];
-        uint256 lastIndex = _forwarders.length - 1;
+    function admins() external view returns (address[] memory) {
+        return _admins.getAll();
+    }
 
-        // Move the last element to the place of the element to be removed
-        if (deletionIndex != lastIndex) {
-            address lastElement = _forwarders[lastIndex];
-            _forwarders[deletionIndex] = lastElement;
-            _forwarderIndexes[lastElement] = deletionIndex; // Update the index for the previously last element
-        }
+    function registerForwarder(address address_) public onlyAdmin {
+        _forwarders.safeAdd(address_);
+    }
 
-        _forwarders.pop();
-        delete _forwarderIndexes[address_];
-        delete _forwarderExists[address_];
+    function removeForwarder(address address_) external onlyAdmin {
+        _forwarders.safeRemove(address_);
     }
 
     function isValidForwarder(address address_) external view returns (bool) {
-        return _forwarderExists[address_];
+        return _forwarders.contains(address_);
+    }
+
+    function getForwarders() external view returns (address[] memory) {
+        return _forwarders.getAll();
     }
 
     function getNonce() external view returns (uint256) {
         return _nonces[msg.sender];
-    }
-
-    function getForwarders() external view returns (address[] memory) {
-        return _forwarders;
     }
 }

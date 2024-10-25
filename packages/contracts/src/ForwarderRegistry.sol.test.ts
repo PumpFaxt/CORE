@@ -16,10 +16,8 @@ async function deployFixture() {
   };
 }
 
-Deno.test("Should set deployer as forwarder", async () => {
-  const { owner, registry } = await runtime.loadFixture(
-    deployFixture,
-  );
+Deno.test("Registers Deployer as a forwarder", async () => {
+  const { owner, registry } = await runtime.loadFixture(deployFixture);
 
   expect(await registry.read.isValidForwarder([owner.account.address]))
     .toBeTruthy();
