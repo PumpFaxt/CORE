@@ -29,15 +29,15 @@ contract ForwarderRegistry {
         _forwarders = new AuxillaryList();
         _admins = new AuxillaryList();
 
-        registerForwarder(address(0));
-        registerForwarder(msg.sender);
+        _admins.add(msg.sender);
+        _forwarders.add(msg.sender);
     }
 
-    function addAdmin(address address_) public onlyAdmin {
+    function addAdmin(address address_) external onlyAdmin {
         _admins.safeAdd(address_);
     }
 
-    function removeAdmin(address address_) public onlyAdmin {
+    function removeAdmin(address address_) external onlyAdmin {
         _admins.safeRemove(address_);
     }
 
@@ -45,7 +45,7 @@ contract ForwarderRegistry {
         return _admins.getAll();
     }
 
-    function registerForwarder(address address_) public onlyAdmin {
+    function registerForwarder(address address_) external onlyAdmin {
         _forwarders.safeAdd(address_);
     }
 
