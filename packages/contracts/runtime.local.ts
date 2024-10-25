@@ -4,6 +4,7 @@ import type { Address, Hash } from "viem";
 import { hardhat as hardhatNetwork } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
 import definitions from "./definitions/develop.ts";
+import { expect } from "@std/expect";
 
 const hardhatNodeAccounts = [
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
@@ -63,8 +64,9 @@ async function loadFixture<T>(fixture: Fixture<T>): Promise<T> {
   } else {
     const snapshot = snapshots[fnHash];
     await networkAdmin.revert({ id: snapshot.id });
-
-    const data = await snapshot.data;
+    const snapshotId = await networkAdmin.snapshot();
+    snapshots[fnHash].id = snapshotId;
+    const data = snapshot.data;
     return data as T;
   }
 }
@@ -124,6 +126,22 @@ async function deployContract<
   return contract;
 }
 
+async function expectContractFunctionExecutionError(
+  fn: Promise<unknown>,
+  expectedErrorMessage?: string,
+) {
+  let actualErrorMessage: string | null = null;
+  await fn.catch(
+    (err) => {
+      if (err.name === "ContractFunctionExecutionError" && err.shortMessage) {
+        actualErrorMessage = err.shortMessage;
+      }
+    },
+  ).finally(() => {
+    expect(actualErrorMessage).toContain(expectedErrorMessage || "");
+  });
+}
+
 const runtime = {
   clients,
   publicClient,
@@ -131,6 +149,7 @@ const runtime = {
   block,
   deployContract,
   sleep,
+  expectContractFunctionExecutionError,
 };
 
 export default runtime;
