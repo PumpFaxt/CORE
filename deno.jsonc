@@ -15,7 +15,7 @@
     "checkJs": true
   },
   "fmt": {
-    "semiColons": false,
+    "semiColons": true,
     "indentWidth": 2,
     "useTabs": false
   },
