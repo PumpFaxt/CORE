@@ -81,6 +81,10 @@ contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
         return _nonces[msg.sender];
     }
 
+    function nonceOf(address address_) external view returns (uint256) {
+        return _nonces[address_];
+    }
+
     function validate(
         address from_,
         address to_,
@@ -117,7 +121,7 @@ contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
 
         require(valid, "Invalid Signature or Invalid Execution Request");
 
-        _nonces[msg.sender]++;
+        _nonces[from_]++;
 
         return valid;
     }
