@@ -2,10 +2,16 @@
 pragma solidity ^0.8.27;
 
 import "./AuxillaryList.sol";
+import "./SignatureVerifier.sol";
+import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 
-contract ForwarderRegistry {
+contract ForwarderRegistry is SignatureVerifier {
+    using ECDSA for bytes32;
+
     AuxillaryList private _forwarders;
     AuxillaryList private _admins;
+    AuxillaryList private _trustedExecutors;
 
     mapping(address => uint256) private _nonces;
 
@@ -63,5 +69,19 @@ contract ForwarderRegistry {
 
     function getNonce() external view returns (uint256) {
         return _nonces[msg.sender];
+    }
+
+    function validate(
+        address from_,
+        string calldata functionName_,
+        bytes32 functionDataHash_,
+        bytes calldata signature_
+    ) external view returns (bool) {
+        uint256 nonce = _nonces[from_];
+        address to = msg.sender;
+        bytes32 digest = keccak256(
+            abi.encodePacked(from_, to, functionName_, functionDataHash_, nonce)
+        );
+        return verifySignature(from_, digest, signature_);
     }
 }
