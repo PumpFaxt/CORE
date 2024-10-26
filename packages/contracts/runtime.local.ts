@@ -3,7 +3,8 @@ import * as viem from "viem";
 import type { Address, Hash } from "viem";
 import { hardhat as hardhatNetwork } from "viem/chains";
 import { privateKeyToAccount } from "viem/accounts";
-import definitions from "./definitions/develop.ts";
+import abiDefinitions from "./definitions/develop.abi.ts";
+import bytecodeDefinitions from "./definitions/develop.bytecode.ts";
 import { expect } from "@std/expect";
 
 const hardhatNodeAccounts = [
@@ -95,20 +96,19 @@ async function tx(txn: Promise<Hash>) {
 }
 
 async function deployContract<
-  C extends keyof typeof definitions,
+  C extends keyof typeof abiDefinitions & keyof typeof bytecodeDefinitions,
   T extends Parameters<
-    typeof deployer.deployContract<(typeof definitions[C])["abi"], viem.Chain>
+    typeof deployer.deployContract<(typeof abiDefinitions[C]), viem.Chain>
   >["0"],
 >(
   contractName: C,
   args: T["args"],
   parameters?: Omit<T, "bytecode" | "abi">,
 ) {
-  const contractDefinition = definitions[contractName];
   const txnRcpt = await tx(
     deployer.deployContract({
-      abi: contractDefinition.abi,
-      bytecode: contractDefinition.bytecode,
+      abi: abiDefinitions[contractName],
+      bytecode: bytecodeDefinitions[contractName],
       args: args,
       ...parameters,
       // deno-lint-ignore no-explicit-any
@@ -118,7 +118,7 @@ async function deployContract<
   if (!txnRcpt.contractAddress) throw new Error("Failed to deploy contract");
 
   const contract = viem.getContract({
-    abi: contractDefinition.abi,
+    abi: abiDefinitions[contractName],
     address: txnRcpt.contractAddress,
     client: deployer,
   });

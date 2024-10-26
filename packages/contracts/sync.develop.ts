@@ -7,9 +7,14 @@ type ContractDefinition = {
   bytecode: string;
 };
 
+function getFilePath(fileType: "abi" | "bytecode") {
+  return `definitions/develop.${fileType}.ts`;
+}
+
 async function main() {
   const files = fs.readdirSync("src").filter((file) => file.endsWith(".sol"))
     .map((name) => name.slice(0, name.length - 4));
+  // .filter((name) =>  !(name[0] === "I" && name[1] === name[1].toUpperCase()));
 
   const promisedDefinitions = [];
   for (const fileName of files) {
@@ -33,24 +38,37 @@ async function main() {
   }
 
   fs.writeFileSync(
-    "definitions/develop.ts",
-    `import type {Address} from "viem"`,
+    getFilePath("abi"),
+    "",
   );
-
   for (const definition of resolvedDefinitions) {
     fs.appendFileSync(
-      "definitions/develop.ts",
+      getFilePath("abi"),
       `
-const ${definition.name} = {
-  abi : ${JSON.stringify(definition.abi)} as const,
-  bytecode : "${definition.bytecode}"
-} as const;
+const ${definition.name} = ${JSON.stringify(definition.abi)} as const;
 `,
     );
   }
-
   fs.appendFileSync(
-    "definitions/develop.ts",
+    getFilePath("abi"),
+    `export default {${files.join(", ")}};`,
+  );
+
+  fs.writeFileSync(
+    getFilePath("bytecode"),
+    ``,
+  );
+  for (const definition of resolvedDefinitions) {
+    fs.appendFileSync(
+      getFilePath("bytecode"),
+      `
+const ${definition.name} = 
+  "${definition.bytecode}";
+`,
+    );
+  }
+  fs.appendFileSync(
+    getFilePath("bytecode"),
     `export default {${files.join(", ")}};`,
   );
 }
