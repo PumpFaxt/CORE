@@ -19,14 +19,14 @@ async function deployFixture() {
   };
 }
 
-Deno.test("Registers Deployer as a forwarder", async () => {
+Deno.test("Should register deployer as a forwarder", async () => {
   const { owner, registry } = await runtime.loadFixture(deployFixture);
 
   expect(await registry.read.isValidForwarder([owner.account.address]))
     .toBeTruthy();
 });
 
-Deno.test("validate", async () => {
+Deno.test("Should validate function call digest signatures", async () => {
   const { owner, acc1, registry } = await runtime.loadFixture(deployFixture);
 
   const msg = viem.keccak256(
@@ -48,6 +48,7 @@ Deno.test("validate", async () => {
   });
   const result = await registry.read.validate([
     acc1.account.address,
+    owner.account.address,
     "transfer",
     msg,
     sig,
@@ -217,12 +218,6 @@ Deno.test("Should return false for an address that has been removed", async () =
   const isValid = await registry.read.isValidForwarder([acc1.account.address]);
   expect(isValid).toBeFalsy();
 });
-
-// Deno.test("Should return an empty array when no forwarders are registered", async () => {
-// });
-
-// Deno.test("Should return the correct list of forwarders after adding", async () => {
-// });
 
 Deno.test("Should reflect the current state after removing forwarders", async () => {
   const { acc1, registry } = await runtime.loadFixture(deployFixture);

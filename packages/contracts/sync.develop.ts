@@ -13,9 +13,8 @@ function getFilePath(fileType: "abi" | "bytecode") {
 
 async function main() {
   const files = fs.readdirSync("src").filter((file) => file.endsWith(".sol"))
-    .map((name) => name.slice(0, name.length - 4)).filter((name) =>
-      !(name[0] === "I" && name[1] === name[1].toUpperCase())
-    );
+    .map((name) => name.slice(0, name.length - 4));
+  // .filter((name) =>  !(name[0] === "I" && name[1] === name[1].toUpperCase()));
 
   const promisedDefinitions = [];
   for (const fileName of files) {

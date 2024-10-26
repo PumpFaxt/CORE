@@ -2,16 +2,28 @@
 pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./ForwarderRegistry.sol";
+import "./interfaces/IForwarderRegistry.sol";
 
 contract PumpFRAX is ERC20 {
-    ForwarderRegistry private _forwarderRegistry;
+    IForwarderRegistry private _forwarderRegistry;
 
     constructor(address forwarderRegistry_) ERC20("PumpFRAX", "pFRAX") {
-        _forwarderRegistry = ForwarderRegistry(forwarderRegistry_);
+        _forwarderRegistry = IForwarderRegistry(forwarderRegistry_);
     }
 
-    function metaTransfer(address to_, uint256 value_) public {
-        transfer(to_, value_);
+    function metaTransfer(
+        address from_,
+        address to_,
+        uint256 value_,
+        bytes calldata signature_
+    ) public {
+        bytes32 functionDataHash = keccak256(abi.encodePacked(to_, value_));
+        _forwarderRegistry.execute(
+            from_,
+            "transfer",
+            functionDataHash,
+            signature_
+        );
+        _transfer(from_, to_, value_);
     }
 }
