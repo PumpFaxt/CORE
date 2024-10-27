@@ -1,4 +1,5 @@
 import runtime from "../runtime.local.ts";
+import type { SendTransactionParameters } from "viem";
 
 export async function setupFixture() {
     const [owner, acc1, acc2] = runtime.clients;
@@ -28,10 +29,10 @@ export async function setupFixture() {
 
     const publicClient = runtime.publicClient;
 
-    async function masterTx(fn:  ()=> Promise<void>) {
+    async function masterTx(tx: SendTransactionParameters) {
         await runtime.sendImpersonatedTx(
             master.address,
-            fn,
+            tx,
         );
     }
 
@@ -46,6 +47,6 @@ export async function setupFixture() {
         adminRegistry,
         forwarderRegistry,
         feeController,
-        masterTx
+        masterTx,
     };
 }

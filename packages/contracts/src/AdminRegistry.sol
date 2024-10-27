@@ -17,6 +17,7 @@ contract AdminRegistry is IAdminRegistry {
 
     constructor() {
         _admins = new AuxillaryList();
+        _admins.add(msg.sender);
     }
 
     function addAdmin(address address_) external onlyAdmin {

@@ -1,28 +1,30 @@
 // deno-lint-ignore-file
 import runtime from "../runtime.local.ts";
 import { expect } from "@std/expect";
+import { setupFixture } from "./.setupFixture.ts";
 import * as viem from "viem";
 
 async function deployFixture() {
-  const [owner, acc1, acc2] = runtime.clients;
-
-  const registry = await runtime.deployContract("ForwarderRegistry", []);
-
-  const publicClient = runtime.publicClient;
+  const { master, owner, acc1, acc2, forwarderRegistry, masterTx } =
+    await runtime
+      .loadFixture(
+        setupFixture,
+      );
 
   return {
     owner,
     acc1,
     acc2,
-    registry,
-    publicClient,
+    registry: forwarderRegistry,
+    master,
+    masterTx,
   };
 }
 
 Deno.test("Should register deployer as a forwarder", async () => {
-  const { owner, registry } = await runtime.loadFixture(deployFixture);
+  const { master, registry } = await runtime.loadFixture(deployFixture);
 
-  expect(await registry.read.isValidForwarder([owner.account.address]))
+  expect(await registry.read.isValidForwarder([master.address]))
     .toBeTruthy();
 });
 

@@ -159,13 +159,13 @@ async function expectContractFunctionExecutionError(
 
 async function sendImpersonatedTx(
   address: Address,
-  fn: ()=> Promise<void>
+  tx: viem.SendTransactionParameters,
 ) {
-  await networkAdmin.impersonateAccount({ address }),
-  
-  await fn()
+  await networkAdmin.impersonateAccount({ address });
 
-  await networkAdmin.stopImpersonatingAccount({address})
+  await networkAdmin.sendTransaction(tx);
+
+  await networkAdmin.stopImpersonatingAccount({ address });
 }
 
 const runtime = {
@@ -177,7 +177,7 @@ const runtime = {
   getContract,
   sleep,
   expectContractFunctionExecutionError,
-  sendImpersonatedTx
+  sendImpersonatedTx,
 };
 
 export default runtime;

@@ -8,6 +8,8 @@ import "./IForwarderRegistry.sol";
 import "./IPumpfaxtFeeController.sol";
 
 interface IPumpfaxtMaster {
+    function one_pFrax() external view returns (uint256);
+
     function frax() external view returns (IERC20);
 
     function pFrax() external view returns (IPumpFRAX);

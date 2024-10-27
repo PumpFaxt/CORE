@@ -17,9 +17,12 @@ contract PumpfaxtMaster {
 
     PumpfaxtFeeController public immutable feeController;
 
+    uint256 public immutable one_pFrax;
+
     constructor(address frax_) {
         frax = IERC20(frax_);
         pFrax = new PumpFRAX();
+        one_pFrax = 10 ** pFrax.decimals();
 
         adminRegistry = new AdminRegistry();
         adminRegistry.addAdmin(msg.sender);
