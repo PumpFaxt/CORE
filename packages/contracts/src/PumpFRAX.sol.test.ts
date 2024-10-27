@@ -8,7 +8,7 @@ async function deployFixture() {
   const [owner, forwarder, acc2] = runtime.clients;
 
   const registry = await runtime.deployContract("ForwarderRegistry", []);
-  const pFrax = await runtime.deployContract("PumpFRAX", [registry.address]);
+  const pFrax = await runtime.deployContract("PumpFRAX", []);
   await registry.write.addTrustedExecutor([pFrax.address]);
   await registry.write.registerForwarder([forwarder.account.address]);
 
