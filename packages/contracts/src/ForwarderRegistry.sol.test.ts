@@ -5,11 +5,10 @@ import { setupFixture } from "./.setupFixture.ts";
 import * as viem from "viem";
 
 async function deployFixture() {
-  const { master, owner, acc1, acc2, forwarderRegistry, masterTx } =
-    await runtime
-      .loadFixture(
-        setupFixture,
-      );
+  const { master, owner, acc1, acc2, forwarderRegistry } = await runtime
+    .loadFixture(
+      setupFixture,
+    );
 
   return {
     owner,
@@ -17,7 +16,6 @@ async function deployFixture() {
     acc2,
     registry: forwarderRegistry,
     master,
-    masterTx,
   };
 }
 

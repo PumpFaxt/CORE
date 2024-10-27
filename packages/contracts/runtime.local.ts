@@ -157,17 +157,6 @@ async function expectContractFunctionExecutionError(
   });
 }
 
-async function sendImpersonatedTx(
-  address: Address,
-  tx: viem.SendTransactionParameters,
-) {
-  await networkAdmin.impersonateAccount({ address });
-
-  await networkAdmin.sendTransaction(tx);
-
-  await networkAdmin.stopImpersonatingAccount({ address });
-}
-
 const runtime = {
   clients,
   publicClient,
@@ -177,7 +166,6 @@ const runtime = {
   getContract,
   sleep,
   expectContractFunctionExecutionError,
-  sendImpersonatedTx,
 };
 
 export default runtime;

@@ -19,6 +19,14 @@ contract PumpfaxtMaster {
 
     uint256 public immutable one_pFrax;
 
+    modifier onlyAdmin() {
+        require(
+            adminRegistry.isAdmin(msg.sender),
+            "Only Admins are allowed to call this method"
+        );
+        _;
+    }
+
     constructor(address frax_) {
         frax = IERC20(frax_);
         pFrax = new PumpFRAX();
@@ -30,5 +38,12 @@ contract PumpfaxtMaster {
         forwarderRegistry = new ForwarderRegistry();
 
         feeController = new PumpfaxtFeeController();
+    }
+
+    function issuePumpFrax(
+        address address_,
+        uint256 amount_
+    ) external onlyAdmin {
+        pFrax.mint(address_, amount_);
     }
 }

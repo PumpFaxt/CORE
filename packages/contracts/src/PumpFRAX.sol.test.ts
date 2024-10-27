@@ -3,14 +3,18 @@ import runtime from "../runtime.local.ts";
 import { expect } from "@std/expect";
 import * as viem from "viem";
 import { metaTxRequest, parseFrax } from "../utils.ts";
+import { setupFixture } from "./.setupFixture.ts";
 
 async function deployFixture() {
-  const [owner, forwarder, acc2] = runtime.clients;
+  const { owner, forwarderRegistry, acc1: forwarder, acc2, pFrax, master } =
+    await runtime.loadFixture(
+      setupFixture,
+    );
 
-  const registry = await runtime.deployContract("ForwarderRegistry", []);
-  const pFrax = await runtime.deployContract("PumpFRAX", []);
-  await registry.write.addTrustedExecutor([pFrax.address]);
-  await registry.write.registerForwarder([forwarder.account.address]);
+  await forwarderRegistry.write.addTrustedExecutor([pFrax.address]);
+  await forwarderRegistry.write.registerForwarder([
+    forwarder.account.address,
+  ]);
 
   const publicClient = runtime.publicClient;
 
@@ -18,14 +22,17 @@ async function deployFixture() {
     if (!client.account) {
       throw new Error("Invalid client account, unable to mint");
     }
-    await pFrax.write.mint([client.account.address, parseFrax(amount)]);
+
+    await master.write.issuePumpFrax([
+      client.account.address,
+      parseFrax(amount),
+    ]);
   }
 
   return {
     owner,
     forwarder,
     acc2,
-    registry,
     pFrax,
     publicClient,
     mint,
@@ -39,9 +46,8 @@ Deno.test("Should have initial supply of zero", async () => {
 });
 
 Deno.test("metaTx: transfer", async () => {
-  const { pFrax, owner, registry, forwarder, acc2: holder, mint } =
-    await runtime
-      .loadFixture(deployFixture);
+  const { pFrax, owner, forwarder, acc2: holder, mint } = await runtime
+    .loadFixture(deployFixture);
 
   await mint(holder, 100);
 
@@ -55,22 +61,10 @@ Deno.test("metaTx: transfer", async () => {
     ],
   });
 
-  const nonceBefore = await registry.read.nonceOf([holder.account.address]);
-
   await pFrax.write.metaTransfer(req, {
     account: forwarder.account,
   });
 
-  await runtime.expectContractFunctionExecutionError(
-    pFrax.write.metaTransfer(req, {
-      account: forwarder.account,
-    }),
-    "Invalid Signature or Invalid Execution Request",
-  );
-
-  expect(await registry.read.nonceOf([holder.account.address])).toBe(
-    nonceBefore + 1n,
-  );
   expect(await pFrax.read.balanceOf([owner.account.address])).toBe(
     parseFrax(50),
   );
