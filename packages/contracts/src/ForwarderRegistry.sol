@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.27;
 
-import "./AuxillaryList.sol";
 import "./interfaces/IForwarderRegistry.sol";
 import "./SignatureVerifier.sol";
+import "./AuxillaryList.sol";
+import "./interfaces/IAdminRegistry.sol";
 
 contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
-    AuxillaryList private _forwarders;
-    AuxillaryList private _admins;
-    AuxillaryList private _trustedExecutors;
+    AuxillaryList private immutable _forwarders;
+    AuxillaryList private immutable _trustedExecutors;
+
+    IAdminRegistry private immutable _adminRegistry;
 
     mapping(address => uint256) private _nonces;
 
@@ -22,31 +24,19 @@ contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
 
     modifier onlyAdmin() {
         require(
-            _admins.contains(msg.sender),
+            _adminRegistry.isAdmin(msg.sender),
             "Only Admins are allowed to call this method"
         );
         _;
     }
 
-    constructor() {
+    constructor(address adminRegistry_) {
         _forwarders = new AuxillaryList();
-        _admins = new AuxillaryList();
         _trustedExecutors = new AuxillaryList();
 
-        _admins.add(msg.sender);
+        _adminRegistry = IAdminRegistry(adminRegistry_);
+
         _forwarders.add(msg.sender);
-    }
-
-    function addAdmin(address address_) external onlyAdmin {
-        _admins.safeAdd(address_);
-    }
-
-    function removeAdmin(address address_) external onlyAdmin {
-        _admins.safeRemove(address_);
-    }
-
-    function admins() external view returns (address[] memory) {
-        return _admins.getAll();
     }
 
     function addTrustedExecutor(address address_) external onlyAdmin {
