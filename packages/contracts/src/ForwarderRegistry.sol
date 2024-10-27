@@ -4,13 +4,13 @@ pragma solidity ^0.8.27;
 import "./interfaces/IForwarderRegistry.sol";
 import "./SignatureVerifier.sol";
 import "./AuxillaryList.sol";
-import "./interfaces/IAdminRegistry.sol";
+import "./interfaces/IPumpfaxtMaster.sol";
 
 contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
     AuxillaryList private immutable _forwarders;
     AuxillaryList private immutable _trustedExecutors;
 
-    IAdminRegistry private immutable _adminRegistry;
+    IPumpfaxtMaster private immutable _master;
 
     mapping(address => uint256) private _nonces;
 
@@ -24,17 +24,17 @@ contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
 
     modifier onlyAdmin() {
         require(
-            _adminRegistry.isAdmin(msg.sender),
+            _master.adminRegistry().isAdmin(msg.sender),
             "Only Admins are allowed to call this method"
         );
         _;
     }
 
-    constructor(address adminRegistry_) {
+    constructor() {
         _forwarders = new AuxillaryList();
         _trustedExecutors = new AuxillaryList();
 
-        _adminRegistry = IAdminRegistry(adminRegistry_);
+        _master = IPumpfaxtMaster(msg.sender);
 
         _forwarders.add(msg.sender);
     }

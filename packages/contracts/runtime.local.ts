@@ -126,6 +126,21 @@ async function deployContract<
   return contract;
 }
 
+function getContract<
+  C extends keyof typeof abiDefinitions & keyof typeof bytecodeDefinitions,
+>(
+  contractName: C,
+  address: Address,
+) {
+  const contract = viem.getContract({
+    abi: abiDefinitions[contractName],
+    address: address,
+    client: deployer,
+  });
+
+  return contract;
+}
+
 async function expectContractFunctionExecutionError(
   fn: Promise<unknown>,
   expectedErrorMessage?: string,
@@ -148,6 +163,7 @@ const runtime = {
   loadFixture,
   block,
   deployContract,
+  getContract,
   sleep,
   expectContractFunctionExecutionError,
 };
