@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/IForwarderRegistry.sol";
 
 contract PumpFRAX is ERC20, Ownable {
-    IForwarderRegistry private _forwarderRegistry;
+    IForwarderRegistry private immutable _forwarderRegistry;
 
     constructor(
         address forwarderRegistry_

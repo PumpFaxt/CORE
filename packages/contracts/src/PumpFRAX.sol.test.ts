@@ -45,27 +45,6 @@ Deno.test("metaTx: transfer", async () => {
 
   await mint(holder, 100);
 
-  //   const msg = viem.keccak256(
-  //     viem.encodePacked(["address", "uint"], [
-  //       owner.account.address,
-  //       parseFrax(50),
-  //     ]),
-  //   );
-
-  //   const digest = viem.keccak256(
-  //     viem.encodePacked(["address", "address", "string", "bytes32", "uint"], [
-  //       holder.account.address,
-  //       pFrax.address,
-  //       "transfer",
-  //       msg,
-  //       0n,
-  //     ]),
-  //   );
-
-  //   const sig = await holder.signMessage({
-  //     message: { raw: viem.hexToBytes(digest) },
-  //   });
-
   const req = await metaTxRequest({
     contract: pFrax.address,
     signer: holder,
