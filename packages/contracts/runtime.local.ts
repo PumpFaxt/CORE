@@ -157,6 +157,17 @@ async function expectContractFunctionExecutionError(
   });
 }
 
+async function sendImpersonatedTx(
+  address: Address,
+  fn: ()=> Promise<void>
+) {
+  await networkAdmin.impersonateAccount({ address }),
+  
+  await fn()
+
+  await networkAdmin.stopImpersonatingAccount({address})
+}
+
 const runtime = {
   clients,
   publicClient,
@@ -166,6 +177,7 @@ const runtime = {
   getContract,
   sleep,
   expectContractFunctionExecutionError,
+  sendImpersonatedTx
 };
 
 export default runtime;
