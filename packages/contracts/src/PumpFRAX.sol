@@ -11,9 +11,17 @@ contract PumpFRAX is ERC20, Ownable {
     IPumpfaxtMaster private immutable _master;
     IERC20 public immutable frax;
 
+    uint8 private immutable _decimals;
+
     constructor(address frax_) ERC20("PumpFRAX", "pFRAX") Ownable(msg.sender) {
         _master = IPumpfaxtMaster(msg.sender);
+        _decimals = ERC20(frax_).decimals();
+
         frax = IERC20(frax_);
+    }
+
+    function decimals() public view override returns (uint8) {
+        return _decimals;
     }
 
     function mint(address to_, uint256 amount_) external onlyOwner {
