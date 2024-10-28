@@ -69,3 +69,30 @@ Deno.test("metaTx: transfer", async () => {
     parseFrax(50),
   );
 });
+
+Deno.test("metaTx: approve", async () => {
+  const { pFrax, owner, forwarder, acc2: holder, mint } = await runtime
+    .loadFixture(deployFixture);
+
+  await mint(holder, 100);
+
+  const req = await metaTxRequest({
+    contract: pFrax.address,
+    signer: holder,
+    functionName: "approve",
+    args: [
+      ["address", "uint"],
+      [owner.account.address, parseFrax(50)] as const,
+    ],
+  });
+
+  await pFrax.write.metaApprove(req, {
+    account: forwarder.account,
+  });
+
+  expect(
+    await pFrax.read.allowance([holder.account.address, owner.account.address]),
+  ).toBe(
+    parseFrax(50),
+  );
+});

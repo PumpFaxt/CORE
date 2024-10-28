@@ -29,7 +29,7 @@ contract PumpfaxtMaster {
 
     constructor(address frax_) {
         frax = IERC20(frax_);
-        pFrax = new PumpFRAX();
+        pFrax = new PumpFRAX(address(frax));
         one_pFrax = 10 ** pFrax.decimals();
 
         adminRegistry = new AdminRegistry();
