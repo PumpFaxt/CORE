@@ -19,4 +19,9 @@ interface IPumpfaxtMaster {
     function forwarderRegistry() external view returns (IForwarderRegistry);
 
     function feeController() external view returns (IPumpfaxtFeeController);
+
+    function getFraxForTokenPurchaseFrom(
+        address from_,
+        uint256 amount_
+    ) external;
 }

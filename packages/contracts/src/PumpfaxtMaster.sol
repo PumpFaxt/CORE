@@ -19,6 +19,8 @@ contract PumpfaxtMaster {
 
     uint256 public immutable one_pFrax;
 
+    mapping(address => bool) private _launchedTokens;
+
     modifier onlyAdmin() {
         require(
             adminRegistry.isAdmin(msg.sender),
@@ -38,6 +40,21 @@ contract PumpfaxtMaster {
         forwarderRegistry = new ForwarderRegistry();
 
         feeController = new PumpfaxtFeeController();
+    }
+
+    function isValidToken(address token_) external view returns (bool) {
+        return _launchedTokens[token_];
+    }
+
+    function getFraxForTokenPurchaseFrom(
+        address from_,
+        uint256 amount_
+    ) external {
+        require(
+            _launchedTokens[msg.sender],
+            "Only Token Contracts can call this method"
+        );
+        pFrax.transferFrom(from_, msg.sender, amount_);
     }
 
     function issuePumpFrax(
