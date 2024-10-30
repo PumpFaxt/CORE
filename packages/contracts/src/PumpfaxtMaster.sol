@@ -19,6 +19,9 @@ contract PumpfaxtMaster {
 
     uint256 public immutable one_pFrax;
 
+    uint256 public newTokenStartingVirtualReserve;
+    uint256 public newTokenStartingSupply;
+
     mapping(address => bool) private _launchedTokens;
 
     modifier onlyAdmin() {
@@ -46,13 +49,21 @@ contract PumpfaxtMaster {
         return _launchedTokens[token_];
     }
 
-    function getFraxForTokenPurchaseFrom(
+    function getPumpFraxForTokenPurchaseFrom(
         address from_,
         uint256 amount_
     ) external {
         require(
             _launchedTokens[msg.sender],
             "Only Token Contracts can call this method"
+        );
+        pFrax.transferFrom(from_, msg.sender, amount_);
+    }
+
+    function getPumpFraxForFees(address from_, uint256 amount_) external {
+        require(
+            msg.sender == address(feeController),
+            "Only Fee Controller can call this method"
         );
         pFrax.transferFrom(from_, msg.sender, amount_);
     }

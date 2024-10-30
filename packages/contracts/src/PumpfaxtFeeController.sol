@@ -20,9 +20,13 @@ contract PumpfaxtFeeController {
         _master = IPumpfaxtMaster(msg.sender);
     }
 
-    function submitFee(uint256 amount, bytes32 purpose_) external {
-        _master.pFrax().transferFrom(msg.sender, address(this), amount);
+    function submitFee(
+        address from_,
+        uint256 amount,
+        bytes32 purpose_
+    ) external {
+        _master.getPumpFraxForFees(from_, amount);
 
-        emit FeeCollected(msg.sender, amount, purpose_);
+        emit FeeCollected(from_, amount, purpose_);
     }
 }

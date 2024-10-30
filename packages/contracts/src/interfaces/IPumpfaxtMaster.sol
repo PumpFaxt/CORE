@@ -24,4 +24,10 @@ interface IPumpfaxtMaster {
         address from_,
         uint256 amount_
     ) external;
+
+    function getPumpFraxForFees(address from_, uint256 amount_) external;
+
+    function newTokenStartingVirtualReserve() external view returns (uint256);
+
+    function newTokenStartingSupply() external view returns (uint256);
 }
