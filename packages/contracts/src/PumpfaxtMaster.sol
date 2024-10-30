@@ -22,7 +22,7 @@ contract PumpfaxtMaster {
     uint256 public newTokenStartingVirtualReserve;
     uint256 public newTokenStartingSupply;
 
-    mapping(address => bool) private _launchedTokens;
+    mapping(address => uint256) private _tokenLaunchedAtBlockNumber;
 
     modifier onlyAdmin() {
         require(
@@ -46,8 +46,10 @@ contract PumpfaxtMaster {
         feeController = new PumpfaxtFeeController();
     }
 
-    function isValidToken(address token_) external view returns (bool) {
-        return _launchedTokens[token_];
+    function tokenLaunchedAtBlockNumber(
+        address token_
+    ) external view returns (uint256) {
+        return _tokenLaunchedAtBlockNumber[token_];
     }
 
     function getPumpFraxForTokenPurchaseFrom(
@@ -55,9 +57,10 @@ contract PumpfaxtMaster {
         uint256 amount_
     ) external {
         require(
-            _launchedTokens[msg.sender],
+            _tokenLaunchedAtBlockNumber[msg.sender] > 0,
             "Only Token Contracts can call this method"
         );
+
         pFrax.transferFrom(from_, msg.sender, amount_);
     }
 
@@ -66,6 +69,7 @@ contract PumpfaxtMaster {
             msg.sender == address(feeController),
             "Only Fee Controller can call this method"
         );
+
         pFrax.transferFrom(from_, msg.sender, amount_);
     }
 
