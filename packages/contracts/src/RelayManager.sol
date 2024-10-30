@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.27;
 
-import "./interfaces/IForwarderRegistry.sol";
+import "./interfaces/IRelayManager.sol";
 import "./SignatureVerifier.sol";
 import "./AuxillaryList.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
 
-contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
-    AuxillaryList private immutable _forwarders;
+contract RelayManager is IRelayManager, SignatureVerifier {
     AuxillaryList private immutable _trustedExecutors;
 
     IPumpfaxtMaster private immutable _master;
@@ -17,7 +16,7 @@ contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
     modifier onlyTrustedExecutor() {
         require(
             _trustedExecutors.contains(msg.sender),
-            "Only Forwarders are allowed to call this method"
+            "Only TrustedExecutors are allowed to call this method"
         );
         _;
     }
@@ -31,12 +30,8 @@ contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
     }
 
     constructor() {
-        _forwarders = new AuxillaryList();
-        _trustedExecutors = new AuxillaryList();
-
         _master = IPumpfaxtMaster(msg.sender);
-
-        _forwarders.add(msg.sender);
+        _trustedExecutors = new AuxillaryList();
     }
 
     function addTrustedExecutor(address address_) external onlyAdmin {
@@ -49,22 +44,6 @@ contract ForwarderRegistry is IForwarderRegistry, SignatureVerifier {
 
     function trustedExecutors() external view returns (address[] memory) {
         return _trustedExecutors.getAll();
-    }
-
-    function registerForwarder(address address_) external onlyAdmin {
-        _forwarders.safeAdd(address_);
-    }
-
-    function removeForwarder(address address_) external onlyAdmin {
-        _forwarders.safeRemove(address_);
-    }
-
-    function isValidForwarder(address address_) external view returns (bool) {
-        return _forwarders.contains(address_);
-    }
-
-    function getForwarders() external view returns (address[] memory) {
-        return _forwarders.getAll();
     }
 
     function getNonce() external view returns (uint256) {

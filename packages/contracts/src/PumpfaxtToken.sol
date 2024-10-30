@@ -3,7 +3,7 @@ pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
-import "./interfaces/IForwarderRegistry.sol";
+import "./interfaces/IRelayManager.sol";
 import "./interfaces/IPumpfaxtFeeController.sol";
 
 contract PumpfaxtToken is ERC20 {
@@ -18,7 +18,7 @@ contract PumpfaxtToken is ERC20 {
     string private _uri;
 
     IPumpfaxtMaster private _master;
-    IForwarderRegistry private _forwarderRegistry;
+    IRelayManager private _relayManager;
     IPumpfaxtFeeController private _feeController;
 
     modifier updatePriceAndReserve() {
@@ -39,7 +39,7 @@ contract PumpfaxtToken is ERC20 {
         string memory uri_
     ) ERC20(name_, symbol_) updatePriceAndReserve {
         pFRAX = _master.pFrax();
-        _forwarderRegistry = _master.forwarderRegistry();
+        _relayManager = _master.relayManager();
         _feeController = _master.feeController();
 
         _decimals = ERC20(address(pFRAX)).decimals();
@@ -124,7 +124,7 @@ contract PumpfaxtToken is ERC20 {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(fraxIn_, amountOutMin_)
         );
-        bool validExecution = _master.forwarderRegistry().execute(
+        bool validExecution = _relayManager.execute(
             from_,
             "buy",
             functionDataHash,
@@ -132,7 +132,7 @@ contract PumpfaxtToken is ERC20 {
         );
         require(
             validExecution,
-            "Execution Failed; Invalidated by ForwarderRegistry"
+            "Execution Failed; Invalidated by RelayManager"
         );
 
         _buy(from_, fraxIn_, amountOutMin_);
@@ -170,7 +170,7 @@ contract PumpfaxtToken is ERC20 {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(amountIn_, fraxOutMin_)
         );
-        bool validExecution = _master.forwarderRegistry().execute(
+        bool validExecution = _relayManager.execute(
             from_,
             "sell",
             functionDataHash,
@@ -178,7 +178,7 @@ contract PumpfaxtToken is ERC20 {
         );
         require(
             validExecution,
-            "Execution Failed; Invalidated by ForwarderRegistry"
+            "Execution Failed; Invalidated by RelayManager"
         );
 
         _sell(from_, amountIn_, fraxOutMin_);

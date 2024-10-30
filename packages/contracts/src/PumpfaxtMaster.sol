@@ -6,7 +6,7 @@ import "./AdminRegistry.sol";
 import "./PumpFRAX.sol";
 import "./PumpfaxtFeeController.sol";
 import "./PumpfaxtToken.sol";
-import "./ForwarderRegistry.sol";
+import "./RelayManager.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract PumpfaxtMaster {
@@ -14,7 +14,7 @@ contract PumpfaxtMaster {
     PumpFRAX public immutable pFrax;
 
     AdminRegistry public immutable adminRegistry;
-    ForwarderRegistry public immutable forwarderRegistry;
+    RelayManager public immutable relayManager;
 
     PumpfaxtFeeController public immutable feeController;
 
@@ -42,7 +42,7 @@ contract PumpfaxtMaster {
         adminRegistry = new AdminRegistry();
         adminRegistry.addAdmin(msg.sender);
 
-        forwarderRegistry = new ForwarderRegistry();
+        relayManager = new RelayManager();
 
         feeController = new PumpfaxtFeeController();
     }
@@ -80,7 +80,7 @@ contract PumpfaxtMaster {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(name_, symbol_, uri_)
         );
-        bool validExecution = forwarderRegistry.execute(
+        bool validExecution = relayManager.execute(
             creator_,
             "launchToken",
             functionDataHash,
@@ -88,7 +88,7 @@ contract PumpfaxtMaster {
         );
         require(
             validExecution,
-            "Execution Failed; Invalidated by ForwarderRegistry"
+            "Execution Failed; Invalidated by RelayManager"
         );
 
         _launchToken(msg.sender, name_, symbol_, uri_);

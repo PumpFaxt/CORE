@@ -4,7 +4,7 @@ pragma solidity ^0.8.27;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./IPumpFRAX.sol";
 import "./IAdminRegistry.sol";
-import "./IForwarderRegistry.sol";
+import "./IRelayManager.sol";
 import "./IPumpfaxtFeeController.sol";
 
 interface IPumpfaxtMaster {
@@ -16,7 +16,7 @@ interface IPumpfaxtMaster {
 
     function adminRegistry() external view returns (IAdminRegistry);
 
-    function forwarderRegistry() external view returns (IForwarderRegistry);
+    function relayManager() external view returns (IRelayManager);
 
     function feeController() external view returns (IPumpfaxtFeeController);
 

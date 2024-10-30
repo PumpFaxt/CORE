@@ -40,7 +40,7 @@ contract PumpFRAX is ERC20, Ownable {
         bytes calldata signature_
     ) external {
         bytes32 functionDataHash = keccak256(abi.encodePacked(to_, value_));
-        bool validExecution = _master.forwarderRegistry().execute(
+        bool validExecution = _master.relayManager().execute(
             from_,
             "transfer",
             functionDataHash,
@@ -48,7 +48,7 @@ contract PumpFRAX is ERC20, Ownable {
         );
         require(
             validExecution,
-            "Execution Failed; Invalidated by ForwarderRegistry"
+            "Execution Failed; Invalidated by RelayManager"
         );
 
         require(value_ <= balanceOf(from_), "Insufficient Balance");
@@ -75,7 +75,7 @@ contract PumpFRAX is ERC20, Ownable {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(spender_, value_)
         );
-        bool validExecution = _master.forwarderRegistry().execute(
+        bool validExecution = _master.relayManager().execute(
             from_,
             "approve",
             functionDataHash,
@@ -83,7 +83,7 @@ contract PumpFRAX is ERC20, Ownable {
         );
         require(
             validExecution,
-            "Execution Failed; Invalidated by ForwarderRegistry"
+            "Execution Failed; Invalidated by RelayManager"
         );
         _approve(from_, spender_, value_);
     }

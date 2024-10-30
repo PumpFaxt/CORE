@@ -32,4 +32,8 @@ contract PumpfaxtFeeController {
 
         emit FeeCollected(from_, amount, purpose_);
     }
+
+    function setPumpfaxtTokenLaunchFee_FLAT(uint256 newFee_) external {
+        pumpfaxtTokenLaunchFee_FLAT = newFee_;
+    }
 }
