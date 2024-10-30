@@ -4,6 +4,7 @@ pragma solidity ^0.8.27;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
 import "./interfaces/IForwarderRegistry.sol";
+import "./interfaces/IPumpfaxtFeeController.sol";
 
 contract PumpfaxtToken is ERC20 {
     IERC20 public immutable pFRAX;
@@ -16,6 +17,7 @@ contract PumpfaxtToken is ERC20 {
 
     IPumpfaxtMaster private _master;
     IForwarderRegistry private _forwarderRegistry;
+    IPumpfaxtFeeController private _feeController;
 
     modifier updatePriceAndReserve() {
         _;
@@ -32,8 +34,9 @@ contract PumpfaxtToken is ERC20 {
         string memory name_,
         string memory symbol_
     ) ERC20(name_, symbol_) updatePriceAndReserve {
-        pFRAX = _master.frax();
+        pFRAX = _master.pFrax();
         _forwarderRegistry = _master.forwarderRegistry();
+        _feeController = _master.feeController();
         _decimals = ERC20(address(pFRAX)).decimals();
 
         _mint(address(this), _master.newTokenStartingSupply());
@@ -81,13 +84,19 @@ contract PumpfaxtToken is ERC20 {
         uint256 fraxIn_,
         uint256 amountOutMin_
     ) private updatePriceAndReserve {
-        require(fraxIn_ > 0, "fraxIn must be greater than 0");
+        require(fraxIn_ > _master.one_pFrax(), "fraxIn must be greater than 1");
         require(amountOutMin_ > 0, "amountOutMin must be greater than 0");
 
-        uint256 amountOut_ = calculateAmountOut(fraxIn_);
+        require(pFRAX.balanceOf(buyer_) >= fraxIn_, "Insufficient Balance");
+
+        uint256 fee = fraxIn_ /
+            _feeController.pumpfaxtTokenBuySellFee_FRACTION();
+
+        uint256 amountOut_ = calculateAmountOut(fraxIn_ - fee);
         require(amountOut_ >= amountOutMin_, "Slippage tolerance exceeded");
 
-        _master.getFraxForTokenPurchaseFrom(buyer_, fraxIn_);
+        _feeController.submitFee(buyer_, fee, keccak256("buyPumpfaxtToken"));
+        _master.getFraxForTokenPurchaseFrom(buyer_, fraxIn_ - fee);
         transfer(buyer_, amountOut_);
     }
 
@@ -129,8 +138,12 @@ contract PumpfaxtToken is ERC20 {
         uint256 fraxOut = calculateFraxOut(amountIn_);
         require(fraxOut >= fraxOutMin_, "Slippage tolerance exceeded");
 
+        uint256 fee = fraxOut /
+            _feeController.pumpfaxtTokenBuySellFee_FRACTION();
+
+        _feeController.submitFee(seller_, fee, keccak256("sellPumpfaxtToken"));
         _transfer(seller_, address(this), amountIn_);
-        pFRAX.transfer(seller_, fraxOut);
+        pFRAX.transfer(seller_, fraxOut - fee);
     }
 
     function sell(uint256 amountIn_, uint256 fraxOutMin_) external {

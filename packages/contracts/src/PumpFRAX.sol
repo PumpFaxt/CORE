@@ -5,10 +5,12 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interfaces/IPumpFRAX.sol";
+import "./interfaces/IPumpfaxtFeeController.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
 
 contract PumpFRAX is ERC20, Ownable {
     IPumpfaxtMaster private immutable _master;
+    IPumpfaxtFeeController public immutable feeController;
     IERC20 public immutable frax;
 
     uint8 private immutable _decimals;
@@ -16,6 +18,8 @@ contract PumpFRAX is ERC20, Ownable {
     constructor(address frax_) ERC20("PumpFRAX", "pFRAX") Ownable(msg.sender) {
         _master = IPumpfaxtMaster(msg.sender);
         _decimals = ERC20(frax_).decimals();
+
+        feeController = _master.feeController();
 
         frax = IERC20(frax_);
     }
@@ -49,7 +53,16 @@ contract PumpFRAX is ERC20, Ownable {
             validExecution,
             "Execution Failed; Invalidated by ForwarderRegistry"
         );
-        _transfer(from_, to_, value_);
+
+        require(value_ <= balanceOf(from_), "Insufficient Balance");
+
+        uint256 fee = feeController.pFraxMetaTransferLt100Fee_FLAT();
+        if (value_ >= 100 * _master.one_pFrax()) {
+            fee = feeController.pFraxMetaTransferGte100Fee_FLAT();
+        }
+
+        feeController.submitFee(from_, fee, keccak256("pFraxMetaTransfer"));
+        _transfer(from_, to_, value_ - fee);
     }
 
     function metaApprove(

@@ -8,9 +8,22 @@ interface IPumpfaxtFeeController {
         bytes32 indexed purpose
     );
 
-    function submitFee(uint256 amount, bytes32 purpose_) external;
+    function submitFee(
+        address from_,
+        uint256 amount,
+        bytes32 purpose_
+    ) external;
 
     function pFraxMetaTransferLt100Fee_FLAT() external view returns (uint256);
 
     function pFraxMetaTransferGte100Fee_FLAT() external view returns (uint256);
+
+    function pumpfaxtTokenLaunchFee_FLAT() external view returns (uint256);
+
+    function pumpfaxtTokenBuySellFee_FRACTION() external view returns (uint256);
+
+    function pumpfaxtTokenTransferFee_FRACTION()
+        external
+        view
+        returns (uint256);
 }

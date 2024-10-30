@@ -33,16 +33,16 @@ contract PumpfaxtMaster {
     }
 
     constructor(address frax_) {
-        frax = IERC20(frax_);
-        pFrax = new PumpFRAX(address(frax));
-        one_pFrax = 10 ** pFrax.decimals();
-
         adminRegistry = new AdminRegistry();
         adminRegistry.addAdmin(msg.sender);
 
         forwarderRegistry = new ForwarderRegistry();
 
         feeController = new PumpfaxtFeeController();
+
+        frax = IERC20(frax_);
+        pFrax = new PumpFRAX(address(frax));
+        one_pFrax = 10 ** pFrax.decimals();
     }
 
     function isValidToken(address token_) external view returns (bool) {
