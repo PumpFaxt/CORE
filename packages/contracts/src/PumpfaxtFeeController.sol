@@ -36,4 +36,20 @@ contract PumpfaxtFeeController {
     function setPumpfaxtTokenLaunchFee_FLAT(uint256 newFee_) external {
         pumpfaxtTokenLaunchFee_FLAT = newFee_;
     }
+
+    function setPumpfaxtTokenBuySellFee_FRACTION(uint256 newFee_) external {
+        pumpfaxtTokenBuySellFee_FRACTION = newFee_;
+    }
+
+    function setPumpfaxtTokenTransferFee_FRACTION(uint256 newFee_) external {
+        pumpfaxtTokenTransferFee_FRACTION = newFee_;
+    }
+
+    function setPFraxMetaTransferLt100Fee_FLAT(uint256 newFee_) external {
+        pFraxMetaTransferLt100Fee_FLAT = newFee_;
+    }
+
+    function setPFraxMetaTransferGte100Fee_FLAT(uint256 newFee_) external {
+        pFraxMetaTransferGte100Fee_FLAT = newFee_;
+    }
 }
