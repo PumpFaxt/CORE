@@ -5,6 +5,7 @@ import "./interfaces/IPumpfaxtMaster.sol";
 import "./AdminRegistry.sol";
 import "./PumpFRAX.sol";
 import "./PumpfaxtFeeController.sol";
+import "./PumpfaxtToken.sol";
 import "./ForwarderRegistry.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
@@ -44,6 +45,53 @@ contract PumpfaxtMaster {
         forwarderRegistry = new ForwarderRegistry();
 
         feeController = new PumpfaxtFeeController();
+    }
+
+    function _launchToken(
+        address creator_,
+        string memory name_,
+        string memory symbol_,
+        string memory uri_
+    ) private {
+        PumpfaxtToken newToken = new PumpfaxtToken(
+            creator_,
+            name_,
+            symbol_,
+            uri_
+        );
+        _tokenLaunchedAtBlockNumber[address(newToken)] = block.number;
+    }
+
+    function launchToken(
+        string memory name_,
+        string memory symbol_,
+        string memory uri_
+    ) external {
+        _launchToken(msg.sender, name_, symbol_, uri_);
+    }
+
+    function metaLaunchToken(
+        address creator_,
+        string memory name_,
+        string memory symbol_,
+        string memory uri_,
+        bytes calldata signature_
+    ) external {
+        bytes32 functionDataHash = keccak256(
+            abi.encodePacked(name_, symbol_, uri_)
+        );
+        bool validExecution = forwarderRegistry.execute(
+            creator_,
+            "launchToken",
+            functionDataHash,
+            signature_
+        );
+        require(
+            validExecution,
+            "Execution Failed; Invalidated by ForwarderRegistry"
+        );
+
+        _launchToken(msg.sender, name_, symbol_, uri_);
     }
 
     function tokenLaunchedAtBlockNumber(

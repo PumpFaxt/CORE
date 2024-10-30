@@ -14,6 +14,8 @@ contract PumpfaxtToken is ERC20 {
     uint256 private _tokenPrice;
 
     uint8 private immutable _decimals;
+    address _creator;
+    string private _uri;
 
     IPumpfaxtMaster private _master;
     IForwarderRegistry private _forwarderRegistry;
@@ -31,13 +33,18 @@ contract PumpfaxtToken is ERC20 {
     }
 
     constructor(
+        address creator_,
         string memory name_,
-        string memory symbol_
+        string memory symbol_,
+        string memory uri_
     ) ERC20(name_, symbol_) updatePriceAndReserve {
         pFRAX = _master.pFrax();
         _forwarderRegistry = _master.forwarderRegistry();
         _feeController = _master.feeController();
+
         _decimals = ERC20(address(pFRAX)).decimals();
+        _creator = creator_;
+        _uri = uri_;
 
         _mint(address(this), _master.newTokenStartingSupply());
         _virtualReserve = _master.newTokenStartingVirtualReserve();
@@ -45,6 +52,10 @@ contract PumpfaxtToken is ERC20 {
 
     function decimals() public view override returns (uint8) {
         return _decimals;
+    }
+
+    function uri() public view returns (string memory) {
+        return _uri;
     }
 
     function reserve() public view returns (uint256) {
