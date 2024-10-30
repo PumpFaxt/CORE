@@ -10,7 +10,6 @@ import "./interfaces/IPumpfaxtMaster.sol";
 
 contract PumpFRAX is ERC20, Ownable {
     IPumpfaxtMaster private immutable _master;
-    IPumpfaxtFeeController public immutable feeController;
     IERC20 public immutable frax;
 
     uint8 private immutable _decimals;
@@ -18,8 +17,6 @@ contract PumpFRAX is ERC20, Ownable {
     constructor(address frax_) ERC20("PumpFRAX", "pFRAX") Ownable(msg.sender) {
         _master = IPumpfaxtMaster(msg.sender);
         _decimals = ERC20(frax_).decimals();
-
-        feeController = _master.feeController();
 
         frax = IERC20(frax_);
     }
@@ -56,12 +53,16 @@ contract PumpFRAX is ERC20, Ownable {
 
         require(value_ <= balanceOf(from_), "Insufficient Balance");
 
-        uint256 fee = feeController.pFraxMetaTransferLt100Fee_FLAT();
+        uint256 fee = _master.feeController().pFraxMetaTransferLt100Fee_FLAT();
         if (value_ >= 100 * _master.one_pFrax()) {
-            fee = feeController.pFraxMetaTransferGte100Fee_FLAT();
+            fee = _master.feeController().pFraxMetaTransferGte100Fee_FLAT();
         }
 
-        feeController.submitFee(from_, fee, keccak256("pFraxMetaTransfer"));
+        _master.feeController().submitFee(
+            from_,
+            fee,
+            keccak256("pFraxMetaTransfer")
+        );
         _transfer(from_, to_, value_ - fee);
     }
 

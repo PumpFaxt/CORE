@@ -21,12 +21,6 @@ contract PumpfaxtFeeController {
 
     constructor() {
         _master = IPumpfaxtMaster(msg.sender);
-
-        pFraxMetaTransferLt100Fee_FLAT = _master.one_pFrax() / 1000;
-        pFraxMetaTransferGte100Fee_FLAT = _master.one_pFrax() / 100;
-        pumpfaxtTokenLaunchFee_FLAT = _master.one_pFrax() * 2;
-        pumpfaxtTokenBuySellFee_FRACTION = 1000;
-        pumpfaxtTokenTransferFee_FRACTION = 100;
     }
 
     function submitFee(
