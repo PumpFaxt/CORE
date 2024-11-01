@@ -6,15 +6,12 @@ import { metaTxRequest, parseFrax } from "../utils.ts";
 import { setupFixture } from "./.setupFixture.ts";
 
 async function deployFixture() {
-  const { owner, forwarderRegistry, acc1: forwarder, acc2, pFrax, master } =
+  const { owner, relayManager, acc1: relayer, acc2, pFrax, master } =
     await runtime.loadFixture(
       setupFixture,
     );
 
-  await forwarderRegistry.write.addTrustedExecutor([pFrax.address]);
-  await forwarderRegistry.write.registerForwarder([
-    forwarder.account.address,
-  ]);
+  await relayManager.write.addTrustedExecutor([pFrax.address]);
 
   const publicClient = runtime.publicClient;
 
@@ -31,7 +28,7 @@ async function deployFixture() {
 
   return {
     owner,
-    forwarder,
+    relayer,
     acc2,
     pFrax,
     publicClient,
@@ -46,7 +43,7 @@ Deno.test("Should have initial supply of zero", async () => {
 });
 
 Deno.test("metaTx: transfer", async () => {
-  const { pFrax, owner, forwarder, acc2: holder, mint } = await runtime
+  const { pFrax, owner, relayer, acc2: holder, mint } = await runtime
     .loadFixture(deployFixture);
 
   await mint(holder, 100);
@@ -62,7 +59,7 @@ Deno.test("metaTx: transfer", async () => {
   });
 
   await pFrax.write.metaTransfer(req, {
-    account: forwarder.account,
+    account: relayer.account,
   });
 
   expect(await pFrax.read.balanceOf([owner.account.address])).toBe(
@@ -71,7 +68,7 @@ Deno.test("metaTx: transfer", async () => {
 });
 
 Deno.test("metaTx: approve", async () => {
-  const { pFrax, owner, forwarder, acc2: holder, mint } = await runtime
+  const { pFrax, owner, relayer, acc2: holder, mint } = await runtime
     .loadFixture(deployFixture);
 
   await mint(holder, 100);
@@ -87,7 +84,7 @@ Deno.test("metaTx: approve", async () => {
   });
 
   await pFrax.write.metaApprove(req, {
-    account: forwarder.account,
+    account: relayer.account,
   });
 
   expect(
