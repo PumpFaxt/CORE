@@ -3559,9 +3559,10 @@
     }
   },
   "remote": {
-    "https://esm.sh/preact@10.22.0/jsx-runtime": "c6185b52c1673f9d309dd6046051e9b6c034f14858bef62ea2a9fe9ef1ea2201",
-    "https://esm.sh/stable/preact@10.22.0/denonext/jsx-runtime.js": "de60943799b1cbe6066c4f83f4ca71ef37011d7f5be7bef58ed980e8ff3f996a",
-    "https://esm.sh/stable/preact@10.22.0/denonext/preact.mjs": "20c9563e051dd66e053d3afb450f61b48f2fa0d0ce4f69f8f0a2f23c1ef090da"
+    "https://deno.land/std@0.136.0/fmt/colors.ts": "30455035d6d728394781c10755351742dd731e3db6771b1843f9b9e490104d37",
+    "https://deno.land/std@0.136.0/testing/_diff.ts": "d8743b5c15d34eb58ae7e4ad43295ee1c7a935029b460a056d901f3aefcead45",
+    "https://deno.land/std@0.136.0/testing/_format.ts": "0d8dc79eab15b67cdc532826213bbe05bccfd276ca473a50a3fc7bbfb7260642",
+    "https://deno.land/std@0.136.0/testing/asserts.ts": "61d85fc80f548a6e1e66d93fb7874a2c9e097aeecc00643c5f4f340370cde56f"
   },
   "workspace": {
     "dependencies": [
