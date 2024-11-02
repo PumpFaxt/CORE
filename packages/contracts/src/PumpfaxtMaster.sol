@@ -20,7 +20,7 @@ contract PumpfaxtMaster {
 
     uint256 public immutable one_pFrax;
 
-    uint256 public newTokenStartingVirtualReserve;
+    uint256 public newTokenStartingVirtualReserve = 1000;
     uint256 public newTokenStartingSupply;
 
     mapping(address => uint256) private _tokenLaunchedAtBlockNumber;
@@ -37,7 +37,7 @@ contract PumpfaxtMaster {
         frax = IERC20(frax_);
 
         pFrax = new PumpFRAX(address(frax));
-        one_pFrax = 10 ** pFrax.decimals();
+        one_pFrax = 10 ** 18;
 
         adminRegistry = new AdminRegistry();
         adminRegistry.addAdmin(msg.sender);
