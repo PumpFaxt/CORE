@@ -1,6 +1,7 @@
 import runtime from "../runtime.local.ts";
 import { setupFixture } from "./.setupFixture.ts";
 import { expect } from "@std/expect";
+import { metaTxRequest } from "../utils.ts";
 
 async function deployFixture() {
   const { master, owner, acc1, acc2 } = await runtime
@@ -48,4 +49,23 @@ Deno.test("Should launch a token, emit Launch and register tokenLaunchedAtBlockN
   ]);
 
   expect(tokenLaunchedAt).toBe(initialBlockNumber + 1n);
+});
+
+Deno.test("metaTx: launch", async () => {
+  const { owner, acc1: relayer, master } = await runtime
+    .loadFixture(deployFixture);
+
+  const req = await metaTxRequest({
+    contract: master.address,
+    signer: owner,
+    functionName: "launchToken",
+    args: [
+      ["string", "string", "string"],
+      ["Test", "Test", "ipfs://test"] as const,
+    ],
+  });
+
+  await master.write.metaLaunchToken(req, {
+    account: relayer.account,
+  });
 });

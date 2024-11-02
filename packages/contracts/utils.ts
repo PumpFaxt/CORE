@@ -12,6 +12,7 @@ export async function metaTxRequest<
     contract: viem.Address;
     functionName: string;
     args: A;
+    nonce?: bigint;
   },
 ) {
   const { signer, args, contract, functionName } = parameters;
@@ -26,7 +27,7 @@ export async function metaTxRequest<
       contract,
       functionName.toString(),
       msg,
-      0n,
+      parameters.nonce || 0n,
     ]),
   );
 

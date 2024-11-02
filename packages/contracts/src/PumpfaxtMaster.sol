@@ -72,8 +72,9 @@ contract PumpfaxtMaster is Ownable {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(name_, symbol_, uri_)
         );
-        bool validExecution = executeMetaTx(
+        bool validExecution = relayManager.execute(
             creator_,
+            address(this),
             "launchToken",
             functionDataHash,
             signature_
@@ -112,7 +113,6 @@ contract PumpfaxtMaster is Ownable {
     ) public returns (bool) {
         bool flag = false;
 
-        if (msg.sender == address(this)) flag = true;
         if (_tokenLaunchedAtBlockNumber[msg.sender] > 0) flag = true;
         if (msg.sender == address(pFrax)) flag = true;
 
