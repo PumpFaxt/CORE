@@ -142,7 +142,7 @@ contract PumpfaxtMaster is Ownable {
         uint256 newTokenStartingVirtualReserve_,
         uint256 newTokenStartingSupply_
     ) external onlyOwner {
-        newTokenStartingSupply = newTokenStartingVirtualReserve_;
+        newTokenStartingVirtualReserve = newTokenStartingVirtualReserve_;
         newTokenStartingSupply = newTokenStartingSupply_;
     }
 }

@@ -69,3 +69,19 @@ Deno.test("metaTx: launch", async () => {
     account: relayer.account,
   });
 });
+
+Deno.test("Should allow Owner to set new token starting virtual reserve and starting supply", async () => {
+  const { master } = await runtime.loadFixture(deployFixture);
+
+  const newVirtualReserve = 3n;
+  const newSupply = 2n;
+
+  await master.write.setNewTokenParams([newVirtualReserve, newSupply]);
+
+  const updatedVirtualReserve = await master.read
+    .newTokenStartingVirtualReserve();
+  const updatedSupply = await master.read.newTokenStartingSupply();
+
+  expect(updatedVirtualReserve).toEqual(newVirtualReserve);
+  expect(updatedSupply).toEqual(newSupply);
+});
