@@ -14,6 +14,8 @@ export async function setupFixture() {
   await pFrax.write.setPumpfaxtMaster([master.address]);
   await frax.write.approve([pFrax.address, await frax.read.totalSupply()]);
 
+  await master.write.setNewTokenParams([100_000n, 1_000_000_000n]);
+
   const relayManager = runtime.getContract(
     "RelayManager",
     await master.read.relayManager(),
@@ -23,13 +25,10 @@ export async function setupFixture() {
     await master.read.feeController(),
   );
 
-  const publicClient = runtime.publicClient;
-
   return {
     owner,
     acc1,
     acc2,
-    publicClient,
     frax,
     master,
     pFrax,

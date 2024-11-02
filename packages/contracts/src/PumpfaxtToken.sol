@@ -24,6 +24,7 @@ contract PumpfaxtToken is ERC20 {
 
     modifier updatePriceAndReserve() {
         _;
+
         _tokenPrice = liquidity() / reserve();
         if (_virtualReserve > 0 && reserve() >= 3 * _virtualReserve) {
             uint256 exactRatioPercentage = (_virtualReserve * 100) / reserve();
@@ -39,6 +40,8 @@ contract PumpfaxtToken is ERC20 {
         string memory symbol_,
         string memory uri_
     ) ERC20(name_, symbol_) updatePriceAndReserve {
+        _master = IPumpfaxtMaster(msg.sender);
+
         pFRAX = _master.pFrax();
         _decimals = pFRAX.decimals();
 
@@ -47,8 +50,13 @@ contract PumpfaxtToken is ERC20 {
         _creator = creator_;
         _uri = uri_;
 
-        _mint(address(this), _master.newTokenStartingSupply());
-        _virtualReserve = _master.newTokenStartingVirtualReserve();
+        _mint(
+            address(this),
+            _master.newTokenStartingSupply() * (10 ** _decimals)
+        );
+        _virtualReserve =
+            _master.newTokenStartingVirtualReserve() *
+            _master.one_pFrax();
     }
 
     function decimals() public view override returns (uint8) {

@@ -161,18 +161,24 @@ async function expectContractFunctionExecutionError(
 
 async function readContractEvents<
   C extends Readonly<ReturnType<typeof deployContract>>,
+  E extends viem.ContractEventName<C["abi"]>,
 >(
   contract: C,
-  params: Omit<viem.GetContractEventsParameters<C["abi"]>, "abi" | "address">,
+  eventName: E,
+  params?: Omit<
+    viem.GetContractEventsParameters<C["abi"]>,
+    "abi" | "address" | "eventName"
+  >,
 ) {
   const logs = await publicClient.getContractEvents({
     abi: contract.abi,
     address: contract.address,
+    eventName,
     // deno-lint-ignore no-explicit-any
     ...params as any,
   });
 
-  return logs;
+  return logs as viem.GetContractEventsReturnType<C["abi"], E>;
 }
 
 const runtime = {

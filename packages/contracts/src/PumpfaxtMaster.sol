@@ -7,8 +7,9 @@ import "./PumpfaxtFeeController.sol";
 import "./PumpfaxtToken.sol";
 import "./RelayManager.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PumpfaxtMaster {
+contract PumpfaxtMaster is Ownable {
     IERC20 public immutable frax;
     IPFrax public immutable pFrax;
 
@@ -18,12 +19,14 @@ contract PumpfaxtMaster {
 
     uint256 public immutable one_pFrax;
 
-    uint256 public newTokenStartingVirtualReserve = 1000;
+    uint256 public newTokenStartingVirtualReserve;
     uint256 public newTokenStartingSupply;
 
     mapping(address => uint256) private _tokenLaunchedAtBlockNumber;
 
-    constructor(address pFrax_) {
+    event Launch(address indexed creator, address token);
+
+    constructor(address pFrax_) Ownable(msg.sender) {
         pFrax = IPFrax(pFrax_);
         one_pFrax = 10 ** pFrax.decimals();
 
@@ -47,6 +50,8 @@ contract PumpfaxtMaster {
             uri_
         );
         _tokenLaunchedAtBlockNumber[address(newToken)] = block.number;
+
+        emit Launch(creator_, address(newToken));
     }
 
     function launchToken(
@@ -131,5 +136,13 @@ contract PumpfaxtMaster {
         );
 
         pFrax.transferFrom(from_, msg.sender, amount_);
+    }
+
+    function setNewTokenParams(
+        uint256 newTokenStartingVirtualReserve_,
+        uint256 newTokenStartingSupply_
+    ) external onlyOwner {
+        newTokenStartingSupply = newTokenStartingVirtualReserve_;
+        newTokenStartingSupply = newTokenStartingSupply_;
     }
 }
