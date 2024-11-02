@@ -7,27 +7,12 @@ import "./AuxillaryList.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
 
 contract RelayManager is IRelayManager, SignatureVerifier {
-    AuxillaryList private immutable _trustedExecutors;
-
     IPumpfaxtMaster private immutable _master;
 
     mapping(address => uint256) private _nonces;
 
-    modifier onlyTrustedExecutor() {
-        require(
-            _trustedExecutors.contains(msg.sender),
-            "Only TrustedExecutors are allowed to call this method"
-        );
-        _;
-    }
-
     constructor() {
         _master = IPumpfaxtMaster(msg.sender);
-        _trustedExecutors = new AuxillaryList();
-    }
-
-    function trustedExecutors() external view returns (address[] memory) {
-        return _trustedExecutors.getAll();
     }
 
     function getNonce() external view returns (uint256) {

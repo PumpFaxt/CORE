@@ -17,13 +17,6 @@ async function deployFixture() {
   };
 }
 
-// Deployment
-
-Deno.test("Should be", async () => {
-  const { owner } = await deployFixture();
-  expect(owner.account.address).toBeTruthy();
-});
-
 Deno.test("Should launch a token, emit Launch and register tokenLaunchedAtBlockNumber", async () => {
   const { master } = await runtime.loadFixture(deployFixture);
 
