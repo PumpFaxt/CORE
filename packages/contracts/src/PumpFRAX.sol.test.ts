@@ -20,10 +20,12 @@ async function deployFixture() {
       throw new Error("Invalid client account, unable to mint");
     }
 
-    await master.write.issuePumpFrax([
-      client.account.address,
-      parseFrax(amount),
-    ]);
+    // await master.write.issuePumpFrax([
+    //   client.account.address,
+    //   parseFrax(amount),
+    // ]);
+
+    //TODO : Implement mint logic using buy
   }
 
   return {

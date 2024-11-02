@@ -21,25 +21,9 @@ contract RelayManager is IRelayManager, SignatureVerifier {
         _;
     }
 
-    modifier onlyAdmin() {
-        require(
-            _master.adminRegistry().isAdmin(msg.sender),
-            "Only Admins are allowed to call this method"
-        );
-        _;
-    }
-
     constructor() {
         _master = IPumpfaxtMaster(msg.sender);
         _trustedExecutors = new AuxillaryList();
-    }
-
-    function addTrustedExecutor(address address_) external onlyAdmin {
-        _trustedExecutors.safeAdd(address_);
-    }
-
-    function removeTrustedExecutor(address address_) external onlyAdmin {
-        _trustedExecutors.safeRemove(address_);
     }
 
     function trustedExecutors() external view returns (address[] memory) {
@@ -79,7 +63,12 @@ contract RelayManager is IRelayManager, SignatureVerifier {
         string calldata functionName_,
         bytes32 functionDataHash_,
         bytes calldata signature_
-    ) external onlyTrustedExecutor returns (bool) {
+    ) external returns (bool) {
+        require(
+            msg.sender == address(_master),
+            "Only PumpfaxtMaster can call this method"
+        );
+
         bool valid = validate(
             from_,
             msg.sender,

@@ -5,13 +5,16 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
 import "./interfaces/IRelayManager.sol";
 import "./interfaces/IPumpfaxtFeeController.sol";
+import "./interfaces/IPFrax.sol";
 
 contract PumpfaxtToken is ERC20 {
-    IERC20 public immutable pFRAX;
+    IPFrax public immutable pFRAX;
     uint256 public immutable one_pFrax;
 
     uint256 private _virtualReserve;
     uint256 private _tokenPrice;
+
+    uint8 private immutable _decimals;
 
     address _creator;
     string private _uri;
@@ -38,6 +41,8 @@ contract PumpfaxtToken is ERC20 {
         string memory uri_
     ) ERC20(name_, symbol_) updatePriceAndReserve {
         pFRAX = _master.pFrax();
+        _decimals = pFRAX.decimals();
+
         _relayManager = _master.relayManager();
         _feeController = _master.feeController();
 
@@ -48,8 +53,8 @@ contract PumpfaxtToken is ERC20 {
         _virtualReserve = _master.newTokenStartingVirtualReserve();
     }
 
-    function decimals() public pure override returns (uint8) {
-        return 18;
+    function decimals() public view override returns (uint8) {
+        return _decimals;
     }
 
     function uri() public view returns (string memory) {

@@ -4,22 +4,30 @@ pragma solidity ^0.8.27;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./interfaces/IPumpFRAX.sol";
 import "./interfaces/IPumpfaxtFeeController.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
+import "./interfaces/IPFrax.sol";
 
-contract PumpFRAX is ERC20, Ownable {
-    IPumpfaxtMaster private immutable _master;
+interface IFrax is IERC20 {
+    function decimals() external view returns (uint8);
+}
+
+contract PFrax is IPFrax, ERC20, Ownable {
     IERC20 public immutable frax;
+    IPumpfaxtMaster public master;
+    uint8 private immutable _decimals;
 
-    constructor(address frax_) ERC20("PumpFRAX", "pFRAX") Ownable(msg.sender) {
-        _master = IPumpfaxtMaster(msg.sender);
-
+    constructor(address frax_) ERC20("pFrax", "pFRAX") Ownable(msg.sender) {
         frax = IERC20(frax_);
+        _decimals = IFrax(frax_).decimals();
     }
 
-    function decimals() public pure override returns (uint8) {
-        return 18;
+    function setMaster(address master_) external onlyOwner {
+        master = IPumpfaxtMaster(master_);
+    }
+
+    function decimals() public view override(ERC20, IPFrax) returns (uint8) {
+        return _decimals;
     }
 
     function mint(address to_, uint256 amount_) external onlyOwner {
@@ -37,7 +45,7 @@ contract PumpFRAX is ERC20, Ownable {
         bytes calldata signature_
     ) external {
         bytes32 functionDataHash = keccak256(abi.encodePacked(to_, value_));
-        bool validExecution = _master.relayManager().execute(
+        bool validExecution = master.relayManager().execute(
             from_,
             "transfer",
             functionDataHash,
@@ -50,12 +58,12 @@ contract PumpFRAX is ERC20, Ownable {
 
         require(value_ <= balanceOf(from_), "Insufficient Balance");
 
-        uint256 fee = _master.feeController().pFraxMetaTransferLt100Fee_FLAT();
-        if (value_ >= 100 * _master.one_pFrax()) {
-            fee = _master.feeController().pFraxMetaTransferGte100Fee_FLAT();
+        uint256 fee = master.feeController().pFraxMetaTransferLt100Fee_FLAT();
+        if (value_ >= 100 * master.one_pFrax()) {
+            fee = master.feeController().pFraxMetaTransferGte100Fee_FLAT();
         }
 
-        _master.feeController().submitFee(
+        master.feeController().submitFee(
             from_,
             fee,
             keccak256("pFraxMetaTransfer")
@@ -72,7 +80,7 @@ contract PumpFRAX is ERC20, Ownable {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(spender_, value_)
         );
-        bool validExecution = _master.relayManager().execute(
+        bool validExecution = master.relayManager().execute(
             from_,
             "approve",
             functionDataHash,

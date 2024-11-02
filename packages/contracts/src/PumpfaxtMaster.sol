@@ -2,8 +2,7 @@
 pragma solidity ^0.8.27;
 
 import "./interfaces/IPumpfaxtMaster.sol";
-import "./AdminRegistry.sol";
-import "./PumpFRAX.sol";
+import "./interfaces/IPFrax.sol";
 import "./PumpfaxtFeeController.sol";
 import "./PumpfaxtToken.sol";
 import "./RelayManager.sol";
@@ -11,9 +10,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract PumpfaxtMaster {
     IERC20 public immutable frax;
-    PumpFRAX public immutable pFrax;
+    IPFrax public immutable pFrax;
 
-    AdminRegistry public immutable adminRegistry;
     RelayManager public immutable relayManager;
 
     PumpfaxtFeeController public immutable feeController;
@@ -25,22 +23,11 @@ contract PumpfaxtMaster {
 
     mapping(address => uint256) private _tokenLaunchedAtBlockNumber;
 
-    modifier onlyAdmin() {
-        require(
-            adminRegistry.isAdmin(msg.sender),
-            "Only Admins are allowed to call this method"
-        );
-        _;
-    }
+    constructor(address pFrax_) {
+        pFrax = IPFrax(pFrax_);
+        one_pFrax = 10 ** pFrax.decimals();
 
-    constructor(address frax_) {
-        frax = IERC20(frax_);
-
-        pFrax = new PumpFRAX(address(frax));
-        one_pFrax = 10 ** 18;
-
-        adminRegistry = new AdminRegistry();
-        adminRegistry.addAdmin(msg.sender);
+        frax = pFrax.frax();
 
         relayManager = new RelayManager();
 
@@ -100,7 +87,7 @@ contract PumpfaxtMaster {
         return _tokenLaunchedAtBlockNumber[token_];
     }
 
-    function getPumpFraxForTokenPurchaseFrom(
+    function getPFraxForTokenPurchaseFrom(
         address from_,
         uint256 amount_
     ) external {
@@ -112,19 +99,12 @@ contract PumpfaxtMaster {
         pFrax.transferFrom(from_, msg.sender, amount_);
     }
 
-    function getPumpFraxForFees(address from_, uint256 amount_) external {
+    function getPFraxForFees(address from_, uint256 amount_) external {
         require(
             msg.sender == address(feeController),
             "Only Fee Controller can call this method"
         );
 
         pFrax.transferFrom(from_, msg.sender, amount_);
-    }
-
-    function issuePumpFrax(
-        address address_,
-        uint256 amount_
-    ) external onlyAdmin {
-        pFrax.mint(address_, amount_);
     }
 }

@@ -10,19 +10,15 @@ export async function setupFixture() {
   ]);
 
   const pFrax = runtime.getContract(
-    "PumpFRAX",
+    "PFrax",
     await master.read.pFrax(),
-  );
-  const adminRegistry = runtime.getContract(
-    "AdminRegistry",
-    await master.read.adminRegistry(),
   );
   const relayManager = runtime.getContract(
     "RelayManager",
     await master.read.relayManager(),
   );
   const feeController = runtime.getContract(
-    "PumpFRAX",
+    "PumpfaxtFeeController",
     await master.read.feeController(),
   );
 
@@ -36,7 +32,6 @@ export async function setupFixture() {
     frax,
     master,
     pFrax,
-    adminRegistry,
     relayManager,
     feeController,
   };

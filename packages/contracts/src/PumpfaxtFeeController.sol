@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.27;
 
-import "./interfaces/IPumpFRAX.sol";
 import "./interfaces/IPumpfaxtMaster.sol";
 
 contract PumpfaxtFeeController {
@@ -28,7 +27,7 @@ contract PumpfaxtFeeController {
         uint256 amount,
         bytes32 purpose_
     ) external {
-        _master.getPumpFraxForFees(from_, amount);
+        _master.getPFraxForFees(from_, amount);
 
         emit FeeCollected(from_, amount, purpose_);
     }

@@ -2,19 +2,16 @@
 pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./IPumpFRAX.sol";
-import "./IAdminRegistry.sol";
 import "./IRelayManager.sol";
 import "./IPumpfaxtFeeController.sol";
+import "./IPFrax.sol";
 
 interface IPumpfaxtMaster {
     function one_pFrax() external view returns (uint256);
 
     function frax() external view returns (IERC20);
 
-    function pFrax() external view returns (IPumpFRAX);
-
-    function adminRegistry() external view returns (IAdminRegistry);
+    function pFrax() external view returns (IPFrax);
 
     function relayManager() external view returns (IRelayManager);
 
@@ -25,7 +22,7 @@ interface IPumpfaxtMaster {
         uint256 amount_
     ) external;
 
-    function getPumpFraxForFees(address from_, uint256 amount_) external;
+    function getPFraxForFees(address from_, uint256 amount_) external;
 
     function newTokenStartingVirtualReserve() external view returns (uint256);
 
