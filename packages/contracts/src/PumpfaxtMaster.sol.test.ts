@@ -18,7 +18,7 @@ async function deployFixture() {
 
 // Deployment
 
-Deno.test("Should", async () => {
+Deno.test("Should be", async () => {
   const { owner } = await deployFixture();
   expect(owner.account.address).toBeTruthy();
 });

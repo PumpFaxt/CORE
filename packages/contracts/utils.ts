@@ -1,7 +1,7 @@
 import * as viem from "viem";
 
 export function parseFrax(value: number | bigint) {
-  return BigInt(Math.pow(Number(value), 18));
+  return BigInt(Number(value) * Math.pow(10, 18));
 }
 
 export async function metaTxRequest<

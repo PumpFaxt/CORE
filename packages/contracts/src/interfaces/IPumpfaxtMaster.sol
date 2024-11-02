@@ -17,6 +17,13 @@ interface IPumpfaxtMaster {
 
     function feeController() external view returns (IPumpfaxtFeeController);
 
+    function executeMetaTx(
+        address from_,
+        string calldata functionName_,
+        bytes32 functionDataHash_,
+        bytes calldata signature_
+    ) external returns (bool);
+
     function getFraxForTokenPurchaseFrom(
         address from_,
         uint256 amount_

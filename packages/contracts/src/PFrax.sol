@@ -22,7 +22,7 @@ contract PFrax is IPFrax, ERC20, Ownable {
         _decimals = IFrax(frax_).decimals();
     }
 
-    function setMaster(address master_) external onlyOwner {
+    function setPumpfaxtMaster(address master_) external onlyOwner {
         master = IPumpfaxtMaster(master_);
     }
 
@@ -30,7 +30,8 @@ contract PFrax is IPFrax, ERC20, Ownable {
         return _decimals;
     }
 
-    function mint(address to_, uint256 amount_) external onlyOwner {
+    function buy(address to_, uint256 amount_) external {
+        frax.transferFrom(msg.sender, address(this), amount_);
         _mint(to_, amount_);
     }
 
@@ -45,7 +46,7 @@ contract PFrax is IPFrax, ERC20, Ownable {
         bytes calldata signature_
     ) external {
         bytes32 functionDataHash = keccak256(abi.encodePacked(to_, value_));
-        bool validExecution = master.relayManager().execute(
+        bool validExecution = master.executeMetaTx(
             from_,
             "transfer",
             functionDataHash,
@@ -80,7 +81,7 @@ contract PFrax is IPFrax, ERC20, Ownable {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(spender_, value_)
         );
-        bool validExecution = master.relayManager().execute(
+        bool validExecution = master.executeMetaTx(
             from_,
             "approve",
             functionDataHash,

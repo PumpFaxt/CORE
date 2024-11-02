@@ -67,7 +67,7 @@ contract PumpfaxtMaster {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(name_, symbol_, uri_)
         );
-        bool validExecution = relayManager.execute(
+        bool validExecution = executeMetaTx(
             creator_,
             "launchToken",
             functionDataHash,
@@ -97,6 +97,31 @@ contract PumpfaxtMaster {
         );
 
         pFrax.transferFrom(from_, msg.sender, amount_);
+    }
+
+    function executeMetaTx(
+        address from_,
+        string memory functionName_,
+        bytes32 functionDataHash_,
+        bytes calldata signature_
+    ) public returns (bool) {
+        bool flag = false;
+
+        if (msg.sender == address(this)) flag = true;
+        if (_tokenLaunchedAtBlockNumber[msg.sender] > 0) flag = true;
+        if (msg.sender == address(pFrax)) flag = true;
+
+        require(flag, "Not allowed to execute meta tx");
+
+        bool valid = relayManager.execute(
+            from_,
+            msg.sender,
+            functionName_,
+            functionDataHash_,
+            signature_
+        );
+
+        return valid;
     }
 
     function getPFraxForFees(address from_, uint256 amount_) external {

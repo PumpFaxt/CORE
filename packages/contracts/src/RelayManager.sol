@@ -60,6 +60,7 @@ contract RelayManager is IRelayManager, SignatureVerifier {
 
     function execute(
         address from_,
+        address to_,
         string calldata functionName_,
         bytes32 functionDataHash_,
         bytes calldata signature_
@@ -71,7 +72,7 @@ contract RelayManager is IRelayManager, SignatureVerifier {
 
         bool valid = validate(
             from_,
-            msg.sender,
+            to_,
             functionName_,
             functionDataHash_,
             signature_

@@ -6,12 +6,10 @@ import { metaTxRequest, parseFrax } from "../utils.ts";
 import { setupFixture } from "./.setupFixture.ts";
 
 async function deployFixture() {
-  const { owner, relayManager, acc1: relayer, acc2, pFrax, master } =
-    await runtime.loadFixture(
+  const { owner, acc1: relayer, acc2, pFrax, master } = await runtime
+    .loadFixture(
       setupFixture,
     );
-
-  await relayManager.write.addTrustedExecutor([pFrax.address]);
 
   const publicClient = runtime.publicClient;
 
@@ -20,12 +18,7 @@ async function deployFixture() {
       throw new Error("Invalid client account, unable to mint");
     }
 
-    // await master.write.issuePumpFrax([
-    //   client.account.address,
-    //   parseFrax(amount),
-    // ]);
-
-    //TODO : Implement mint logic using buy
+    await pFrax.write.buy([client.account.address, parseFrax(amount)]);
   }
 
   return {
@@ -33,6 +26,7 @@ async function deployFixture() {
     relayer,
     acc2,
     pFrax,
+    master,
     publicClient,
     mint,
   };

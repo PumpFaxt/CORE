@@ -5,14 +5,15 @@ export async function setupFixture() {
 
   const frax = await runtime.deployContract("DummyFrax", []);
 
+  const pFrax = await runtime.deployContract("PFrax", [frax.address]);
+
   const master = await runtime.deployContract("PumpfaxtMaster", [
-    frax.address,
+    pFrax.address,
   ]);
 
-  const pFrax = runtime.getContract(
-    "PFrax",
-    await master.read.pFrax(),
-  );
+  await pFrax.write.setPumpfaxtMaster([master.address]);
+  await frax.write.approve([pFrax.address, await frax.read.totalSupply()]);
+
   const relayManager = runtime.getContract(
     "RelayManager",
     await master.read.relayManager(),

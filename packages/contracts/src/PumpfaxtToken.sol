@@ -20,7 +20,6 @@ contract PumpfaxtToken is ERC20 {
     string private _uri;
 
     IPumpfaxtMaster private _master;
-    IRelayManager private _relayManager;
     IPumpfaxtFeeController private _feeController;
 
     modifier updatePriceAndReserve() {
@@ -43,7 +42,6 @@ contract PumpfaxtToken is ERC20 {
         pFRAX = _master.pFrax();
         _decimals = pFRAX.decimals();
 
-        _relayManager = _master.relayManager();
         _feeController = _master.feeController();
 
         _creator = creator_;
@@ -127,7 +125,7 @@ contract PumpfaxtToken is ERC20 {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(fraxIn_, amountOutMin_)
         );
-        bool validExecution = _relayManager.execute(
+        bool validExecution = _master.executeMetaTx(
             from_,
             "buy",
             functionDataHash,
@@ -173,7 +171,7 @@ contract PumpfaxtToken is ERC20 {
         bytes32 functionDataHash = keccak256(
             abi.encodePacked(amountIn_, fraxOutMin_)
         );
-        bool validExecution = _relayManager.execute(
+        bool validExecution = _master.executeMetaTx(
             from_,
             "sell",
             functionDataHash,
