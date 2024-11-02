@@ -14,7 +14,7 @@ export async function setupFixture() {
   await pFrax.write.setPumpfaxtMaster([master.address]);
   await frax.write.approve([pFrax.address, await frax.read.totalSupply()]);
 
-  await master.write.setNewTokenParams([100_000n, 1_000_000_000n]);
+  await master.write.setNewTokenParams([12_000n, 1_000_000_000n]);
 
   const relayManager = runtime.getContract(
     "RelayManager",

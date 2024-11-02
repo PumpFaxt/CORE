@@ -30,9 +30,9 @@ contract PFrax is IPFrax, ERC20, Ownable {
         return _decimals;
     }
 
-    function buy(address to_, uint256 amount_) external {
+    function buy(address for_, uint256 amount_) external {
         frax.transferFrom(msg.sender, address(this), amount_);
-        _mint(to_, amount_);
+        _mint(for_, amount_);
     }
 
     function fraxReserve() external view returns (uint256) {

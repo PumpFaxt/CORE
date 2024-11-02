@@ -25,11 +25,12 @@ contract PumpfaxtToken is ERC20 {
     modifier updatePriceAndReserve() {
         _;
 
-        _tokenPrice = liquidity() / reserve();
+        _tokenPrice = (reserve() * one_pFrax) / supply();
+
         if (_virtualReserve > 0 && reserve() >= 3 * _virtualReserve) {
-            uint256 exactRatioPercentage = (_virtualReserve * 100) / reserve();
+            uint256 exactRatioPercentage = (_virtualReserve * 100) / supply();
             _virtualReserve = 0;
-            uint256 supplyToBurn = (reserve() * exactRatioPercentage) / 100;
+            uint256 supplyToBurn = (supply() * exactRatioPercentage) / 100;
             _burn(address(this), supplyToBurn);
         }
     }
@@ -44,6 +45,7 @@ contract PumpfaxtToken is ERC20 {
 
         pFRAX = _master.pFrax();
         _decimals = pFRAX.decimals();
+        one_pFrax = _master.one_pFrax();
 
         _feeController = _master.feeController();
 
@@ -54,9 +56,7 @@ contract PumpfaxtToken is ERC20 {
             address(this),
             _master.newTokenStartingSupply() * (10 ** _decimals)
         );
-        _virtualReserve =
-            _master.newTokenStartingVirtualReserve() *
-            _master.one_pFrax();
+        _virtualReserve = _master.newTokenStartingVirtualReserve() * one_pFrax;
     }
 
     function decimals() public view override returns (uint8) {
@@ -67,8 +67,12 @@ contract PumpfaxtToken is ERC20 {
         return _uri;
     }
 
+    function supply() public view returns (uint256) {
+        return balanceOf(address(this));
+    }
+
     function reserve() public view returns (uint256) {
-        return _virtualReserve + balanceOf(address(this));
+        return _virtualReserve + liquidity();
     }
 
     function liquidity() public view returns (uint256) {
@@ -80,8 +84,8 @@ contract PumpfaxtToken is ERC20 {
     }
 
     function calculateAmountOut(uint256 fraxIn_) public view returns (uint256) {
-        uint256 numerator = reserve() * fraxIn_;
-        uint256 denominator = liquidity() + fraxIn_;
+        uint256 numerator = supply() * fraxIn_;
+        uint256 denominator = reserve() + fraxIn_;
 
         require(denominator < numerator, "Mathematical overflow");
         require(denominator != 0, "Division by zero");
@@ -90,8 +94,8 @@ contract PumpfaxtToken is ERC20 {
     }
 
     function calculateFraxOut(uint256 amountIn_) public view returns (uint256) {
-        uint256 numerator = liquidity() * amountIn_;
-        uint256 denominator = reserve() + amountIn_;
+        uint256 numerator = reserve() * amountIn_;
+        uint256 denominator = supply() + amountIn_;
 
         require(denominator < numerator, "Mathematical overflow");
         require(denominator != 0, "Division by zero");
@@ -104,7 +108,7 @@ contract PumpfaxtToken is ERC20 {
         uint256 fraxIn_,
         uint256 amountOutMin_
     ) private updatePriceAndReserve {
-        require(fraxIn_ > _master.one_pFrax(), "fraxIn must be greater than 1");
+        require(fraxIn_ > one_pFrax, "fraxIn must be greater than 1");
         require(amountOutMin_ > 0, "amountOutMin must be greater than 0");
 
         require(pFRAX.balanceOf(buyer_) >= fraxIn_, "Insufficient Balance");
