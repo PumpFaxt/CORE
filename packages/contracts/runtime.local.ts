@@ -7,6 +7,8 @@ import abiDefinitions from "./definitions/develop.abi.ts";
 import bytecodeDefinitions from "./definitions/develop.bytecode.ts";
 import { expect } from "@std/expect";
 
+type IsType<T, U> = T extends U ? (U extends T ? T : never) : never;
+
 const hardhatNodeAccounts = [
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
   "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
@@ -126,6 +128,21 @@ async function deployContract<
   return contract;
 }
 
+function getContract<
+  C extends keyof typeof abiDefinitions & keyof typeof bytecodeDefinitions,
+>(
+  contractName: C,
+  address: Address,
+) {
+  const contract = viem.getContract({
+    abi: abiDefinitions[contractName],
+    address: address,
+    client: deployer,
+  });
+
+  return contract;
+}
+
 async function expectContractFunctionExecutionError(
   fn: Promise<unknown>,
   expectedErrorMessage?: string,
@@ -142,12 +159,36 @@ async function expectContractFunctionExecutionError(
   });
 }
 
+async function readContractEvents<
+  C extends Readonly<ReturnType<typeof deployContract>>,
+  E extends viem.ContractEventName<C["abi"]>,
+>(
+  contract: C,
+  eventName: E,
+  params?: Omit<
+    viem.GetContractEventsParameters<C["abi"]>,
+    "abi" | "address" | "eventName"
+  >,
+) {
+  const logs = await publicClient.getContractEvents({
+    abi: contract.abi,
+    address: contract.address,
+    eventName,
+    // deno-lint-ignore no-explicit-any
+    ...params as any,
+  });
+
+  return logs as viem.GetContractEventsReturnType<C["abi"], E>;
+}
+
 const runtime = {
   clients,
   publicClient,
   loadFixture,
   block,
   deployContract,
+  readContractEvents,
+  getContract,
   sleep,
   expectContractFunctionExecutionError,
 };
