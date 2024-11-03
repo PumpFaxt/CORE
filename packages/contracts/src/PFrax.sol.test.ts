@@ -6,10 +6,11 @@ import { metaTxRequest, parseFrax } from "../utils.ts";
 import { setupFixture } from "./.setupFixture.ts";
 
 async function deployFixture() {
-  const { owner, acc1: relayer, acc2, pFrax, master } = await runtime
-    .loadFixture(
-      setupFixture,
-    );
+  const { owner, acc1: relayer, acc2, pFrax, master, feeController } =
+    await runtime
+      .loadFixture(
+        setupFixture,
+      );
 
   const publicClient = runtime.publicClient;
 
@@ -29,6 +30,7 @@ async function deployFixture() {
     master,
     publicClient,
     mint,
+    feeController,
   };
 }
 
@@ -39,8 +41,9 @@ Deno.test("Should have initial supply of zero", async () => {
 });
 
 Deno.test("metaTx: transfer", async () => {
-  const { pFrax, owner, relayer, acc2: holder, mint } = await runtime
-    .loadFixture(deployFixture);
+  const { pFrax, owner, relayer, acc2: holder, mint, feeController } =
+    await runtime
+      .loadFixture(deployFixture);
 
   await mint(holder, 100);
 
@@ -58,8 +61,9 @@ Deno.test("metaTx: transfer", async () => {
     account: relayer.account,
   });
 
+  const fee = await feeController.read.pFraxMetaTransferLt100Fee_FLAT();
   expect(await pFrax.read.balanceOf([owner.account.address])).toBe(
-    parseFrax(50),
+    parseFrax(50) - fee,
   );
 });
 

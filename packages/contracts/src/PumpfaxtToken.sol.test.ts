@@ -49,6 +49,7 @@ async function deployFixture() {
     acc2,
     token,
     master,
+    pFrax,
   };
 }
 
@@ -76,4 +77,31 @@ Deno.test("Should start trading with a non zero price", async () => {
   const { token } = await runtime.loadFixture(deployFixture);
 
   expect(await token.read.tokenPrice()).toBeGreaterThan(0);
+});
+
+Deno.test("Should consistently increase price after repeated buying", async () => {
+  const { token, pFrax, owner } = await runtime.loadFixture(deployFixture);
+
+  let currentPrice = await token.read.tokenPrice();
+
+  const fraxIn = parseFrax(1_000);
+  const amountOutMin = await token.read.calculateAmountOut([999n]);
+
+  const fraxBalance = await pFrax.read.balanceOf([owner.account.address]);
+  expect(fraxBalance).toBeGreaterThan(Number(fraxIn) * 20);
+
+  await pFrax.write.approve([token.address, fraxIn * 20n], {
+    account: owner.account,
+  });
+
+  for (let i = 0; i < 20; i++) {
+    // deno-lint-ignore no-await-in-loop
+    await token.write.buy([fraxIn, amountOutMin]);
+    // deno-lint-ignore no-await-in-loop
+    const newPrice = await token.read.tokenPrice();
+
+    expect(Number(newPrice)).toBeGreaterThan(Number(currentPrice));
+
+    currentPrice = newPrice;
+  }
 });

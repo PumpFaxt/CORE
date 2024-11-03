@@ -64,11 +64,7 @@ contract PFrax is IPFrax, ERC20, Ownable {
             fee = master.feeController().pFraxMetaTransferGte100Fee_FLAT();
         }
 
-        master.feeController().submitFee(
-            from_,
-            fee,
-            keccak256("pFraxMetaTransfer")
-        );
+        master.feeController().registerFeeForPFraxInteraction(from_, fee);
         _transfer(from_, to_, value_ - fee);
     }
 
@@ -91,6 +87,10 @@ contract PFrax is IPFrax, ERC20, Ownable {
             validExecution,
             "Execution Failed; Invalidated by RelayManager"
         );
+
+        uint256 fee = master.one_pFrax() / 1000;
+        master.feeController().registerFeeForPFraxInteraction(from_, fee);
+
         _approve(from_, spender_, value_);
     }
 }
