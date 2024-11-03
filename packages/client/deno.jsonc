@@ -21,5 +21,5 @@
     // Vite Dependencies
     "preact-render-to-string": "npm:preact-render-to-string"
   },
-  "exclude": [".vite", "dev-dist"]
+  "exclude": [".vite", "dev-dist", "./postcss.config.cjs"]
 }
