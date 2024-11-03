@@ -1,19 +1,21 @@
 import { render } from "preact";
 import { App } from "./app.tsx";
-import { ParticleConnectkit } from "../shared/components/connectKit.tsx";
+import "./index.css";
+
+import Web3Provider from "./contexts/Web3Context.tsx";
 
 const mainElement = globalThis.document.getElementById("app");
 if (!mainElement) throw new Error("No main element found");
 
-const VNode = (
+const RootNode = (
   <>
-    <ParticleConnectkit>
+    <Web3Provider>
       <App />
-    </ParticleConnectkit>
+    </Web3Provider>
   </>
 );
 
 render(
-  VNode,
+  RootNode,
   mainElement,
 );

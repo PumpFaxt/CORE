@@ -4,7 +4,7 @@ import path from "node:path";
 import express from "npm:express";
 import type { NextFunction, Request, Response } from "npm:express";
 
-import { createServer as createViteServer } from "npm:vite";
+import { createServer as createViteServer } from "vite";
 
 // import { Application } from "jsr:@oak/oak/application";
 
@@ -36,7 +36,7 @@ async function main() {
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml);
 
-      // 6. Send the rendered HTML back.
+      // Send the rendered HTML back.
       res.status(200).set({ "Content-Type": "text/html" }).end(html);
     } catch (e) {
       //@ts-ignore : needs to be ignored here

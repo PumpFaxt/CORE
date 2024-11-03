@@ -1,23 +1,44 @@
 import { useState } from "preact/hooks";
-import { ConnectButton, useAccount } from "@particle-network/connectkit";
+import { useLogin, useLogout } from "@privy-io/react-auth";
 
 export function App() {
+  const { logout } = useLogout();
+  const { login } = useLogin({
+    onComplete: (
+      user,
+      isNewUser,
+      wasAlreadyAuthenticated,
+      loginMethod,
+      linkedAccount,
+    ) => {
+      console.log(
+        user,
+        isNewUser,
+        wasAlreadyAuthenticated,
+        loginMethod,
+        linkedAccount,
+      );
+      // Any logic you'd like to execute if the user is/becomes authenticated while this
+      // component is mounted
+    },
+    onError: (error) => {
+      console.log(error);
+      // Any logic you'd like to execute after a user exits the login flow or there is an error
+    },
+  });
   const [count, setCount] = useState(0);
 
-  const { address, isConnected, chainId } = useAccount();
   return (
     <>
       <div>
       </div>
       <h1>Pumpfaxt</h1>
-      <ConnectButton />
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
+      <button className="bg-teal-300" onClick={login}>Connect</button>
+      <button onClick={logout}>Disconnect</button>
 
-      {isConnected && (
-        <>
-          <h2>Address: {address}</h2>
-          <h2>Chain ID: {chainId}</h2>
-        </>
-      )}
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

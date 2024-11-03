@@ -1,18 +1,18 @@
 export default {
-  name: "My Awesome App",
-  short_name: "MyApp",
-  description: "My Awesome App description",
-  theme_color: "#ffffff",
+  name: "Pumpfaxt",
+  short_name: "Pumpfaxt",
+  description: "Pumpfaxt | Trade on the fraxtal network",
+  theme_color: "#0c0e12",
   icons: [
     {
-      src: "pwa-192x192.png",
+      src: "favicon-192x192.ico",
       sizes: "192x192",
-      type: "image/png",
+      type: "image/ico",
     },
     {
-      src: "pwa-512x512.png",
+      src: "favicon-512x512.ico",
       sizes: "512x512",
-      type: "image/png",
+      type: "image/ico",
     },
   ],
 };

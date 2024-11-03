@@ -1,15 +1,25 @@
 {
   "tasks": {
     "dev": "vite",
+    "dev:ssr": "deno run -A server.ts",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "shadcn-add": "type nul > package.json; deno run -A npm:shadcn@latest add "
   },
   "imports": {
+    "@privy-io/react-auth": "npm:@privy-io/react-auth@^1.92.6",
+    "viem": "npm:viem@^2.21.40",
+
+    "vite": "npm:vite@^5.4.10",
     "preact": "npm:preact@^10.24.3",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat",
-    "@particle-network/connectkit": "npm:@particle-network/connectkit@^2.0.8"
-    // "preact-render-to-string": "npm:preact-render-to-string"
+
+    // Babel Dependencies
+    "babel-plugin-transform-hook-names": "npm:babel-plugin-transform-hook-names",
+    "@babel/plugin-transform-react-jsx-development": "npm:@babel/plugin-transform-react-jsx-development",
+    // Vite Dependencies
+    "preact-render-to-string": "npm:preact-render-to-string"
   },
   "exclude": [".vite", "dev-dist"]
 }
