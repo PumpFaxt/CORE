@@ -1,1 +1,15 @@
-{}
+{
+  "tasks": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "imports": {
+    "preact": "npm:preact@^10.24.3",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
+    "@particle-network/connectkit": "npm:@particle-network/connectkit@^2.0.8"
+    // "preact-render-to-string": "npm:preact-render-to-string"
+  },
+  "exclude": [".vite", "dev-dist"]
+}

@@ -12,7 +12,11 @@
   "nodeModulesDir": "auto",
   "compilerOptions": {
     "strict": true,
-    "checkJs": true
+    "checkJs": false,
+    // Shift to workSpace client when Deno supports it
+    "lib": ["deno.window", "deno.ns", "dom"],
+    "jsx": "precompile",
+    "jsxImportSource": "preact"
   },
   "fmt": {
     "semiColons": true,

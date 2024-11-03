@@ -5,9 +5,10 @@
     "tests": "deno task compile; deno test"
   },
   "imports": {
+    "@nomicfoundation/hardhat-toolbox-viem": "npm:@nomicfoundation/hardhat-toolbox-viem@^3.0.0",
     "@openzeppelin/contracts": "npm:@openzeppelin/contracts@^5.1.0",
-    "hardhat": "npm:hardhat@^2.22.14",
-    "viem": "npm:viem@^2.21.33"
+    "hardhat": "npm:hardhat@^2.22.15",
+    "viem": "npm:viem@^2.21.40"
   },
   "exclude": ["artifacts", "cache", "definitions"]
 }
