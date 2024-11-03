@@ -10,7 +10,7 @@ const TOKEN_URI = "ipfs://test";
 const ONE_TOKEN = 1_000_000_000_000_000_000n;
 
 async function deployFixture() {
-  const { owner, master, acc1, acc2, pFrax } = await runtime
+  const { owner, master, acc1, acc2, pFrax, feeController } = await runtime
     .loadFixture(
       setupFixture,
     );
@@ -49,6 +49,8 @@ async function deployFixture() {
     acc2,
     token,
     master,
+    pFrax,
+    feeController,
   };
 }
 
@@ -76,4 +78,55 @@ Deno.test("Should start trading with a non zero price", async () => {
   const { token } = await runtime.loadFixture(deployFixture);
 
   expect(await token.read.tokenPrice()).toBeGreaterThan(0);
+});
+
+Deno.test("Should transfer tokens to buyer, pFrax to contract & fees to PumpfaxtFeeController on `Buy`", async () => {
+  const { token, pFrax, owner, feeController } = await runtime.loadFixture(
+    deployFixture,
+  );
+
+  const fraxIn = parseFrax(1_000);
+  const amountOutMin = await token.read.calculateAmountOut([999n]);
+  await pFrax.write.approve([token.address, fraxIn * 20n], {
+    account: owner.account,
+  });
+
+  await token.write.buy([fraxIn, amountOutMin]);
+
+  const tokenBalance = await token.read.balanceOf([owner.account.address]);
+  expect(tokenBalance).toBeGreaterThanOrEqual(Number(amountOutMin));
+
+  const fee = await feeController.read.pumpfaxtTokenBuySellFee_FRACTION();
+  const feeBalance = await pFrax.read.balanceOf([feeController.address]);
+  expect(feeBalance).toBe(fraxIn / fee);
+
+  const tokenFraxBalance = await pFrax.read.balanceOf([token.address]);
+  expect(tokenFraxBalance).toBe(fraxIn - (fraxIn / fee));
+});
+
+Deno.test("Should consistently increase price after repeated buying", async () => {
+  const { token, pFrax, owner } = await runtime.loadFixture(deployFixture);
+
+  let currentPrice = await token.read.tokenPrice();
+
+  const fraxIn = parseFrax(1_000);
+  const amountOutMin = await token.read.calculateAmountOut([999n]);
+
+  const fraxBalance = await pFrax.read.balanceOf([owner.account.address]);
+  expect(fraxBalance).toBeGreaterThan(Number(fraxIn) * 20);
+
+  await pFrax.write.approve([token.address, fraxIn * 20n], {
+    account: owner.account,
+  });
+
+  for (let i = 0; i < 20; i++) {
+    // deno-lint-ignore no-await-in-loop
+    await token.write.buy([fraxIn, amountOutMin]);
+    // deno-lint-ignore no-await-in-loop
+    const newPrice = await token.read.tokenPrice();
+
+    expect(Number(newPrice)).toBeGreaterThan(Number(currentPrice));
+
+    currentPrice = newPrice;
+  }
 });

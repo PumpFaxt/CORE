@@ -14,6 +14,11 @@ interface IPumpfaxtFeeController {
         bytes32 purpose_
     ) external;
 
+    function registerFeeForPFraxInteraction(
+        address from_,
+        uint256 amount_
+    ) external;
+
     function pFraxMetaTransferLt100Fee_FLAT() external view returns (uint256);
 
     function pFraxMetaTransferGte100Fee_FLAT() external view returns (uint256);

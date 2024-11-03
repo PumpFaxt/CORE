@@ -24,7 +24,7 @@ interface IPumpfaxtMaster {
         bytes calldata signature_
     ) external returns (bool);
 
-    function getFraxForTokenPurchaseFrom(
+    function getPFraxForTokenPurchaseFrom(
         address from_,
         uint256 amount_
     ) external;
