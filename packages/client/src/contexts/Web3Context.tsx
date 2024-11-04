@@ -11,7 +11,8 @@ export default function Web3Provider(
         appearance: {
           theme: "dark",
           accentColor: "#676FFF",
-          logo: "https://your-logo-url",
+          logo:
+            "https://bin.bnbstatic.com/static/images/electron/404-error.png",
         },
         supportedChains: [fraxtalTestnet],
         intl: { defaultCountry: "IN" },
