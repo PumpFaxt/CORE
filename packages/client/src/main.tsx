@@ -11,9 +11,9 @@ if (!mainElement) throw new Error("No main element found");
 const RootNode = (
   <main className={"bg-background text-foreground font-openSans"}>
     <LocationProvider>
-      {/* <Web3Provider> */}
-      <Router />
-      {/* </Web3Provider> */}
+      <Web3Provider>
+        <Router />
+      </Web3Provider>
     </LocationProvider>
   </main>
 );
