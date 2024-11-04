@@ -11,18 +11,25 @@
     "npm:@preact/compat@*": "18.3.1_preact@10.24.3",
     "npm:@preact/preset-vite@*": "2.9.1_@babel+core@7.26.0_vite@5.4.10_preact@10.24.3",
     "npm:@privy-io/react-auth@^1.92.6": "1.92.6_react@18.3.1_react-dom@18.3.1__react@18.3.1_@solana+wallet-adapter-base@0.9.23__@solana+web3.js@1.95.4___encoding@0.1.13__encoding@0.1.13_viem@2.21.40__typescript@5.6.3__ws@8.18.0___bufferutil@4.0.8___utf-8-validate@5.0.10_encoding@0.1.13",
+    "npm:@radix-ui/react-form@0.1": "0.1.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@types/node@*": "22.5.4",
     "npm:babel-plugin-transform-hook-names@*": "1.0.2_@babel+core@7.26.0",
     "npm:clsx@*": "1.2.1",
     "npm:express@*": "4.21.1",
     "npm:hardhat@2.22.15": "2.22.15",
     "npm:hardhat@^2.22.15": "2.22.15",
+    "npm:lucide-preact@*": "0.454.0_preact@10.24.3",
     "npm:postcss@^8.4.47": "8.4.47",
-    "npm:preact-render-to-string@*": "6.5.11_preact@10.24.3",
+    "npm:preact-iso@*": "2.8.1_preact@10.24.3_preact-render-to-string@6.5.11__preact@10.24.3",
+    "npm:preact-iso@^2.8.1": "2.8.1_preact@10.24.3_preact-render-to-string@6.5.11__preact@10.24.3",
     "npm:preact@^10.24.3": "10.24.3",
     "npm:shadcn@latest": "2.1.4_@babel+core@7.26.0",
     "npm:tailwind-merge@*": "2.5.4",
+    "npm:tailwind-merge@^2.5.4": "2.5.4",
     "npm:tailwindcss-animate@*": "1.0.7_tailwindcss@3.4.14__postcss@8.4.47",
+    "npm:tailwindcss-motion@*": "0.3.0-beta_tailwindcss@3.4.14__postcss@8.4.47",
+    "npm:tailwindcss-motion@~0.3.0-beta": "0.3.0-beta_tailwindcss@3.4.14__postcss@8.4.47",
+    "npm:tailwindcss@*": "3.4.14_postcss@8.4.47",
     "npm:viem@^2.21.40": "2.21.40_typescript@5.6.3_ws@8.18.0__bufferutil@4.0.8__utf-8-validate@5.0.10",
     "npm:vite-plugin-pwa@*": "0.20.5_vite@5.4.10_workbox-build@7.3.0__ajv@8.17.1__@babel+core@7.26.0__rollup@2.79.2_workbox-window@7.3.0",
     "npm:vite@5.4.10": "5.4.10",
@@ -2002,6 +2009,70 @@
         "viem@2.21.40_typescript@5.6.3_ws@8.18.0__bufferutil@4.0.8__utf-8-validate@5.0.10",
         "web3-core",
         "web3-core-helpers@1.10.3"
+      ]
+    },
+    "@radix-ui/primitive@1.1.0": {
+      "integrity": "sha512-4Z8dn6Upk0qk4P74xBhZ6Hd/w0mPEzOOLxy4xiPXOXqjF7jZS0VAKk7/x/H6FyY2zCkYJqePf1G5KmkmNJ4RBA=="
+    },
+    "@radix-ui/react-compose-refs@1.1.0_react@18.3.1": {
+      "integrity": "sha512-b4inOtiaOnYf9KWyO3jAeeCG6FeyfY6ldiEPanbUjWd+xIk5wZeHa8yVwmrJ2vderhu/BQvzCrJI0lHd+wIiqw==",
+      "dependencies": [
+        "react"
+      ]
+    },
+    "@radix-ui/react-context@1.1.0_react@18.3.1": {
+      "integrity": "sha512-OKrckBy+sMEgYM/sMmqmErVn0kZqrHPJze+Ql3DzYsDDp0hl0L62nx/2122/Bvps1qz645jlcu2tD9lrRSdf8A==",
+      "dependencies": [
+        "react"
+      ]
+    },
+    "@radix-ui/react-form@0.1.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-1/oVYPDjbFILOLIarcGcMKo+y6SbTVT/iUKVEw59CF4offwZgBgC3ZOeSBewjqU0vdA6FWTPWTN63obj55S/tQ==",
+      "dependencies": [
+        "@radix-ui/primitive",
+        "@radix-ui/react-compose-refs",
+        "@radix-ui/react-context",
+        "@radix-ui/react-id",
+        "@radix-ui/react-label",
+        "@radix-ui/react-primitive",
+        "react",
+        "react-dom"
+      ]
+    },
+    "@radix-ui/react-id@1.1.0_react@18.3.1": {
+      "integrity": "sha512-EJUrI8yYh7WOjNOqpoJaf1jlFIH2LvtgAl+YcFqNCa+4hj64ZXmPkAKOFs/ukjz3byN6bdb/AVUqHkI8/uWWMA==",
+      "dependencies": [
+        "@radix-ui/react-use-layout-effect",
+        "react"
+      ]
+    },
+    "@radix-ui/react-label@2.1.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-peLblDlFw/ngk3UWq0VnYaOLy6agTZZ+MUO/WhVfm14vJGML+xH4FAl2XQGLqdefjNb7ApRg6Yn7U42ZhmYXdw==",
+      "dependencies": [
+        "@radix-ui/react-primitive",
+        "react",
+        "react-dom"
+      ]
+    },
+    "@radix-ui/react-primitive@2.0.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-ZSpFm0/uHa8zTvKBDjLFWLo8dkr4MBsiDLz0g3gMUwqgLHz9rTaRRGYDgvZPtBJgYCBKXkS9fzmoySgr8CO6Cw==",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "react",
+        "react-dom"
+      ]
+    },
+    "@radix-ui/react-slot@1.1.0_react@18.3.1": {
+      "integrity": "sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==",
+      "dependencies": [
+        "@radix-ui/react-compose-refs",
+        "react"
+      ]
+    },
+    "@radix-ui/react-use-layout-effect@1.1.0_react@18.3.1": {
+      "integrity": "sha512-+FPE0rOdziWSrH9athwI1R0HDVbWlEhd+FR+aSDk4uWGmSJ9Z54sdZVDQPZAinJhJXwfT+qnj969mCsT2gfm5w==",
+      "dependencies": [
+        "react"
       ]
     },
     "@rollup/plugin-babel@5.3.1_@babel+core@7.26.0_rollup@2.79.2": {
@@ -5712,6 +5783,12 @@
     "lru_map@0.3.3": {
       "integrity": "sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ=="
     },
+    "lucide-preact@0.454.0_preact@10.24.3": {
+      "integrity": "sha512-tKSbdAmxlq2CH+jVojqcXC1dp1PfXTdTJJJ0WKhjtOTAZd0zU5EGqKo+2/ag8kuinahQhuOL1nqY4zQhsv6k7Q==",
+      "dependencies": [
+        "preact"
+      ]
+    },
     "magic-string@0.25.9": {
       "integrity": "sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==",
       "dependencies": [
@@ -6385,6 +6462,13 @@
         "nanoid",
         "picocolors",
         "source-map-js"
+      ]
+    },
+    "preact-iso@2.8.1_preact@10.24.3_preact-render-to-string@6.5.11__preact@10.24.3": {
+      "integrity": "sha512-RL0yDdJcSiB4Wnk4fBqq0OE9QCfTEW7B2ULf8GHPx72AtFE+j1NvabjBF6y3rBgrNWSuuPuuiN4L4KxYteQD2Q==",
+      "dependencies": [
+        "preact",
+        "preact-render-to-string"
       ]
     },
     "preact-render-to-string@6.5.11_preact@10.24.3": {
@@ -7358,6 +7442,12 @@
     },
     "tailwindcss-animate@1.0.7_tailwindcss@3.4.14__postcss@8.4.47": {
       "integrity": "sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==",
+      "dependencies": [
+        "tailwindcss"
+      ]
+    },
+    "tailwindcss-motion@0.3.0-beta_tailwindcss@3.4.14__postcss@8.4.47": {
+      "integrity": "sha512-dBmakhcseaB7zK82H9zMmzNhAZFCA9DxWeuw0rkttIarur/7tnjWg1Nv9LlZZR9c+YctRyZns3D+1Fjbksq7Fg==",
       "dependencies": [
         "tailwindcss"
       ]
@@ -8357,9 +8447,13 @@
           "npm:@babel/plugin-transform-react-jsx-development@*",
           "npm:@preact/compat@*",
           "npm:@privy-io/react-auth@^1.92.6",
+          "npm:@radix-ui/react-form@0.1",
           "npm:babel-plugin-transform-hook-names@*",
-          "npm:preact-render-to-string@*",
+          "npm:lucide-preact@*",
+          "npm:preact-iso@^2.8.1",
           "npm:preact@^10.24.3",
+          "npm:tailwind-merge@^2.5.4",
+          "npm:tailwindcss-motion@~0.3.0-beta",
           "npm:viem@^2.21.40",
           "npm:vite@^5.4.10"
         ]
