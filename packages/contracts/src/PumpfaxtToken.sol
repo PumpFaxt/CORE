@@ -120,8 +120,8 @@ contract PumpfaxtToken is ERC20 {
         require(amountOut_ >= amountOutMin_, "Slippage tolerance exceeded");
 
         _feeController.submitFee(buyer_, fee, keccak256("buyPumpfaxtToken"));
-        _master.getFraxForTokenPurchaseFrom(buyer_, fraxIn_ - fee);
-        transfer(buyer_, amountOut_);
+        _master.getPFraxForTokenPurchaseFrom(buyer_, fraxIn_ - fee);
+        _transfer(address(this), buyer_, amountOut_);
     }
 
     function buy(uint256 fraxIn_, uint256 amountOutMin_) external {

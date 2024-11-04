@@ -1,0 +1,13 @@
+logs
+*.log
+
+.vite
+
+dist
+dev-dist
+dist-ssr
+*.local
+
+.DS_Store
+
+vite.config.ts.timestamp-*

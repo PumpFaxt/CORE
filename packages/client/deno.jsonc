@@ -1,1 +1,28 @@
-{}
+{
+  "tasks": {
+    "dev": "vite",
+    "dev:ssr": "deno run -A server.ts",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "imports": {
+    "@privy-io/react-auth": "npm:@privy-io/react-auth@^1.92.6",
+    "@radix-ui/react-form": "npm:@radix-ui/react-form@^0.1.0",
+    "tailwind-merge": "npm:tailwind-merge@^2.5.4",
+    "tailwindcss-motion": "npm:tailwindcss-motion@^0.3.0-beta",
+    "lucide-preact": "npm:lucide-preact",
+
+    "viem": "npm:viem@^2.21.40",
+
+    "vite": "npm:vite@^5.4.10",
+    "preact": "npm:preact@^10.24.3",
+    "preact-iso": "npm:preact-iso@^2.8.1",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
+
+    // Babel Dependencies
+    "babel-plugin-transform-hook-names": "npm:babel-plugin-transform-hook-names",
+    "@babel/plugin-transform-react-jsx-development": "npm:@babel/plugin-transform-react-jsx-development"
+  },
+  "exclude": [".vite", "dev-dist", "./postcss.config.cjs"]
+}

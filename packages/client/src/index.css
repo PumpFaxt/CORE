@@ -1,0 +1,104 @@
+/* Open Sans Font */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 9% 11%;
+    --foreground: 222 13% 93%;
+
+    --primary: 200 90% 27%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 215 18% 6%;
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 214 15% 18%;
+    --muted-foreground: 0 0% 100%;
+
+    /* --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%; */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --gain: 156 87% 43%;
+    --gain-foreground: 0 0% 6%;
+
+    --border: 240 4% 20%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  a {
+    @apply text-foreground underline-offset-4 underline hover:no-underline;
+  }
+
+  input {
+    @apply muted w-full p-3 rounded-lg;
+  }
+
+  label {
+    @apply text-foreground/50 font-medium;
+  }
+}
+
+@layer utilities {
+  .p-page {
+    @apply px-[4vw] py-[2vh];
+  }
+
+  .bg-rainbow {
+    /*  deno-fmt-ignore */
+    @apply bg-[linear-gradient(90deg,rgba(255,0,0,1)0%,rgba(255,154,0,1)10%,rgba(208,222,33,1)20%,rgba(79,220,74,1)30%,rgba(63,218,216,1)40%,rgba(47,201,226,1)50%,rgba(28,127,238,1)60%,rgba(95,21,242,1)70%,rgba(186,12,248,1)80%,rgba(251,7,217,1)90%,rgba(255,0,0,1)100%)];
+  }
+
+  .text-rainbow {
+    @apply text-transparent bg-rainbow bg-clip-text;
+  }
+
+  .primary {
+    @apply bg-primary text-primary-foreground;
+  }
+  .secondary {
+    @apply bg-secondary text-secondary-foreground;
+  }
+  .base {
+    @apply bg-background text-foreground;
+  }
+  .muted {
+    @apply bg-muted text-muted-foreground;
+  }
+  .destructive {
+    @apply bg-destructive text-destructive-foreground;
+  }
+  .gain {
+    @apply bg-gain text-gain-foreground;
+  }
+
+  .btn-sm {
+    @apply h-9 rounded-sm px-2 font-medium;
+  }
+  .btn {
+    @apply h-11 rounded-md px-3 font-semibold;
+  }
+  .btn-lg {
+    @apply h-9 rounded-lg px-5 font-bold;
+  }
+  .btn-icon {
+    @apply size-10;
+  }
+}

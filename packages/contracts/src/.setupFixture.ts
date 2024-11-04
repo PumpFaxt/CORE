@@ -1,4 +1,5 @@
 import runtime from "../runtime.local.ts";
+import { parseFrax } from "../utils.ts";
 
 export async function setupFixture() {
   const [owner, acc1, acc2] = runtime.clients;
@@ -24,6 +25,16 @@ export async function setupFixture() {
     "PumpfaxtFeeController",
     await master.read.feeController(),
   );
+
+  await feeController.write.setPFraxMetaTransferLt100Fee_FLAT([
+    parseFrax(0.001),
+  ]);
+  await feeController.write.setPFraxMetaTransferGte100Fee_FLAT([
+    parseFrax(0.01),
+  ]);
+  await feeController.write.setPumpfaxtTokenLaunchFee_FLAT([parseFrax(2)]);
+  await feeController.write.setPumpfaxtTokenBuySellFee_FRACTION([1000n]); // 10% fee
+  await feeController.write.setPumpfaxtTokenTransferFee_FRACTION([100n]); // 1% fee
 
   return {
     owner,
