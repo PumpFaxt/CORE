@@ -4,6 +4,7 @@ import RiskWarningBanner from "../../shared/components/RiskWarningBanner.tsx";
 import LoginMethodSelection from "../login/LoginMethodSelection.tsx";
 import { twMerge } from "tailwind-merge";
 import { loginState } from "../login/signals.ts";
+import EmailOtpVerification from "../login/EmailOtpVerification.tsx";
 
 export default function () {
   return (
@@ -28,14 +29,18 @@ export default function () {
 
       <FlexSeparator size="xl" />
 
+      {loginState.value === "uninitiated" && <LoginMethodSelection />}
+
       <section
         className={twMerge(
           "flex flex-col",
-          loginState.value !== "uninitiated" &&
-            "-motion-translate-x-out-150",
+          loginState.value === "initiatedEmailLogin" &&
+            "motion-translate-x-in-150",
+          loginState.value !== "initiatedEmailLogin" &&
+            "hidden",
         )}
       >
-        <LoginMethodSelection />
+        <EmailOtpVerification />
       </section>
     </div>
   );

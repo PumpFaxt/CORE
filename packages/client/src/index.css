@@ -106,4 +106,8 @@
     @apply text-destructive motion-ease-spring-bounciest motion-duration-200
       -motion-translate-x-in-25;
   }
+
+  .absolute-cover {
+    @apply absolute top-0 left-0 w-full h-full;
+  }
 }
