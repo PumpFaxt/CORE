@@ -10,6 +10,7 @@
     "npm:@openzeppelin/contracts@^5.1.0": "5.1.0",
     "npm:@preact/compat@*": "18.3.1_preact@10.24.3",
     "npm:@preact/preset-vite@*": "2.9.1_@babel+core@7.26.0_vite@5.4.10_preact@10.24.3",
+    "npm:@preact/signals@*": "1.3.0_preact@10.24.3",
     "npm:@privy-io/react-auth@^1.92.6": "1.92.6_react@18.3.1_react-dom@18.3.1__react@18.3.1_@solana+wallet-adapter-base@0.9.23__@solana+web3.js@1.95.4___encoding@0.1.13__encoding@0.1.13_viem@2.21.40__typescript@5.6.3__ws@8.18.0___bufferutil@4.0.8___utf-8-validate@5.0.10_encoding@0.1.13",
     "npm:@radix-ui/react-form@0.1": "0.1.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@types/node@*": "22.5.4",
@@ -1895,6 +1896,16 @@
         "source-map@0.7.4",
         "stack-trace",
         "vite"
+      ]
+    },
+    "@preact/signals-core@1.8.0": {
+      "integrity": "sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA=="
+    },
+    "@preact/signals@1.3.0_preact@10.24.3": {
+      "integrity": "sha512-EOMeg42SlLS72dhoq6Vjq08havnLseWmPQ8A0YsgIAqMgWgx7V1a39+Pxo6i7SY5NwJtH4849JogFq3M67AzWg==",
+      "dependencies": [
+        "@preact/signals-core",
+        "preact"
       ]
     },
     "@prefresh/babel-plugin@0.5.1": {
@@ -8446,6 +8457,7 @@
         "dependencies": [
           "npm:@babel/plugin-transform-react-jsx-development@*",
           "npm:@preact/compat@*",
+          "npm:@preact/signals@*",
           "npm:@privy-io/react-auth@^1.92.6",
           "npm:@radix-ui/react-form@0.1",
           "npm:babel-plugin-transform-hook-names@*",

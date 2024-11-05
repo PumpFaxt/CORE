@@ -16,9 +16,13 @@
 
     "vite": "npm:vite@^5.4.10",
     "preact": "npm:preact@^10.24.3",
+    "@preact/signals": "npm:@preact/signals",
     "preact-iso": "npm:preact-iso@^2.8.1",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat",
+
+    // Migrate away when possible
+    "react-otp-input": "npm:react-otp-input",
 
     // Babel Dependencies
     "babel-plugin-transform-hook-names": "npm:babel-plugin-transform-hook-names",

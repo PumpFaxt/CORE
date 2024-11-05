@@ -101,4 +101,9 @@
   .btn-icon {
     @apply size-10;
   }
+
+  .text-error {
+    @apply text-destructive motion-ease-spring-bounciest motion-duration-200
+      -motion-translate-x-in-25;
+  }
 }
