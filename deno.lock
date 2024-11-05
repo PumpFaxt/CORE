@@ -24,6 +24,7 @@
     "npm:preact-iso@*": "2.8.1_preact@10.24.3_preact-render-to-string@6.5.11__preact@10.24.3",
     "npm:preact-iso@^2.8.1": "2.8.1_preact@10.24.3_preact-render-to-string@6.5.11__preact@10.24.3",
     "npm:preact@^10.24.3": "10.24.3",
+    "npm:react-otp-input@*": "3.1.1_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:shadcn@latest": "2.1.4_@babel+core@7.26.0",
     "npm:tailwind-merge@*": "2.5.4",
     "npm:tailwind-merge@^2.5.4": "2.5.4",
@@ -6620,6 +6621,13 @@
         "scheduler"
       ]
     },
+    "react-otp-input@3.1.1_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-bjPavgJ0/Zmf/AYi4onj8FbH93IjeD+e8pWwxIJreDEWsU1ILR5fs8jEJmMGWSBe/yyvPP6X/W6Mk9UkOCkTPw==",
+      "dependencies": [
+        "react",
+        "react-dom"
+      ]
+    },
     "react@18.3.1": {
       "integrity": "sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==",
       "dependencies": [
@@ -8464,6 +8472,7 @@
           "npm:lucide-preact@*",
           "npm:preact-iso@^2.8.1",
           "npm:preact@^10.24.3",
+          "npm:react-otp-input@*",
           "npm:tailwind-merge@^2.5.4",
           "npm:tailwindcss-motion@~0.3.0-beta",
           "npm:viem@^2.21.40",

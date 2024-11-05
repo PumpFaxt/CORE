@@ -17,5 +17,7 @@
   "[javascript]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
   },
-  "css.customData": [".vscode/tailwind.json"]
+  "css.customData": [".vscode/tailwind.json"],
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true
 }
