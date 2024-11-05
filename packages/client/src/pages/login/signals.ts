@@ -3,7 +3,8 @@ import { signal } from "@preact/signals";
 type LoginState =
   | "uninitiated"
   | "initiatedEmailLogin"
-  | "initiatedSocialLogin";
+  | "initiatedSocialLogin"
+  | "initiatedWalletConnect";
 
 const loginState = signal<LoginState>("uninitiated");
 
