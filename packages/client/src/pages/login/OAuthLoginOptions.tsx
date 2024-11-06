@@ -7,7 +7,13 @@ export default function OAuthLoginOptions() {
   function handleOAuthLogin(
     provider: "google" | "twitter" | "discord",
   ) {
-    initOAuth({ provider }).then(() => loginWithOAuth());
+    initOAuth({ provider }).then(() =>
+      loginWithOAuth().catch(() => {
+        loginState.value = "uninitiated";
+      })
+    ).catch(() => {
+      loginState.value = "uninitiated";
+    });
     loginState.value = "initiatedSocialLogin";
   }
 

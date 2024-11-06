@@ -2,6 +2,7 @@ import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
 import Loading from "../../shared/components/Loading.tsx";
 import OtpInput from "../../shared/components/OtpInput.tsx";
 import { useLoginWithEmail } from "@privy-io/react-auth";
+import { loginState } from "./signals.ts";
 
 export default function EmailOtpVerification() {
   const { loginWithCode, state } = useLoginWithEmail();
@@ -39,7 +40,14 @@ export default function EmailOtpVerification() {
 
           <FlexSeparator />
 
-          <button className={"btn base invert"}>Go Back</button>
+          <button
+            className={"btn base invert"}
+            onClick={() => {
+              loginState.value = "uninitiated";
+            }}
+          >
+            Go Back
+          </button>
         </>
       )}
     </section>

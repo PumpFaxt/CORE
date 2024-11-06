@@ -5,7 +5,6 @@ import LoginMethodSelection from "../login/LoginMethodSelection.tsx";
 import { twMerge } from "tailwind-merge";
 import { loginState } from "../login/signals.ts";
 import EmailOtpVerification from "../login/EmailOtpVerification.tsx";
-import Loading from "../../shared/components/Loading.tsx";
 
 export default function () {
   return (
@@ -30,7 +29,17 @@ export default function () {
 
       <FlexSeparator size="xl" />
 
-      {loginState.value === "uninitiated" && <LoginMethodSelection />}
+      <section
+        className={twMerge(
+          loginState.value === "initiatedEmailLogin" && "hidden",
+          loginState.value === "initiatedSocialLogin" &&
+            "animate-pulse opacity-80 pointer-events-none",
+          loginState.value === "initiatedWalletConnect" &&
+            "",
+        )}
+      >
+        <LoginMethodSelection />
+      </section>
 
       <section
         className={twMerge(
@@ -41,10 +50,6 @@ export default function () {
       >
         <EmailOtpVerification />
       </section>
-
-      {loginState.value === "initiatedSocialLogin" && (
-        <Loading className="motion-preset-blur-left" />
-      )}
     </div>
   );
 }
