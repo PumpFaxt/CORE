@@ -1,4 +1,4 @@
-import type { FormSubmitEvent } from "../types/utils.d.tsx";
+import type { FormSubmitEvent } from "../types/utils.d.ts";
 
 export function parseFormEventData(event: FormSubmitEvent) {
   return Object.fromEntries(

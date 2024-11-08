@@ -1,6 +1,6 @@
 import { Form } from "../../shared/components/radix.ts";
 import { useLoginWithEmail } from "@privy-io/react-auth";
-import type { FormSubmitEvent } from "../../shared/types/utils.d.tsx";
+import type { FormSubmitEvent } from "../../shared/types/utils.d.ts";
 import { parseFormEventData } from "../../shared/lib/utils.ts";
 import { loginState } from "./signals.ts";
 
