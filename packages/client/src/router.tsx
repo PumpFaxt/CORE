@@ -5,7 +5,9 @@ import Login from "./pages/login/page.tsx";
 export default function Router() {
   return (
     <PreactRouter>
+      <Route path="" component={_404} />
       <Route path="login" component={Login} />
+
       <Route default component={_404} />
     </PreactRouter>
   );
