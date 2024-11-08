@@ -1,5 +1,5 @@
-import { chooseRandomFromArray } from "../utils/utils.ts";
-import { twMerge } from "tailwind-merge";
+import { cn } from "../lib/tailwind.ts";
+import { chooseRandomFromArray } from "../lib/utils.ts";
 
 interface ILoadingProps {
   className?: string;
@@ -18,7 +18,7 @@ export default function Loading(props: ILoadingProps) {
 
   return (
     <div
-      className={twMerge(
+      className={cn(
         "w-full flex flex-col items-center gap-y-5",
         props.className,
       )}

@@ -36,7 +36,9 @@ export default function OtpInput({ length = 4, onComplete }: InputProps) {
           maxLength={1}
           value={OTP[index]}
           onChange={(e) => handleTextChange(e.currentTarget.value, index)}
-          ref={(ref) => (inputRef.current[index] = ref as HTMLInputElement)}
+          ref={(
+            ref,
+          ) => (inputRef.current[index] = ref as HTMLInputElement)}
           className={"border flex-1 text-center text-lg focus:saturate-200 focus:border-primary p-5 outline-none focus:motion-preset-pop motion-duration-150"}
           onKeyDown={(e) => {
             if (e.key === "backspace") {

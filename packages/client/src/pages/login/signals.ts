@@ -1,4 +1,4 @@
-import { signal } from "@preact/signals";
+import { createDomSignal } from "../../shared/lib/preact.ts";
 
 type LoginState =
   | "uninitiated"
@@ -6,6 +6,6 @@ type LoginState =
   | "initiatedSocialLogin"
   | "initiatedWalletConnect";
 
-const loginState = signal<LoginState>("uninitiated");
+const loginState = createDomSignal<LoginState>("uninitiated");
 
 export { loginState };

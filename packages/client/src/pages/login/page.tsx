@@ -2,9 +2,9 @@ import Icon from "../../shared/components/Icon.tsx";
 import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
 import RiskWarningBanner from "../../shared/components/RiskWarningBanner.tsx";
 import LoginMethodSelection from "../login/LoginMethodSelection.tsx";
-import { twMerge } from "tailwind-merge";
 import { loginState } from "../login/signals.ts";
 import EmailOtpVerification from "../login/EmailOtpVerification.tsx";
+import { cn } from "../../shared/lib/tailwind.ts";
 
 export default function () {
   return (
@@ -30,7 +30,7 @@ export default function () {
       <FlexSeparator size="xl" />
 
       <section
-        className={twMerge(
+        className={cn(
           loginState.value === "initiatedEmailLogin" && "hidden",
           loginState.value === "initiatedSocialLogin" &&
             "animate-pulse opacity-80 pointer-events-none",
@@ -42,7 +42,7 @@ export default function () {
       </section>
 
       <section
-        className={twMerge(
+        className={cn(
           "flex flex-col duration-500",
           loginState.value !== "initiatedEmailLogin" &&
             "opacity-0 pointer-events-none",
