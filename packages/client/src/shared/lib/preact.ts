@@ -1,6 +1,6 @@
 import { batch, computed, effect, signal } from "@preact/signals";
 
-export function createDomSignal<T>(defaultValue: T) {
+export function createDomSignal<T>(defaultValue?: T) {
   return signal(defaultValue);
 }
 

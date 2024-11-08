@@ -1,7 +1,6 @@
 import { render } from "preact";
 import Router from "./router.tsx";
 import "./index.css";
-
 import { LocationProvider } from "preact-iso";
 import Web3Provider from "./contexts/Web3Context.tsx";
 
