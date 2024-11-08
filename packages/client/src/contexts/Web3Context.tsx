@@ -1,4 +1,4 @@
-import { PrivyProvider } from "@privy-io/react-auth";
+import { PrivyProvider } from "privy";
 import { privyAppId, privyConfig } from "../config.ts";
 
 export default function Web3Provider(

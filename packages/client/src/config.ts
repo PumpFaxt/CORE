@@ -1,5 +1,5 @@
 import { fraxtalTestnet } from "viem/chains";
-import type { PrivyClientConfig } from "@privy-io/react-auth";
+import type { PrivyClientConfig } from "privy";
 
 export const supportedChains = [fraxtalTestnet];
 

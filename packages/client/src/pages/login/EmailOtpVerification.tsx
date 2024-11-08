@@ -1,7 +1,7 @@
 import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
 import Loading from "../../shared/components/Loading.tsx";
 import OtpInput from "../../shared/components/OtpInput.tsx";
-import { useLoginWithEmail } from "@privy-io/react-auth";
+import { useLoginWithEmail } from "privy";
 import { loginState } from "./signals.ts";
 
 export default function EmailOtpVerification() {

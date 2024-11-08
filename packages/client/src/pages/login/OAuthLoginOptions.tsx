@@ -1,4 +1,4 @@
-import { useLoginWithOAuth } from "@privy-io/react-auth";
+import { useLoginWithOAuth } from "privy";
 import { loginState } from "./signals.ts";
 
 export default function OAuthLoginOptions() {

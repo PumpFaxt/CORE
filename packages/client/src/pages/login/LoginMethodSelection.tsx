@@ -1,7 +1,7 @@
 import LoginWithEmail from "./LoginWithEmail.tsx";
 import Divider from "../../shared/components/Divider.tsx";
 import OAuthLoginOptions from "./OAuthLoginOptions.tsx";
-import { useConnectWallet } from "@privy-io/react-auth";
+import { useConnectWallet } from "privy";
 import { loginState } from "./signals.ts";
 
 export default function LoginMethodSelection() {
