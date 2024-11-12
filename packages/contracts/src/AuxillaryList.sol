@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.27;
-import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity ^0.8.26;
 import "./interfaces/IAuxillaryList.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract AuxillaryList is IAuxillaryList, Ownable {
     address[] private _addresses;
