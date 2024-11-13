@@ -50,3 +50,5 @@ export const consoleFmt = {
   bold: (text: string) => `\x1b[1m${text}\x1b[0m`,
   underline: (text: string) => `\x1b[4m${text}\x1b[0m`,
 } as const;
+
+export type ContractName = keyof typeof definitions;

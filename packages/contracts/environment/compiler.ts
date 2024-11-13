@@ -67,7 +67,8 @@ if (output.errors) {
   throw console.error(consoleFmt.red(output.errors[0]));
 }
 
-const definitionsOutObject: Record<string, unknown> = {};
+let abiObject = "";
+let bytecodeObject = "";
 for (const contract in contractNames) {
   if (!contract.includes("/") && !contract.includes("\\")) {
     const fileName = contractNames[contract];
@@ -76,15 +77,21 @@ for (const contract in contractNames) {
 
     const contractDefinition = output.contracts[fileName][contractName];
 
-    const definition = {
-      abi: contractDefinition.abi,
-      bytecode: `0x${contractDefinition.evm.bytecode.object}`,
-    };
+    const abiText = JSON.stringify(contractDefinition.abi, null, 2);
 
-    definitionsOutObject[contractName] = definition;
+    abiObject += `${contractName} : ${abiText} as const,`;
+    bytecodeObject +=
+      `${contractName} : "0x${contractDefinition.evm.bytecode.object}",\n`;
   }
 }
+
+let genText = "";
+genText += `export const abi = {${abiObject}} as const;`;
+genText += `export const bytecode = {${bytecodeObject}} as const;`;
+genText += `export type ContractName = keyof typeof abi;`;
+genText += `export default { abi, bytecode };`;
+
 Deno.writeTextFileSync(
-  resolve(PATH_OUT_DIR, "definitions.gen.json"),
-  JSON.stringify(definitionsOutObject),
+  resolve(PATH_OUT_DIR, "definitions.gen.ts"),
+  genText,
 );
