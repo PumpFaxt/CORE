@@ -4,7 +4,8 @@ import { resolve } from "jsr:@std/path";
 import { consoleFmt } from "../utils.ts";
 
 const PATH_SOURCES = "src";
-const PATH_MODULES = "../../../node_modules";
+const PATH_MODULES = "../../node_modules";
+const PATH_OUT_DIR = ".";
 
 const sourcesPathResolved = resolve(
   import.meta?.dirname || "",
@@ -48,7 +49,6 @@ function findImports(relativePath: string) {
   if (relativePath.startsWith("@")) {
     // Check if the import is relative
     absolutePath = resolve(
-      import.meta?.dirname || "",
       PATH_MODULES,
       relativePath,
     );
@@ -67,14 +67,24 @@ if (output.errors) {
   throw console.error(consoleFmt.red(output.errors[0]));
 }
 
+const definitionsOutObject: Record<string, unknown> = {};
 for (const contract in contractNames) {
   if (!contract.includes("/") && !contract.includes("\\")) {
     const fileName = contractNames[contract];
     const contractEntities = Object.keys(output.contracts[fileName]);
     const contractName = contractEntities[contractEntities.length - 1];
 
-    console.log(
-      output.contracts[fileName][contractName].evm,
-    );
+    const contractDefinition = output.contracts[fileName][contractName];
+
+    const definition = {
+      abi: contractDefinition.abi,
+      bytecode: `0x${contractDefinition.evm.bytecode.object}`,
+    };
+
+    definitionsOutObject[contractName] = definition;
   }
 }
+Deno.writeTextFileSync(
+  resolve(PATH_OUT_DIR, "definitions.gen.json"),
+  JSON.stringify(definitionsOutObject),
+);
