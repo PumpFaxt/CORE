@@ -19,9 +19,6 @@
     --muted: 214 15% 18%;
     --muted-foreground: 0 0% 100%;
 
-    /* --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%; */
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
@@ -93,12 +90,21 @@
     @apply h-9 rounded-sm px-2 font-medium;
   }
   .btn {
-    @apply h-11 rounded-md px-3 font-semibold;
+    @apply h-11 rounded-md px-3 font-medium;
   }
   .btn-lg {
-    @apply h-9 rounded-lg px-5 font-bold;
+    @apply h-9 rounded-lg px-5 font-semibold;
   }
   .btn-icon {
     @apply size-10;
+  }
+
+  .text-error {
+    @apply text-destructive motion-ease-spring-bounciest motion-duration-200
+      -motion-translate-x-in-25;
+  }
+
+  .absolute-cover {
+    @apply absolute top-0 left-0 w-full h-full;
   }
 }

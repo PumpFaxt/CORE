@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "../lib/tailwind.ts";
 
 interface ISeparatorProps {
   className?: string;
@@ -14,7 +14,7 @@ export default function FlexSeparator(props: ISeparatorProps) {
     <figure
       role="separator"
       style={{ "--separator-base-size": BASE_SIZE }}
-      className={twMerge(
+      className={cn(
         props.className,
         size === "xs" &&
           `basis-[calc(var(--separator-base-size)_-_6px)]`,

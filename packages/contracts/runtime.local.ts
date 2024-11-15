@@ -150,7 +150,10 @@ async function expectContractFunctionExecutionError(
   let actualErrorMessage: string | null = null;
   await fn.catch(
     (err) => {
-      if (err.name === "ContractFunctionExecutionError" && err.shortMessage) {
+      if (
+        err.name === "ContractFunctionExecutionError" &&
+        err.shortMessage
+      ) {
         actualErrorMessage = err.shortMessage;
       }
     },

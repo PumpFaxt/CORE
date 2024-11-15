@@ -88,7 +88,10 @@ Deno.test("metaTx: approve", async () => {
   });
 
   expect(
-    await pFrax.read.allowance([holder.account.address, owner.account.address]),
+    await pFrax.read.allowance([
+      holder.account.address,
+      owner.account.address,
+    ]),
   ).toBe(
     parseFrax(50),
   );

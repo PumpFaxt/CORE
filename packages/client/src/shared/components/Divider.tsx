@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "../lib/tailwind.ts";
 
 interface IDividerProps {
   className?: string;
@@ -9,14 +9,14 @@ export default function Divider(props: IDividerProps) {
   return (
     <figure className={"flex items-center"} role="separator">
       <span
-        className={twMerge(
+        className={cn(
           "h-2px flex-1 bg-muted",
           props.className,
         )}
       />
       {props.children}
       <span
-        className={twMerge(
+        className={cn(
           "h-2px flex-1 bg-muted",
           props.className,
         )}

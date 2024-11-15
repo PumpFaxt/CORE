@@ -6,16 +6,17 @@
     "preview": "vite preview"
   },
   "imports": {
-    "@privy-io/react-auth": "npm:@privy-io/react-auth@^1.92.6",
+    "privy": "npm:@privy-io/react-auth@^1.92.6",
     "@radix-ui/react-form": "npm:@radix-ui/react-form@^0.1.0",
     "tailwind-merge": "npm:tailwind-merge@^2.5.4",
-    "tailwindcss-motion": "npm:tailwindcss-motion@^0.3.0-beta",
+    "tailwindcss-motion": "npm:tailwindcss-motion@^0.4.1-beta",
     "lucide-preact": "npm:lucide-preact",
 
     "viem": "npm:viem@^2.21.40",
 
     "vite": "npm:vite@^5.4.10",
     "preact": "npm:preact@^10.24.3",
+    "@preact/signals": "npm:@preact/signals",
     "preact-iso": "npm:preact-iso@^2.8.1",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat",

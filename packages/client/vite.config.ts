@@ -17,6 +17,8 @@ export default defineConfig({
     }),
   ],
 
+  resolve: { alias: { "privy": "@privy-io/react-auth" } },
+
   optimizeDeps: {
     esbuildOptions: {
       define: {

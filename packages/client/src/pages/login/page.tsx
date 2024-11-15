@@ -1,15 +1,14 @@
 import Icon from "../../shared/components/Icon.tsx";
 import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
 import RiskWarningBanner from "../../shared/components/RiskWarningBanner.tsx";
-import LoginWithEmail from "../login/LoginWithEmail.tsx";
-import Divider from "../../shared/components/Divider.tsx";
-import OAuthLoginOptions from "../login/OAuthLoginOptions.tsx";
+import LoginMethodSelection from "../login/LoginMethodSelection.tsx";
+import { loginState } from "../login/signals.ts";
+import EmailOtpVerification from "../login/EmailOtpVerification.tsx";
+import { cn } from "../../shared/lib/tailwind.ts";
 
 export default function () {
-  // initOAuth();
-  // loginWithOAuth();
   return (
-    <div className={"p-page flex flex-col"}>
+    <div className={"p-page flex flex-col overflow-hidden"}>
       <RiskWarningBanner />
 
       <FlexSeparator size="lg" />
@@ -30,23 +29,27 @@ export default function () {
 
       <FlexSeparator size="xl" />
 
-      <LoginWithEmail />
-
-      <Divider className="my-8">
-        <span className={"text-xs px-3 text-foreground/50"}>OR</span>
-      </Divider>
-
-      <OAuthLoginOptions />
-
-      <Divider className="my-8">
-        <span className={"text-xs px-3 text-foreground/50"}>OR</span>
-      </Divider>
-
-      <button
-        className={"btn base invert"}
+      <section
+        className={cn(
+          loginState.value === "initiatedEmailLogin" && "hidden",
+          loginState.value === "initiatedSocialLogin" &&
+            "animate-pulse opacity-80 pointer-events-none",
+          loginState.value === "initiatedWalletConnect" &&
+            "",
+        )}
       >
-        Continue with a Web3 Wallet
-      </button>
+        <LoginMethodSelection />
+      </section>
+
+      <section
+        className={cn(
+          "flex flex-col duration-500",
+          loginState.value !== "initiatedEmailLogin" &&
+            "opacity-0 pointer-events-none",
+        )}
+      >
+        <EmailOtpVerification />
+      </section>
     </div>
   );
 }
