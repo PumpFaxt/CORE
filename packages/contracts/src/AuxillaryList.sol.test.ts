@@ -1,4 +1,4 @@
-import runtime from "../runtime.local.ts";
+import runtime from "../environment/runtime.ts";
 import { expect } from "@std/expect";
 
 async function deployFixture() {

@@ -1,4 +1,4 @@
-import runtime from "../runtime.local.ts";
+import runtime from "../environment/runtime.ts";
 import { parseFrax } from "../utils.ts";
 import { setupFixture } from "./.setupFixture.ts";
 import { expect } from "@std/expect";

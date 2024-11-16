@@ -1,5 +1,5 @@
 // deno-lint-ignore-file
-import runtime from "../runtime.local.ts";
+import runtime from "../environment/runtime.ts";
 import { expect } from "@std/expect";
 import * as viem from "viem";
 import { metaTxRequest, parseFrax } from "../utils.ts";

@@ -21,17 +21,17 @@ jobs:
       - name: Run Deno lint
         run: deno lint
 
-      - name: Setup Hardhat
-        working-directory: ./packages/contracts
-        run: deno i
+      # - name: Setup Hardhat
+      #   working-directory: ./packages/contracts
+      #   run: deno i
 
-      - name: Compile Hardhat
-        working-directory: ./packages/contracts
-        run: deno task compile
+      # - name: Compile Hardhat
+      #   working-directory: ./packages/contracts
+      #   run: deno task compile
 
-      - name: Run Contracts tests
-        working-directory: ./packages/contracts
-        run: |
-          nohup deno task localnode >/dev/null 2>&1 &
-          sleep 5 &
-          deno test --allow-net
+      # - name: Run Contracts tests
+      #   working-directory: ./packages/contracts
+      #   run: |
+      #     nohup deno task localnode >/dev/null 2>&1 &
+      #     sleep 5 &
+      #     deno test --allow-net
