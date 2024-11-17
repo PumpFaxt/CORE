@@ -35,8 +35,6 @@ function main() {
     "currrentNetwork",
     args["network"] || config.networks.default || "anvil",
   );
-
-  Deno.writeTextFileSync("./environment/environment.tmp.ts", "");
 }
 
 if (import.meta.main) {
