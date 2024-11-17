@@ -1,9 +1,9 @@
-import * as chains from "viem/chains";
+import type * as chains from "viem/chains";
 import type { Chain, Hash } from "viem";
 
 export type EnvironmentConfig = {
   networks: {
-    default: number;
+    default: string;
     viem: (keyof typeof chains)[];
     custom: Record<string, Chain>;
   };
@@ -12,7 +12,7 @@ export type EnvironmentConfig = {
 
 const environmentConfig: EnvironmentConfig = {
   networks: {
-    default: chains.anvil.id,
+    default: "anvil",
     viem: ["anvil"],
     custom: {},
   },

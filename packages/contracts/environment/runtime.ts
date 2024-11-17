@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import crypto from "jsr:@std/crypto";
 import environmentConfig from "../environment.config.ts";
 
 import * as viem from "viem";
@@ -10,7 +10,7 @@ import {
   bytecode as bytecodeDefinitions,
 } from "../definitions.gen.ts";
 import { expect } from "@std/expect";
-import { currrentNetwork } from "../environment.tmp.ts";
+import { currrentNetwork } from "./environment.tmp.ts";
 
 let currentChain = environmentConfig.networks.custom[currrentNetwork];
 if (!currentChain) {
