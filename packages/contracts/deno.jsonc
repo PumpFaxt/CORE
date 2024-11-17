@@ -8,5 +8,5 @@
     "@openzeppelin/contracts": "npm:@openzeppelin/contracts@^5.1.0",
     "viem": "npm:viem@^2.21.40"
   },
-  "exclude": ["cache", "definitions.gen.ts"]
+  "exclude": ["cache", "definitions.gen.ts", "environment/*tmp.ts"]
 }
