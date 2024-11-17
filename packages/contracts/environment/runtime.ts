@@ -1,4 +1,4 @@
-import crypto from "jsr:@std/crypto";
+import crypto from "node:crypto";
 import environmentConfig from "../environment.config.ts";
 
 import * as viem from "viem";
@@ -10,11 +10,17 @@ import {
   bytecode as bytecodeDefinitions,
 } from "../definitions.gen.ts";
 import { expect } from "@std/expect";
-import { currrentNetwork } from "./environment.tmp.ts";
+import environmentState_ from "./environment.tmp.json" with { type: "json" };
 
-let currentChain = environmentConfig.networks.custom[currrentNetwork];
+// deno-lint-ignore no-explicit-any
+const environmentState = environmentState_ as any;
+
+const { currentNetwork } = environmentState;
+
+let currentChain = environmentConfig.networks.custom[currentNetwork];
 if (!currentChain) {
-  currentChain = chains[currrentNetwork];
+  // @ts-ignore: Dumb, can't read JSON as const
+  currentChain = chains[currentNetwork];
 }
 
 const transport = viem.http(currentChain.rpcUrls.default.http.at(0));

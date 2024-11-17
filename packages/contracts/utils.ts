@@ -38,6 +38,11 @@ export async function metaTxRequest<
   return [signer.account.address, ...(args[1] as A[1]), signature] as const;
 }
 
+export function cliError(message: unknown) {
+  console.error(consoleFmt.red(`${message}`));
+  // Deno.exit(1);
+}
+
 export const consoleFmt = {
   red: (text: string) => `\x1b[31m${text}\x1b[39m`,
   yellow: (text: string) => `\x1b[33m${text}\x1b[39m`,

@@ -1,28 +1,28 @@
 import { parseArgs } from "jsr:@std/cli";
 import config from "./environment.config.ts";
-import { consoleFmt } from "./utils.ts";
+import { cliError, consoleFmt } from "./utils.ts";
 
 const args = parseArgs(Deno.args);
 
-function store(name: string, value: unknown) {
-  Deno.writeTextFileSync(
-    "./environment/environment.tmp.ts",
-    `export const ${name} = ${JSON.stringify(value)} as const;`,
-    {
-      append: true,
-    },
-  );
-}
+const command = args._[0];
 
-function main() {
-  Deno.writeTextFileSync(
-    "./environment/environment.tmp.ts",
-    "",
+const decoder = new TextDecoder();
+
+async function main() {
+  if (args._.length < 1) {
+    throw new Error("Missing command");
+  } else if (args._.length > 1) {
+    throw new Error("Too many commands");
+  }
+
+  const environmentState = JSON.parse(
+    Deno.readTextFileSync("./environment/environment.tmp.json"),
   );
 
   const inputNetwork = args["network"];
 
   if (
+    inputNetwork !== undefined &&
     !config.networks.viem.includes(inputNetwork) &&
     !config.networks.custom[inputNetwork]
   ) {
@@ -31,16 +31,45 @@ function main() {
     );
   }
 
-  store(
-    "currrentNetwork",
-    args["network"] || config.networks.default || "anvil",
-  );
+  environmentState.currentNetwork = args["network"] ||
+    config.networks.default ||
+    "anvil";
+
+  if (command === "compile") {
+    await commands.compile();
+  } else if (command === "tests") {
+    await commands.compile();
+    await commands.node();
+    await commands.tests();
+  } else if (command === "node") {
+    await commands.node();
+  }
 }
 
-if (import.meta.main) {
-  try {
-    main();
-  } catch (e) {
-    console.log(consoleFmt.red(e as string));
+async function execCommand(
+  ...args: ConstructorParameters<typeof Deno.Command>
+) {
+  const cmd = new Deno.Command(...args);
+
+  const { code, stdout, stderr } = await cmd.output();
+
+  if (code === 0) {
+    console.log(decoder.decode(stdout));
+  } else {
+    throw new Error(decoder.decode(stderr));
   }
+}
+
+const commands = {
+  compile: () =>
+    execCommand("deno", { args: ["run", "-A", "environment/compiler.ts"] }),
+  tests: () => execCommand("deno", { args: ["test"] }),
+  node: () =>
+    execCommand("deno", { args: ["run", "-A", "environment/localnode.ts"] }),
+};
+
+if (import.meta.main) {
+  main().catch((e) => {
+    cliError(e);
+  });
 }
