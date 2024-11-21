@@ -1,12 +1,11 @@
 {
   "tasks": {
-    "compile": "deno run -A environment/compiler.ts",
-    "localnode": "hardhat node",
-    "tests": "deno task compile; deno test"
+    "re": "deno run -A mod.ts",
+    "anvil": "../../bin/anvil.exe"
   },
   "imports": {
     "@openzeppelin/contracts": "npm:@openzeppelin/contracts@^5.1.0",
     "viem": "npm:viem@^2.21.40"
   },
-  "exclude": ["cache", "definitions.gen.ts"]
+  "exclude": ["cache", "definitions.gen.ts", "environment/*tmp.ts"]
 }

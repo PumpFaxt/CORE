@@ -95,3 +95,6 @@ Deno.writeTextFileSync(
   resolve(PATH_OUT_DIR, "definitions.gen.ts"),
   genText,
 );
+console.log(
+  consoleFmt.green(`Successfully compiled ${contractNames.length} contracts`),
+);
