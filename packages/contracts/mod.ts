@@ -39,10 +39,10 @@ async function main() {
     await commands.compile();
   } else if (command === "tests") {
     await commands.compile();
-    await commands.node();
+    // await commands.node();
     await commands.tests();
   } else if (command === "node") {
-    await commands.node();
+    await commands.node([args.log && "--log"]);
   }
 }
 
@@ -63,9 +63,13 @@ async function execCommand(
 const commands = {
   compile: () =>
     execCommand("deno", { args: ["run", "-A", "environment/compiler.ts"] }),
+
   tests: () => execCommand("deno", { args: ["test"] }),
-  node: () =>
-    execCommand("deno", { args: ["run", "-A", "environment/localnode.ts"] }),
+
+  node: (args?: string[]) =>
+    execCommand("deno", {
+      args: ["run", "-A", "environment/localnode.ts", ...(args || [])],
+    }),
 };
 
 if (import.meta.main) {
