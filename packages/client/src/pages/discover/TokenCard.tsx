@@ -1,6 +1,5 @@
 import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
 import Icon from "../../shared/components/Icon.tsx";
-import { formatAddress } from "../../shared/lib/utils.ts";
 
 export default function TokenCard() {
   return (
