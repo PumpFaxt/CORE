@@ -3,10 +3,10 @@ import Link from "./Link.tsx";
 
 export default function LoginBanner() {
   return (
-    <div className="flex flex-col -translate-y-4">
+    <div className="flex flex-col -translate-y-4 border-b border-border pb-4">
       <div className="flex items-end">
-        <h1 className="text-2xl font-semibold">
-          Back to the Fun <br /> Side of Crypto
+        <h1 className="text-xl font-semibold">
+          Back to the Fun Side <br /> of Crypto
         </h1>
         <FlexSeparator size="full" />
         <img
