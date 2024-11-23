@@ -39,7 +39,9 @@ async function main() {
     await commands.compile();
   } else if (command === "tests") {
     await commands.compile();
+
     // await commands.node();
+
     await commands.tests();
   } else if (command === "node") {
     await commands.node([args.log && "--log"]);
@@ -49,22 +51,30 @@ async function main() {
 async function execCommand(
   ...args: ConstructorParameters<typeof Deno.Command>
 ) {
-  const cmd = new Deno.Command(...args);
+  const cmd = new Deno.Command(args[0], {
+    ...args[1],
+    stdout: "piped",
+    stdin: "piped",
+  });
 
-  const { code, stdout, stderr } = await cmd.output();
+  const child = cmd.spawn();
 
-  if (code === 0) {
-    console.log(decoder.decode(stdout));
-  } else {
-    throw new Error(decoder.decode(stderr));
-  }
+  // deno-lint-ignore no-explicit-any
+  const consoleStream = new WritableStream<any>({
+    write(chunk) {
+      console.log(decoder.decode(chunk));
+    },
+  });
+
+  await child.stdout.pipeTo(consoleStream);
+  child.stdin.close();
 }
 
 const commands = {
   compile: () =>
     execCommand("deno", { args: ["run", "-A", "environment/compiler.ts"] }),
 
-  tests: () => execCommand("deno", { args: ["test"] }),
+  tests: () => execCommand("deno", { args: ["test", "-A"] }),
 
   node: (args?: string[]) =>
     execCommand("deno", {

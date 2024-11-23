@@ -98,10 +98,28 @@ async function mineOne() {
 }
 const block = { time, mine: networkAdmin.mine, mineOne };
 
-async function tx(txn: Promise<Hash>) {
-  await sleep(5);
-  return await publicClient.getTransactionReceipt({
-    hash: await txn,
+async function tx(
+  txn: Promise<Hash>,
+): ReturnType<typeof networkAdmin.getTransactionReceipt> {
+  const txnHash = await txn;
+
+  let receipt;
+
+  return new Promise((resolve, reject) => {
+    const id = setInterval(async () => {
+      try {
+        receipt = await networkAdmin.getTransactionReceipt({
+          hash: txnHash,
+        });
+        if (receipt.status === "success") {
+          clearInterval(id);
+          resolve(receipt);
+        }
+      } catch (error) {
+        clearInterval(id);
+        reject(error);
+      }
+    }, 10);
   });
 }
 
@@ -181,6 +199,7 @@ async function readContractEvents<
     "abi" | "address" | "eventName"
   >,
 ) {
+  await sleep(1000);
   const logs = await publicClient.getContractEvents({
     abi: contract.abi,
     address: contract.address,
@@ -197,6 +216,7 @@ const runtime = {
   publicClient,
   loadFixture,
   block,
+  networkAdmin,
   deployContract,
   readContractEvents,
   getContract,
