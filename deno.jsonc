@@ -5,7 +5,8 @@
     "img-webp": "python scripts/compress_to_webp.py"
   },
   "imports": {
-    "@std/expect": "jsr:@std/expect"
+    "@std/expect": "jsr:@std/expect",
+    "@cache": "./cache.js"
   },
   "workspace": ["./packages/client", "./packages/contracts"],
   "nodeModulesDir": "auto",

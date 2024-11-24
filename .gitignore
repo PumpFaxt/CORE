@@ -6,3 +6,5 @@
 
 # nohup log files
 **/nohup.out
+
+cache
