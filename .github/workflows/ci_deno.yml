@@ -24,6 +24,6 @@ jobs:
       - name: Run Contracts tests
         working-directory: ./packages/contracts
         run: |
-          deno task localnode &
+          ../../bin/HH/node.bat &
           sleep 5 &
           deno test --allow-net
