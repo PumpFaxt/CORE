@@ -27,4 +27,4 @@ jobs:
           deno i &
           nohup deno task localnode >/dev/null 2>&1 &
           sleep 5 &
-          deno task re tests
+          deno test --allow-net
