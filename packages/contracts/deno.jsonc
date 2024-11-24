@@ -1,7 +1,7 @@
 {
   "tasks": {
     "re": "deno run -A mod.ts",
-    "anvil": "../../bin/anvil.exe"
+    "localnode": "../../bin/HH/node.bat"
   },
   "imports": {
     "@openzeppelin/contracts": "npm:@openzeppelin/contracts@^5.1.0",
