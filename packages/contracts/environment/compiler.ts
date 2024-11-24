@@ -73,14 +73,16 @@ for (const fileName of contractNames) {
     )
   ) {
     const contractDefinition = contractDefinitions[contractName];
-    abiEntries.push(
-      `${contractName}: ${
-        JSON.stringify(contractDefinition.abi, null, 2)
-      } as const`,
-    );
-    bytecodeEntries.push(
-      `${contractName}: "0x${contractDefinition.evm.bytecode.object}"`,
-    );
+    if (contractDefinition) {
+      abiEntries.push(
+        `${contractName}: ${
+          JSON.stringify(contractDefinition.abi, null, 2)
+        } as const`,
+      );
+      bytecodeEntries.push(
+        `${contractName}: "0x${contractDefinition.evm.bytecode.object}"`,
+      );
+    }
   }
 }
 
