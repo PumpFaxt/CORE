@@ -24,6 +24,6 @@ jobs:
       - name: Run Contracts tests
         working-directory: ./packages/contracts
         run: |
-          nohup deno task localnode >/dev/null 2>&1 &
+          deno task localnode &
           sleep 5 &
           deno test --allow-net
