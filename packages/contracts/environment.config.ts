@@ -12,8 +12,8 @@ export type EnvironmentConfig = {
 
 const environmentConfig: EnvironmentConfig = {
   networks: {
-    default: "anvil",
-    viem: ["anvil"],
+    default: "hardhat",
+    viem: ["hardhat"],
     custom: {},
   },
   accounts: [

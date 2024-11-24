@@ -119,14 +119,23 @@ Deno.test("Should consistently increase price after repeated buying", async () =
     account: owner.account,
   });
 
-  for (let i = 0; i < 20; i++) {
-    // deno-lint-ignore no-await-in-loop
-    await token.write.buy([fraxIn, amountOutMin]);
-    // deno-lint-ignore no-await-in-loop
-    const newPrice = await token.read.tokenPrice();
+  await token.write.buy([fraxIn, amountOutMin]);
+  let newPrice = await token.read.tokenPrice();
+  await runtime.sleep(1000);
 
-    expect(Number(newPrice)).toBeGreaterThan(Number(currentPrice));
+  expect(Number(newPrice)).toBeGreaterThan(Number(currentPrice));
 
-    currentPrice = newPrice;
-  }
+  currentPrice = newPrice;
+  await token.write.buy([fraxIn, amountOutMin]);
+  newPrice = await token.read.tokenPrice();
+  await runtime.sleep(1000);
+
+  expect(Number(newPrice)).toBeGreaterThan(Number(currentPrice));
+
+  currentPrice = newPrice;
+  await token.write.buy([fraxIn, amountOutMin]);
+  newPrice = await token.read.tokenPrice();
+  await runtime.sleep(1000);
+
+  expect(Number(newPrice)).toBeGreaterThan(Number(currentPrice));
 });

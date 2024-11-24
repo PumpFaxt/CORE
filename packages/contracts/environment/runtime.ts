@@ -75,6 +75,7 @@ async function loadFixture<T>(fixture: Fixture<T>): Promise<T> {
   } else {
     const snapshot = snapshots[fnHash];
     await networkAdmin.revert({ id: snapshot.id });
+    await sleep(50);
     const snapshotId = await networkAdmin.snapshot();
     snapshots[fnHash].id = snapshotId;
     const data = snapshot.data;
@@ -119,7 +120,7 @@ async function tx(
         clearInterval(id);
         reject(error);
       }
-    }, 10);
+    }, 100);
   });
 }
 
@@ -199,7 +200,7 @@ async function readContractEvents<
     "abi" | "address" | "eventName"
   >,
 ) {
-  await sleep(1000);
+  await sleep(100);
   const logs = await publicClient.getContractEvents({
     abi: contract.abi,
     address: contract.address,

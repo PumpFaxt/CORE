@@ -35,6 +35,11 @@ async function main() {
     config.networks.default ||
     "anvil";
 
+  Deno.writeTextFileSync(
+    "./environment/environment.tmp.json",
+    JSON.stringify(environmentState, null, 2),
+  );
+
   if (command === "compile") {
     await commands.compile();
   } else if (command === "tests") {
