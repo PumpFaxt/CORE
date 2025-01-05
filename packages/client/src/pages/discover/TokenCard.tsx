@@ -14,9 +14,11 @@ export default function TokenCard() {
           <div className="flex text-sm">
             <h1>{tokenData.name}</h1>
             <FlexSeparator size="sm" />
-            <p className="bg-gradient-to-br from-purple-200 via-pink-500 to-red-500 bg-clip-text text-transparent font-bold">
-              {tokenData.ticker}
+            <p className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 bg-clip-text text-transparent font-bold">
+              ({tokenData.ticker})
             </p>
+            <FlexSeparator size="full" />
+            <Icon name="Star" className="size-4" />
           </div>
           <FlexSeparator size="xs" />
           <p className="text-xs text-foreground/50">
@@ -24,11 +26,23 @@ export default function TokenCard() {
               ? `${tokenData.description.slice(0, 100)}...`
               : tokenData.description}
           </p>
+          <FlexSeparator size="md" />
+          <div className="flex flex-col">
+            <div className="text-xs flex">
+              <p className="text-foreground/50">
+                Market Cap:
+              </p>
+              <FlexSeparator size="xs" />
+              <p>$645.21k</p>
+              <FlexSeparator size="xs" />
+              <p className="text-foreground/50">(45.24%)</p>
+            </div>
+            <FlexSeparator size="sm" />
+            <div className="h-2 w-1/2 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 rounded-md" />
+          </div>
         </div>
       </div>
-      <div className="text-sm flex">
-        <p>$450k</p>
-        <FlexSeparator size="full" />
+      <div className="text-sm flex items-center">
         <p className="flex items-center gap-x-1">
           <Icon name="Clock" className="size-3" />
           5h
@@ -39,6 +53,15 @@ export default function TokenCard() {
           <Icon name="ArrowLeftRight" className="size-3" />
           2,323
         </p>
+
+        <FlexSeparator size="full" />
+        <Icon name="Twitter" className="size-3" />
+
+        <FlexSeparator size="sm" />
+        <Icon name="MessageSquare" className="size-3" />
+
+        <FlexSeparator size="sm" />
+        <Icon name="Globe" className="size-3" />
       </div>
     </div>
   );
