@@ -1,9 +1,13 @@
 import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
 import Icon from "../../shared/components/Icon.tsx";
+import Link from "../../shared/components/Link.tsx";
 
 export default function TokenCard() {
   return (
-    <div className="flex flex-col gap-y-2 border border-border p-2 rounded-sm">
+    <Link
+      to="/token"
+      className="flex flex-col gap-y-2 border border-border p-2 rounded-sm hover:cursor-pointer"
+    >
       <div className="flex gap-x-2 items-start pb-2 border-b border-border">
         <img
           src={tokenData.imageUrl}
@@ -63,7 +67,7 @@ export default function TokenCard() {
         <FlexSeparator size="sm" />
         <Icon name="Globe" className="size-3" />
       </div>
-    </div>
+    </Link>
   );
 }
 
