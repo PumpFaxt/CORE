@@ -25,7 +25,7 @@ export default function TokenCard() {
             <Icon name="Star" className="size-4" />
           </div>
           <FlexSeparator size="xs" />
-          <p className="text-xs text-foreground/50">
+          <p className="text-xs text-foreground/50 text-left">
             {tokenData.description?.length > 100
               ? `${tokenData.description.slice(0, 100)}...`
               : tokenData.description}
@@ -46,7 +46,7 @@ export default function TokenCard() {
           </div>
         </div>
       </div>
-      <div className="text-sm flex items-center">
+      <div className="text-sm flex items-center w-full">
         <p className="flex items-center gap-x-1">
           <Icon name="Clock" className="size-3" />
           5h
@@ -59,13 +59,13 @@ export default function TokenCard() {
         </p>
 
         <FlexSeparator size="full" />
-        <Icon name="Twitter" className="size-3" />
+        <Icon name="Twitter" className="size-4" />
 
         <FlexSeparator size="sm" />
-        <Icon name="MessageSquare" className="size-3" />
+        <Icon name="MessageSquare" className="size-4" />
 
         <FlexSeparator size="sm" />
-        <Icon name="Globe" className="size-3" />
+        <Icon name="Globe" className="size-4" />
       </div>
     </Link>
   );

@@ -1,0 +1,114 @@
+import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
+import Icon from "../../shared/components/Icon.tsx";
+import FormatAddress from "../../shared/components/FormatAddress.tsx";
+import ClipboardWrapper from "../../shared/components/ClipboardWrapper.tsx";
+
+export default function Header() {
+  return (
+    <div className="flex flex-col gap-y-2 border border-border p-2 rounded-sm hover:cursor-pointer">
+      <div className="flex gap-x-2 items-start ">
+        <img
+          src={tokenData.imageUrl}
+          alt={tokenData.name}
+          className="w-1/4 object-cover aspect-square"
+        />
+        <div className="flex flex-col">
+          <div className="flex text-sm flex-col">
+            <div className="flex w-full">
+              <h1>{tokenData.name}</h1>
+              <FlexSeparator size="full" />
+              <div className="flex">
+                <Icon name="Twitter" className="size-5" />
+
+                <FlexSeparator size="sm" />
+                <Icon name="MessageSquare" className="size-5" />
+
+                <FlexSeparator size="sm" />
+                <Icon name="Globe" className="size-5" />
+              </div>
+            </div>
+
+            <div className="flex w-full items-center">
+              <p className="bg-gradient-to-r text-xl w-max from-blue-400 via-purple-500 to-pink-600 bg-clip-text text-transparent font-bold">
+                {tokenData.ticker}
+              </p>
+              <FlexSeparator size="full" />
+              <div className="flex text-xs items-center">
+                <p className="whitespace-nowrap mr-1 text-foreground/50">
+                  Created By:
+                </p>
+                <ClipboardWrapper textToBeCopied="0x9B28C43d4526202c316b9ab0ECCB757C4D9c5155">
+                  <div className="flex items-center">
+                    <FormatAddress address="0x9B28C43d4526202c316b9ab0ECCB757C4D9c5155" />
+                    <FlexSeparator size="sm" />
+                    <Icon name="Copy" className="size-5" />
+                  </div>
+                </ClipboardWrapper>
+              </div>
+            </div>
+          </div>
+          <FlexSeparator size="xs" />
+          <p className="text-xs text-foreground/50">
+            {tokenData.description}
+          </p>
+        </div>
+      </div>
+      <div className="text-xs font-semibold flex flex-col bg-foreground/5 py-2 px-3 rounded-xs">
+        <div className="flex w-full">
+          <p>
+            Price
+          </p>
+          <FlexSeparator size="full" />
+          <p>
+            <span className="text-green-400 font-semibold font-mono">
+              +2.57%
+            </span>{" "}
+            {tokenData.price} PFRAX
+          </p>
+        </div>
+        <FlexSeparator size="md" />
+        <div className="flex w-full">
+          <p>
+            Market Cap
+          </p>
+          <FlexSeparator size="full" />
+          <p>
+            ${tokenData.marketCap}
+          </p>
+        </div>
+        <FlexSeparator size="md" />
+        <div className="flex w-full">
+          <p>
+            24H Volume
+          </p>
+          <FlexSeparator size="full" />
+          <p>
+            240k PFRAX
+          </p>
+        </div>
+        <FlexSeparator size="md" />
+        <div className="flex w-full">
+          <p>
+            Token Created
+          </p>
+          <FlexSeparator size="full" />
+          <p>
+            20H 32M Ago
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const tokenData = {
+  name: "KhareedLoYarr",
+  createdBy: "0x9B28C43d4526202c316b9ab0ECCB757C4D9c5155",
+  ticker: "KLYRR",
+  marketCap: "2.2M",
+  price: "0.2",
+  description:
+    "Find & Download Free Graphic Resources for Random Nft Vectors, Stock Photos & PSD files.  Free for commercial use  High Quality Images. Find & Download the most popular Random Nft Photos on Freepik  Free for commercial use  High Quality Images.",
+  imageUrl:
+    "https://i.ytimg.com/vi/LW1i-axSoYE/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA6NX3F_tN3cSQg084sPFcPOFS1ew",
+};
