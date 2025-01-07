@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Icon from "../../shared/components/Icon.tsx";
 import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
@@ -50,7 +50,7 @@ export default function Trader() {
     >
       <div className="flex flex-col relative gap-y-2">
         <div className="self-start text-yellow-400 text-sm animate-pulse flex items-center">
-          <Icon name="FileWarning" className="size-5" />
+          <Icon name="CircleAlert" className="size-5" />
           <FlexSeparator size="sm" />
           <p className="whitespace-nowrap">
             You are {tradeState.toLowerCase()}ing {token.symbol} for {"FRAX"}
