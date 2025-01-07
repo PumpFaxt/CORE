@@ -88,7 +88,7 @@ export default function Trader() {
             setSellAmount(0);
           }}
         >
-          <Icon name="ArrowBigRight" className="size-3" />
+          <Icon name="ArrowRight" className="size-3" />
         </button>
 
         <div className="border border-front/20 p-3 rounded-lg min-h-[15vh]">
