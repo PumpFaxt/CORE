@@ -24,7 +24,6 @@ jobs:
       - name: Run Contracts tests
         working-directory: ./packages/contracts
         run: |
-          chmod +x ../../bin/HH/node.sh &
           ../../bin/HH/node.sh &
           sleep 5 &
           deno test --allow-net
