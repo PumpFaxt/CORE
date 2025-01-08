@@ -11,7 +11,6 @@ import {
 } from "../definitions.gen.ts";
 import { expect } from "@std/expect";
 import environmentState_ from "./environment.tmp.json" with { type: "json" };
-import { consoleFmt } from "../utils.ts";
 
 // deno-lint-ignore no-explicit-any
 const environmentState = environmentState_ as any;

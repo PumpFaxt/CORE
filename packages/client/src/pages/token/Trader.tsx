@@ -19,7 +19,7 @@ export default function Trader() {
   const [loading, setLoading] = useState(false);
   const [tradeState, setTradeState] = useState<"BUY" | "SELL">("BUY");
   const [amount, setAmount] = useState({ buy: 0, sell: 0 });
-  const [slippage, setSlippage] = useState(1);
+  const slippage = 1;
 
   const tradingPair = [
     {
