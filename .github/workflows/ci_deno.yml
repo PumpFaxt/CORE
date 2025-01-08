@@ -24,7 +24,7 @@ jobs:
       - name: Run Contracts tests
         working-directory: ./packages/contracts
         run: |
-          cd ../../bin/HH &
-          deno run -A npm:hardhat node &
+          chmod +x ../../bin/HH/node.sh &
+          ../../bin/HH/node.sh &
           sleep 5 &
           deno test --allow-net
