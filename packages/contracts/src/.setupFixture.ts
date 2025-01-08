@@ -33,7 +33,7 @@ export async function setupFixture() {
     parseFrax(0.01),
   ]);
   await feeController.write.setPumpfaxtTokenLaunchFee_FLAT([parseFrax(2)]);
-  await feeController.write.setPumpfaxtTokenBuySellFee_FRACTION([1000n]); // 10% fee
+  await feeController.write.setPumpfaxtTokenBuySellFee_FRACTION([1000n]); // 0.1% fee
   await feeController.write.setPumpfaxtTokenTransferFee_FRACTION([100n]); // 1% fee
 
   return {

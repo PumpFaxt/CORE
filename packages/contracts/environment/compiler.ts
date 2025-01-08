@@ -68,11 +68,12 @@ const bytecodeEntries: string[] = [];
 for (const fileName of contractNames) {
   const contractDefinitions = output.contracts[fileName];
   for (
-    const [contractName] of Object.keys(
+    const contractName of Object.keys(
       contractDefinitions,
     )
   ) {
     const contractDefinition = contractDefinitions[contractName];
+
     if (contractDefinition) {
       abiEntries.push(
         `${contractName}: ${
