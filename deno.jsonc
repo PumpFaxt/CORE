@@ -8,7 +8,11 @@
     "@std/expect": "jsr:@std/expect",
     "@cache": "./cache.js"
   },
-  "workspace": ["./packages/client", "./packages/contracts"],
+  "workspace": [
+    "./packages/client",
+    "./packages/contracts",
+    "./packages/server"
+  ],
   "nodeModulesDir": "auto",
   "compilerOptions": {
     "strict": true,

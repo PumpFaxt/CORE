@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "start:dev": "deno run -A --watch server.ts"
+  },
+  "imports": {
+    "@lifi/sdk": "npm:@lifi/sdk@^3.5.1",
+    "@oak/oak": "jsr:@oak/oak@^17.1.4"
+  }
+}
