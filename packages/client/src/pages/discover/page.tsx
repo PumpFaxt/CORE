@@ -7,10 +7,10 @@ import LoginBanner from "../../shared/components/LoginBanner.tsx";
 import RiskWarningBanner from "../../shared/components/RiskWarningBanner.tsx";
 import Navigation from "./Navigation.tsx";
 import Tokens from "./Tokens.tsx";
-import { useWallets } from "privy";
+import { usePrivy, useWallets } from "privy";
 
 export default function () {
-  // const { authenticated } = usePrivy();
+  const { authenticated } = usePrivy();
   const w = useWallets();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function () {
 
       <Header />
 
-      <LoginBanner />
+      {!authenticated && <LoginBanner />}
 
       <Navigation />
 
