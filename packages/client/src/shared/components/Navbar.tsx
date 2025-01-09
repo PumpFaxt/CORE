@@ -12,10 +12,10 @@ export default function Navbar() {
         <Icon name="MessagesSquare" className="size-6" />
         <p>Chat</p>
       </div>
-      <div className="flex flex-col items-center gap-y-1">
+      <Link to="pfrax" className="flex flex-col items-center gap-y-1">
         <Icon name="Touchpad" className="size-6" />
         <p>PFRAX</p>
-      </div>
+      </Link>
       <div className="flex flex-col items-center gap-y-1">
         <Icon name="Plus" className="size-6" />
         <p>Create</p>
