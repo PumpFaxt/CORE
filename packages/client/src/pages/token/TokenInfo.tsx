@@ -6,12 +6,19 @@ import ClipboardWrapper from "../../shared/components/ClipboardWrapper.tsx";
 export default function TokenInfo() {
   return (
     <div className="flex flex-col gap-y-2 border border-border p-2 rounded-sm hover:cursor-pointer">
-      <div className="flex gap-x-2 items-start ">
+      <div className="aspect-video relative overflow-hidden">
         <img
           src={tokenData.imageUrl}
           alt={tokenData.name}
-          className="w-1/4 object-cover aspect-square"
+          className="object-cover absolute top-0 left-0 self-center aspect-video blur-3xl scale-125"
         />
+        <img
+          src={tokenData.imageUrl}
+          alt={tokenData.name}
+          className="object-contain aspect-video relative"
+        />
+      </div>
+      <div className="flex gap-x-2 items-start ">
         <div className="flex flex-col">
           <div className="flex text-sm flex-col">
             <div className="flex w-full">
@@ -122,5 +129,5 @@ const tokenData = {
   description:
     "Find & Download Free Graphic Resources for Random Nft Vectors, Stock Photos & PSD files.  Free for commercial use  High Quality Images. Find & Download the most popular Random Nft Photos on Freepik  Free for commercial use  High Quality Images.",
   imageUrl:
-    "https://i.ytimg.com/vi/LW1i-axSoYE/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA6NX3F_tN3cSQg084sPFcPOFS1ew",
+    "https://i.pinimg.com/736x/26/db/8e/26db8e1bc9a0eb238e69ae7d01a24fee.jpg",
 };

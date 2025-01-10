@@ -12,7 +12,7 @@ export default function TokenCard() {
         <img
           src={tokenData.imageUrl}
           alt={tokenData.name}
-          className="w-1/4 object-cover aspect-square"
+          className="w-1/5 object-cover aspect-square"
         />
         <div className="flex flex-col">
           <div className="flex text-sm">
@@ -42,7 +42,7 @@ export default function TokenCard() {
               <p className="text-foreground/50">(45.24%)</p>
             </div>
             <FlexSeparator size="sm" />
-            <div className="h-2 w-1/2 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 rounded-md" />
+            <div className="h-2 w-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 rounded-md" />
           </div>
         </div>
       </div>
