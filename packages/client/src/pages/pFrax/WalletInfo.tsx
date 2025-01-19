@@ -9,12 +9,11 @@ export default function WalletInfo() {
     <div className="flex">
       <div className="flex flex-col">
         <div className="flex text-sm items-center">
-          <Icon name="Wallet" className="size-4 mr-1 text-primary" />
           <p className="whitespace-nowrap mr-1 ">
-            Your Wallet:
+            Your Wallet
           </p>
           <ClipboardWrapper textToBeCopied="0x9B28C43d4526202c316b9ab0ECCB757C4D9c5155">
-            <div className="flex items-center text-foreground/50">
+            <div className="flex items-center text-foreground/50 text-sm">
               <FormatAddress address="0x9B28C43d4526202c316b9ab0ECCB757C4D9c5155" />
               <FlexSeparator size="sm" />
               <Icon name="Copy" className="size-5" />
@@ -31,7 +30,7 @@ export default function WalletInfo() {
         </div>
       </div>
       <FlexSeparator size="full" />
-      <div className="flex gap-x-6 text-xs">
+      <div className="flex text-xs gap-x-2">
         <Link to="/pfrax/send" className="flex flex-col items-center gap-y-1">
           <Icon name="Upload" className="border p-3 rounded-md size-11" />
           <p>
