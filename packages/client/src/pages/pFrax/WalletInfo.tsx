@@ -3,8 +3,13 @@ import FlexSeparator from "../../shared/components/FlexSeparator.tsx";
 import FormatAddress from "../../shared/components/FormatAddress.tsx";
 import Icon from "../../shared/components/Icon.tsx";
 import Link from "../../shared/components/Link.tsx";
+import { usePrivy } from "privy";
 
 export default function WalletInfo() {
+  const { user } = usePrivy();
+  const walletAddress = user?.wallet?.address || "";
+  console.log(walletAddress);
+
   return (
     <div className="flex">
       <div className="flex flex-col">
@@ -12,9 +17,9 @@ export default function WalletInfo() {
           <p className="whitespace-nowrap mr-1 ">
             Your Wallet
           </p>
-          <ClipboardWrapper textToBeCopied="0x9B28C43d4526202c316b9ab0ECCB757C4D9c5155">
+          <ClipboardWrapper textToBeCopied={walletAddress}>
             <div className="flex items-center text-foreground/50 text-sm">
-              <FormatAddress address="0x9B28C43d4526202c316b9ab0ECCB757C4D9c5155" />
+              <FormatAddress address={walletAddress} />
               <FlexSeparator size="sm" />
               <Icon name="Copy" className="size-5" />
             </div>
@@ -40,7 +45,7 @@ export default function WalletInfo() {
         <button className="flex flex-col items-center gap-y-1">
           <Icon name="Download" className="border p-3 rounded-md size-11" />
           <p>
-            Recieve
+            Receive
           </p>
         </button>
       </div>

@@ -30,6 +30,7 @@ export default function () {
 
       {!authenticated && <LoginBanner />}
 
+      <FlexSeparator size="sm" />
       <Navigation />
 
       <FlexSeparator size="lg" />

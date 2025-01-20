@@ -1,4 +1,3 @@
-import type React from "react";
 import { twMerge } from "tailwind-merge";
 import { isAddress } from "viem";
 
@@ -19,7 +18,7 @@ export default function AddressBlockavatar(props: {
       )}
       style={{
         "--clr": "#" + props.address.slice(2, 8),
-      } as React.CSSProperties}
+      }}
     >
       {props.address
         .slice(2)

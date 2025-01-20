@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "preact/hooks";
 import { twMerge } from "tailwind-merge";
 import Icon from "../../shared/components/Icon.tsx";
 import FlexSeparator from "../../shared/components/FlexSeparator.tsx";

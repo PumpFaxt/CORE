@@ -1,8 +1,8 @@
-import type React from "react";
 import { twMerge } from "tailwind-merge";
+import type { Children } from "../types/utils.d.ts";
 
 export default function (props: {
-  children?: React.ReactNode;
+  children?: Children;
   textToBeCopied?: string;
   className?: string;
 }) {
