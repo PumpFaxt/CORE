@@ -41,7 +41,7 @@ async function clearExistingAndStoreSeedPhrase(seedPhrase: string) {
 }
 
 async function clearExistingAndCreateAndStoreNewSeedPhrase() {
-    const seedPhrase = createSeedPhrase("english");
+    const seedPhrase = await createSeedPhrase("english");
 
     await clearExistingAndStoreSeedPhrase(seedPhrase);
 }

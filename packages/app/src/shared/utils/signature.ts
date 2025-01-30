@@ -1,4 +1,4 @@
-import { createWalletClient, SignableMessage } from "viem";
+import { SignableMessage } from "viem";
 import { mnemonicToAccount } from "viem/accounts";
 
 export async function getMessageSignedBySeedPhraseBytes(
