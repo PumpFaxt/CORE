@@ -20,7 +20,12 @@
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#000000"
             },
-            "package": "com.pumpfaxt.mclp2"
+            "package": "com.pumpfaxt.mclp2",
+            "permissions": [
+                "POST_NOTIFICATIONS",
+                "READ_EXTERNAL_STORAGE",
+                "WRITE_EXTERNAL_STORAGE"
+            ]
         },
         "web": {
             "bundler": "metro",

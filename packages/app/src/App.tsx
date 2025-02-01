@@ -1,6 +1,7 @@
 import { Pressable, Text, Vibration, View } from "react-native";
-import keychain from "./shared/utils/keychain";
+import keychain from "@/shared/utils/keychain";
 import { useState } from "react";
+import { requestNotificationPermission } from "./shared/utils/permissions";
 
 export default function () {
   const [add, setAdd] = useState("");
@@ -18,8 +19,7 @@ export default function () {
         <Pressable
           onPress={async () => {
             Vibration.vibrate(1000);
-            await keychain.clearExistingAndCreateAndStoreNewSeedPhrase();
-            alert("hogya");
+            await requestNotificationPermission();
           }}
         >
           <Text>gen</Text>

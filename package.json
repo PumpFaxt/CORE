@@ -1,0 +1,12 @@
+{
+    "workspaces": [
+        "./packages/app"
+    ],
+    "private": true,
+    "engines": {
+        "bun": "*",
+        "npm": "false",
+        "pnpm": "false",
+        "yarn": "false"
+    }
+}
