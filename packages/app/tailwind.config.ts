@@ -79,5 +79,13 @@ export default {
                 },
             });
         },
+        function (i: any) {
+            const utilities = {
+                ".p-page": {
+                    "@apply px-5": {},
+                },
+            };
+            i.addUtilities(utilities);
+        },
     ],
 } satisfies Config;

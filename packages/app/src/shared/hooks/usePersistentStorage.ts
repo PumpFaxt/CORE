@@ -15,31 +15,45 @@ type STORAGESTRINGTYPE = {
     "string": ReturnType<typeof useMMKVString>;
 };
 
-const storageDef: Record<string, keyof STORAGESTRINGTYPE> = {
+const storageDef = {
     "user.has_been_welcomed": "boolean",
+    "user.app_open_count": "number",
+    "user.address": "string",
 } as const;
 
-export function usePersistentStorage(key: undefined): typeof storage;
-export function usePersistentStorage<T extends keyof typeof storageDef>(
+export function usePersistentStorage<
+    T extends keyof typeof storageDef,
+>(
     key: T,
-): STORAGESTRINGTYPE[(typeof storageDef)[T]];
-
-export function usePersistentStorage<T extends keyof typeof storageDef>(
-    key: T | undefined,
-): typeof storage | STORAGESTRINGTYPE[(typeof storageDef)[T]] {
-    if (key === undefined) {
-        return storage;
-    }
-
+): STORAGESTRINGTYPE[typeof storageDef[T]] {
     const type = storageDef[key];
-    switch (type) {
-        case "boolean":
-            return useMMKVBoolean(key, storage);
-        case "number":
-            return useMMKVNumber(key, storage);
-        case "string":
-            return useMMKVString(key, storage);
-        default:
-            throw new Error("unknown storage type");
+
+    if (isBooleanString(type)) {
+        return useMMKVBoolean(key) as any;
     }
+    if (isNumberString(type)) {
+        return useMMKVNumber(key) as any;
+    }
+    if (isStringString(type)) {
+        return useMMKVString(key) as any;
+    }
+    throw new Error("unknown storage type");
+}
+
+function isBooleanString(
+    type: typeof storageDef[keyof typeof storageDef],
+): type is "boolean" {
+    return type === "boolean";
+}
+
+function isNumberString(
+    type: typeof storageDef[keyof typeof storageDef],
+): type is "number" {
+    return type === "number";
+}
+
+function isStringString(
+    type: typeof storageDef[keyof typeof storageDef],
+): type is "string" {
+    return type === "string";
 }

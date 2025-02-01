@@ -5,6 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { useEffect } from "react";
 import App from "@/App";
+import GlobalModal from "@/shared/components/GlobalModal";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,6 +33,7 @@ export default function () {
     <View role="main" className="bg-background">
       <View role="figure" style={{ height: statusBarHeight }} />
       <App />
+
       <StatusBar style="auto" />
     </View>
   );
