@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import dummy from "./routes/dummy";
 
 const app = new Hono();
 
@@ -19,7 +20,7 @@ app.use(
     }),
 );
 
-
+app.route("dummy", dummy);
 
 let servedSessions = 0;
 app.get("/stats", async (ctx) => {

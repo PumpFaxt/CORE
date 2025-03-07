@@ -35,7 +35,7 @@ export const useServerConfig = () => {
         queryKey: ["server-stats"],
         queryFn: async () => {
             const res = await axios.get<{ privyAppId: string }>(
-                "/api/stats",
+                "/stats",
             );
             return res.data;
         },

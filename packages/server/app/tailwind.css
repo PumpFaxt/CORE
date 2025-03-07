@@ -2,8 +2,16 @@
 
 @layer base {
   :root {
-    --background: rgb(0, 0, 0);
+    --background: rgb(1, 1, 10);
     --foreground: rgb(255, 255, 255);
+    --primary: oklch(0.707 0.165 254.624);
+    --secondary: oklch(0.627 0.265 303.9);
+    --border: oklch(0.3 0 0);
+    --card: hsl(240, 23%, 8%);
+  }
+
+  * {
+    @apply border-border;
   }
 
   body {
@@ -14,4 +22,33 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --text-xxs: 10px;
+}
+
+@utility text-rainbow {
+  @apply bg-rainbow text-transparent bg-clip-text;
+}
+
+@utility bg-rainbow {
+  width: 80vw;
+  height: 200px;
+  border-radius: 5px;
+  background: linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(255, 154, 0, 1) 10%,
+      rgba(208, 222, 33, 1) 20%,
+      rgba(79, 220, 74, 1) 30%,
+      rgba(63, 218, 216, 1) 40%,
+      rgba(47, 201, 226, 1) 50%,
+      rgba(28, 127, 238, 1) 60%,
+      rgba(95, 21, 242, 1) 70%,
+      rgba(186, 12, 248, 1) 80%,
+      rgba(251, 7, 217, 1) 90%,
+      rgba(255, 0, 0, 1) 100%
+  );
 }
