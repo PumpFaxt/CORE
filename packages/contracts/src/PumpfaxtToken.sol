@@ -11,7 +11,6 @@ contract PumpfaxtToken is ERC20, ERC20Permit {
     PumpfaxtMaster private _master;
 
     uint256 private _virtualReserve;
-    uint256 private _tokenPrice;
 
     uint8 private immutable _decimals;
 
@@ -19,11 +18,6 @@ contract PumpfaxtToken is ERC20, ERC20Permit {
     string public uri;
     bool public isTrading = true;
 
-    modifier updatePriceAndReserve() {
-        _;
-
-        _tokenPrice = calculateFrxUsdOut(1 * _master.frxDECIMALS());
-    }
 
     modifier onlyMaster() {
         require(
@@ -38,7 +32,7 @@ contract PumpfaxtToken is ERC20, ERC20Permit {
         string memory name_,
         string memory symbol_,
         string memory uri_
-    ) ERC20(name_, symbol_) ERC20Permit(name_) updatePriceAndReserve {
+    ) ERC20(name_, symbol_) ERC20Permit(name_) {
         _master = PumpfaxtMaster(msg.sender);
 
         frxUsd = _master.frxUsd();
@@ -49,10 +43,6 @@ contract PumpfaxtToken is ERC20, ERC20Permit {
 
         _mint(address(_master), _master.initialSupply() * (10 ** _decimals));
         _virtualReserve = _master.frxUsdTarget() * _master.frxDECIMALS();
-    }
-
-    function tokenPrice() external view returns (uint256) {
-        return _tokenPrice;
     }
 
     function disableTrading() external onlyMaster {

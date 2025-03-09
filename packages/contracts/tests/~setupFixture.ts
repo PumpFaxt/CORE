@@ -14,14 +14,15 @@ export async function setupFixture() {
         frxUsd.address,
     ]);
 
-    const acc1PermitRequest = await permitERC20PermitRequest(
-        frxUsd,
-        acc1,
-        master.address,
-    );
-    await tx(frxUsd.write.permit(acc1PermitRequest));
+    [owner, acc1, acc2].forEach(async (wallet) => {
+        await tx(
+            frxUsd.write.permit(
+                await permitERC20PermitRequest(frxUsd, wallet, master.address),
+            ),
+        );
+    });
 
-    await master.write.setFrxUsdTarget([20_000n]);
+    await tx(master.write.setFrxUsdTarget([20_000n]));
 
     const relayManager = await runtime.getContractAt(
         "RelayManager",

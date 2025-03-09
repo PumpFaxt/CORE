@@ -26,7 +26,7 @@ contract PumpfaxtFeeController {
     modifier onlyAdmin() {
         require(
             msg.sender == address(_master.owner()),
-            "Only master can call this method"
+            "Only admin can call this method"
         );
         _;
     }
@@ -39,7 +39,7 @@ contract PumpfaxtFeeController {
         address from_,
         uint256 amount_,
         bytes32 purpose_
-    ) external onlyAdmin {
+    ) external onlyMaster {
         emit FeeCollected(from_, amount_, purpose_);
     }
 

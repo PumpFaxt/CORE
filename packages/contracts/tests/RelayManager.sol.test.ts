@@ -23,14 +23,14 @@ describe("RelayManager", function () {
 
     describe("Execution & Nonce Validation", () => {
         it("Should increase the nonce after execution", async () => {
-            const { acc1, relayManager, master } = await loadFixture(
+            const { owner, relayManager, master } = await loadFixture(
                 deployFixture,
             );
 
             const nonce = await relayManager.read.getNonce();
 
             const req = await metaTxRequest({
-                signer: acc1,
+                signer: owner,
                 functionName: "launchToken",
                 args: [
                     ["string", "string", "string"],
