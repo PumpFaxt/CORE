@@ -32,7 +32,15 @@ export default function () {
               </div>
             </div>
 
-            <p className="text-xxs pb-2 text-primary">Launched by <span className="text-rainbow font-semibold bg-blend-lighten">@marsian83</span> 37m ago</p>
+            <p className="text-xxs pb-1 text-primary flex items-center gap-x-1 whitespace-nowrap">
+              <span>Launched by</span>
+              <img
+                className="size-[1em]"
+                src="https://pngimg.com/d/wojak_PNG109613.png"
+              />
+              <span className="text-rainbow font-semibold">@marsian83</span>
+              <span>37m ago</span>
+            </p>
 
             <p className="line-clamp-3 text-xs text-foreground/50">
               {coin.description}
