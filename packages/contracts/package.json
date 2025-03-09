@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test"
+  },
+  "name": "pumpfaxt-contracts",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "@openzeppelin/contracts": "^5.2.0",
+    "hardhat": "^2.22.19",
+    "~shared": "workspace:*"
+  }
+}
