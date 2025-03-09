@@ -1,0 +1,6 @@
+{
+    "name": "~shared",
+    "dependencies": {
+        "viem": "^2.23.8"
+    }
+}
