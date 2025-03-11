@@ -5,8 +5,8 @@ type Definition = {
 
 let definitions: Record<string, Definition> = {};
 
-const filePrefix = "const contractDefinitions = ";
-const fileSuffix = " as const;\nexport default contractDefinitions;";
+const filePrefix = "export const contractDefinitions = ";
+const fileSuffix = " as const;";
 const filePath = __dirname +
     "/contractDefinitions.gen.ts";
 
@@ -32,7 +32,7 @@ async function syncDefsFromLocal() {
 async function syncDefsToLocal() {
     await Bun.write(
         filePath,
-        filePrefix + JSON.stringify(definitions) + fileSuffix,
+        filePrefix + JSON.stringify(definitions, null, 2) + fileSuffix,
     );
 }
 
