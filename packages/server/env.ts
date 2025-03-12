@@ -1,4 +1,4 @@
-const envKeys = ["PRIVY_APP_ID", "SERVER_PRIVATE_KEY", "EVM_NETWORK"] as const;
+const envKeys = ["PRIVY_APP_ID", "SERVER_PRIVATE_KEY", "EVM_NETWORK", "DB_FILE_NAME"] as const;
 
 type ENV = Record<typeof envKeys[number], string>;
 

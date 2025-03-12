@@ -9,11 +9,11 @@ const rpc = chain.rpcUrls.default.http[0];
 
 const walletClient = createWalletClient({
     account: privateKeyToAccount(env.SERVER_PRIVATE_KEY as "0x"),
-    transport: http(rpc) as any,
+    transport: http(rpc),
 });
 
 const publicClient = createPublicClient({
-    transport: http(rpc) as any,
+    transport: http(rpc),
 });
 
 const evmClient = { wallet: walletClient, public: publicClient };
