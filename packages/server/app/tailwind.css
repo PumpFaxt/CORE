@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "tailwindcss-motion";
 
 @layer base {
   :root {
@@ -16,6 +17,22 @@
 
   body {
     @apply bg-background text-foreground;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  input,
+  textarea {
+    @apply outline-none rounded focus:outline-none;
   }
 }
 
@@ -36,11 +53,11 @@
 @utility bg-rainbow {
   width: full;
   background: linear-gradient(
-      90deg,
-      rgba(63, 218, 216, 1) 0%,
-      rgba(79, 220, 74, 1) 25%,
-      rgba(255, 154, 0, 1) 50%,
-      rgba(251, 7, 217, 1) 75%,
-      rgba(95, 21, 242, 1) 100%
+    90deg,
+    rgba(63, 218, 216, 1) 0%,
+    rgba(79, 220, 74, 1) 25%,
+    rgba(255, 154, 0, 1) 50%,
+    rgba(251, 7, 217, 1) 75%,
+    rgba(95, 21, 242, 1) 100%
   );
 }

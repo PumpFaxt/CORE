@@ -6,6 +6,7 @@ import "./PumpfaxtToken.sol";
 import "./RelayManager.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 
 contract PumpfaxtMaster is Ownable {
     ERC20 public immutable frxUsd;
@@ -55,18 +56,21 @@ contract PumpfaxtMaster is Ownable {
     function _launchToken(
         address creator_,
         string memory name_,
-        string memory symbol_,
-        string memory uri_
+        string memory symbol_
     ) private {
-        uint256 fee = feeController.pumpfaxtTokenLaunchFee_FLAT() * frxDECIMALS();
+        uint256 fee = feeController.pumpfaxtTokenLaunchFee_FLAT() *
+            frxDECIMALS();
         frxUsd.transferFrom(creator_, address(feeController), fee);
-        feeController.registerFee(creator_, fee, keccak256("launchPumpfaxtToken"));
+        feeController.registerFee(
+            creator_,
+            fee,
+            keccak256("launchPumpfaxtToken")
+        );
 
         PumpfaxtToken newToken = new PumpfaxtToken(
             creator_,
             name_,
-            symbol_,
-            uri_
+            symbol_
         );
         tokenLaunchedAtBlockNumber[address(newToken)] = block.number;
 
@@ -75,20 +79,20 @@ contract PumpfaxtMaster is Ownable {
 
     function launchToken(
         string memory name_,
-        string memory symbol_,
-        string memory uri_
+        string memory symbol_
     ) external {
-        _launchToken(msg.sender, name_, symbol_, uri_);
+        _launchToken(msg.sender, name_, symbol_);
     }
 
     function metaLaunchToken(
         address creator_,
         string memory name_,
         string memory symbol_,
-        string memory uri_,
         bytes calldata signature_
     ) external {
-        bytes32 functionDataHash = keccak256(abi.encodePacked(name_, symbol_, uri_));
+        bytes32 functionDataHash = keccak256(
+            abi.encodePacked(name_, symbol_)
+        );
         bool validExecution = relayManager.execute(
             creator_,
             "launchToken",
@@ -100,7 +104,7 @@ contract PumpfaxtMaster is Ownable {
             "Execution Failed; Invalidated by RelayManager"
         );
 
-        _launchToken(msg.sender, name_, symbol_, uri_);
+        _launchToken(creator_, name_, symbol_);
     }
 
     function _buyToken(

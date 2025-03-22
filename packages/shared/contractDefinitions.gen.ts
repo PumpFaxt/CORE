@@ -6,33 +6,33 @@ export const contractDefinitions = {
           {
             "internalType": "address",
             "name": "frxUsd_",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "constructor",
+        "type": "constructor"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "OwnableInvalidOwner",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "account",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "OwnableUnauthorizedAccount",
-        "type": "error",
+        "type": "error"
       },
       {
         "anonymous": false,
@@ -41,29 +41,29 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "token",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": true,
             "internalType": "address",
             "name": "buyer",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "Buy",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
@@ -72,11 +72,11 @@ export const contractDefinitions = {
             "indexed": false,
             "internalType": "uint256",
             "name": "newTarget",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ChangeFrxUsdTarget",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
@@ -85,17 +85,17 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "creator",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "address",
             "name": "token",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "Launch",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
@@ -104,17 +104,17 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "previousOwner",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": true,
             "internalType": "address",
             "name": "newOwner",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "OwnershipTransferred",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
@@ -123,52 +123,52 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "creator",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "address",
             "name": "token",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "Sell",
-        "type": "event",
+        "type": "event"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "token_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "frxUsdIn_",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "amountOutMin_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "buyToken",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -177,11 +177,11 @@ export const contractDefinitions = {
           {
             "internalType": "contract PumpfaxtFeeController",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -190,11 +190,11 @@ export const contractDefinitions = {
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -203,11 +203,11 @@ export const contractDefinitions = {
           {
             "internalType": "uint8",
             "name": "",
-            "type": "uint8",
-          },
+            "type": "uint8"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -216,11 +216,11 @@ export const contractDefinitions = {
           {
             "internalType": "contract ERC20",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -229,11 +229,11 @@ export const contractDefinitions = {
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -242,152 +242,142 @@ export const contractDefinitions = {
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "string",
             "name": "name_",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "string",
             "name": "symbol_",
-            "type": "string",
-          },
-          {
-            "internalType": "string",
-            "name": "uri_",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "name": "launchToken",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "liquidity",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "buyer_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "token_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "frxUsdIn_",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "amountOutMin_",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "bytes",
             "name": "signature_",
-            "type": "bytes",
-          },
+            "type": "bytes"
+          }
         ],
         "name": "metaBuyToken",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "creator_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "string",
             "name": "name_",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "string",
             "name": "symbol_",
-            "type": "string",
-          },
-          {
-            "internalType": "string",
-            "name": "uri_",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "bytes",
             "name": "signature_",
-            "type": "bytes",
-          },
+            "type": "bytes"
+          }
         ],
         "name": "metaLaunchToken",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "seller_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "token_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "amountIn_",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "frxUsdOutMin_",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "bytes",
             "name": "signature_",
-            "type": "bytes",
-          },
+            "type": "bytes"
+          }
         ],
         "name": "metaSellToken",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -396,11 +386,11 @@ export const contractDefinitions = {
           {
             "internalType": "address",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -409,96 +399,96 @@ export const contractDefinitions = {
           {
             "internalType": "contract RelayManager",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
         "name": "renounceOwnership",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "token_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "amountIn_",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "frxUsdOutMin_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "sellToken",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "newTarget_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "setFrxUsdTarget",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "tokenLaunchedAtBlockNumber",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "newOwner",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "transferOwnership",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-      },
+        "type": "function"
+      }
     ],
-    "address": "0x7a2088a1bfc9d81c55368ae168c2c02570cb814f",
+    "address": "0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6"
   },
   "PumpfaxtFeeController": {
     "abi": [
       {
         "inputs": [],
         "stateMutability": "nonpayable",
-        "type": "constructor",
+        "type": "constructor"
       },
       {
         "anonymous": false,
@@ -507,23 +497,23 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "from",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "amount",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "indexed": true,
             "internalType": "bytes32",
             "name": "purpose",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "name": "FeeCollected",
-        "type": "event",
+        "type": "event"
       },
       {
         "inputs": [],
@@ -532,11 +522,11 @@ export const contractDefinitions = {
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -545,265 +535,404 @@ export const contractDefinitions = {
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "from_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "amount_",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "bytes32",
             "name": "purpose_",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "name": "registerFee",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "newFee_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "setPumpfaxtTokenBuySellFee_FRACTION",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "newFee_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "setPumpfaxtTokenLaunchFee_FLAT",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "token_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "to_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "amount_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "transfer",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-      },
+        "type": "function"
+      }
     ],
-    "address": "0x2C477DFdB744E3BAf87bbdE078e21D382bc40700",
+    "address": "0x06B1D212B8da92b83AF328De5eef4E211Da02097"
+  },
+  "RelayManager": {
+    "abi": [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from_",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "functionName_",
+            "type": "string"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "functionDataHash_",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signature_",
+            "type": "bytes"
+          }
+        ],
+        "name": "execute",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getNonce",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "address_",
+            "type": "address"
+          }
+        ],
+        "name": "nonceOf",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "from_",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "functionName_",
+            "type": "string"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "functionDataHash_",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signature_",
+            "type": "bytes"
+          }
+        ],
+        "name": "validate",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "signer_",
+            "type": "address"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "messageHash_",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes",
+            "name": "signature_",
+            "type": "bytes"
+          }
+        ],
+        "name": "verifySignature",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+      }
+    ],
+    "address": "0x94099942864EA81cCF197E9D71ac53310b1468D8"
   },
   "frxUsd": {
     "abi": [
       {
         "inputs": [],
         "stateMutability": "nonpayable",
-        "type": "constructor",
+        "type": "constructor"
       },
       {
         "inputs": [],
         "name": "ECDSAInvalidSignature",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "length",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ECDSAInvalidSignatureLength",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "bytes32",
             "name": "s",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "name": "ECDSAInvalidSignatureS",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "allowance",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "needed",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ERC20InsufficientAllowance",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "sender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "balance",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "needed",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ERC20InsufficientBalance",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "approver",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidApprover",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "receiver",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidReceiver",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "sender",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidSender",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidSpender",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "deadline",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ERC2612ExpiredSignature",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "signer",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC2612InvalidSigner",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "account",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "currentNonce",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "InvalidAccountNonce",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [],
         "name": "InvalidShortString",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "string",
             "name": "str",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "name": "StringTooLong",
-        "type": "error",
+        "type": "error"
       },
       {
         "anonymous": false,
@@ -812,29 +941,29 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "owner",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": true,
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "Approval",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
         "inputs": [],
         "name": "EIP712DomainChanged",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
@@ -843,23 +972,23 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "from",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": true,
             "internalType": "address",
             "name": "to",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "Transfer",
-        "type": "event",
+        "type": "event"
       },
       {
         "inputs": [],
@@ -868,11 +997,11 @@ export const contractDefinitions = {
           {
             "internalType": "bytes32",
             "name": "",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -881,78 +1010,78 @@ export const contractDefinitions = {
           {
             "internalType": "bytes32",
             "name": "",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "allowance",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "approve",
         "outputs": [
           {
             "internalType": "bool",
             "name": "",
-            "type": "bool",
-          },
+            "type": "bool"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "account",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "balanceOf",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -961,11 +1090,11 @@ export const contractDefinitions = {
           {
             "internalType": "uint8",
             "name": "",
-            "type": "uint8",
-          },
+            "type": "uint8"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -974,41 +1103,41 @@ export const contractDefinitions = {
           {
             "internalType": "bytes1",
             "name": "fields",
-            "type": "bytes1",
+            "type": "bytes1"
           },
           {
             "internalType": "string",
             "name": "name",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "string",
             "name": "version",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "uint256",
             "name": "chainId",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "address",
             "name": "verifyingContract",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "bytes32",
             "name": "salt",
-            "type": "bytes32",
+            "type": "bytes32"
           },
           {
             "internalType": "uint256[]",
             "name": "extensions",
-            "type": "uint256[]",
-          },
+            "type": "uint256[]"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1017,73 +1146,73 @@ export const contractDefinitions = {
           {
             "internalType": "string",
             "name": "",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "nonces",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "deadline",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint8",
             "name": "v",
-            "type": "uint8",
+            "type": "uint8"
           },
           {
             "internalType": "bytes32",
             "name": "r",
-            "type": "bytes32",
+            "type": "bytes32"
           },
           {
             "internalType": "bytes32",
             "name": "s",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "name": "permit",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1092,11 +1221,11 @@ export const contractDefinitions = {
           {
             "internalType": "string",
             "name": "",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1105,67 +1234,67 @@ export const contractDefinitions = {
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "to",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "transfer",
         "outputs": [
           {
             "internalType": "bool",
             "name": "",
-            "type": "bool",
-          },
+            "type": "bool"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "from",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "to",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "transferFrom",
         "outputs": [
           {
             "internalType": "bool",
             "name": "",
-            "type": "bool",
-          },
+            "type": "bool"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "function",
-      },
+        "type": "function"
+      }
     ],
-    "address": "0x4a679253410272dd5232b3ff7cf5dbb88f295319",
+    "address": "0x0165878a594ca255338adfa4d48449f69242eb8f"
   },
   "PumpfaxtToken": {
     "abi": [
@@ -1174,198 +1303,193 @@ export const contractDefinitions = {
           {
             "internalType": "address",
             "name": "creator_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "string",
             "name": "name_",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "string",
             "name": "symbol_",
-            "type": "string",
-          },
-          {
-            "internalType": "string",
-            "name": "uri_",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "constructor",
+        "type": "constructor"
       },
       {
         "inputs": [],
         "name": "ECDSAInvalidSignature",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "length",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ECDSAInvalidSignatureLength",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "bytes32",
             "name": "s",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "name": "ECDSAInvalidSignatureS",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "allowance",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "needed",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ERC20InsufficientAllowance",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "sender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "balance",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "needed",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ERC20InsufficientBalance",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "approver",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidApprover",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "receiver",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidReceiver",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "sender",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidSender",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC20InvalidSpender",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "deadline",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "ERC2612ExpiredSignature",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "signer",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "ERC2612InvalidSigner",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "account",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "currentNonce",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "InvalidAccountNonce",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [],
         "name": "InvalidShortString",
-        "type": "error",
+        "type": "error"
       },
       {
         "inputs": [
           {
             "internalType": "string",
             "name": "str",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "name": "StringTooLong",
-        "type": "error",
+        "type": "error"
       },
       {
         "anonymous": false,
@@ -1374,29 +1498,29 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "owner",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": true,
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "Approval",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
         "inputs": [],
         "name": "EIP712DomainChanged",
-        "type": "event",
+        "type": "event"
       },
       {
         "anonymous": false,
@@ -1405,23 +1529,23 @@ export const contractDefinitions = {
             "indexed": true,
             "internalType": "address",
             "name": "from",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": true,
             "internalType": "address",
             "name": "to",
-            "type": "address",
+            "type": "address"
           },
           {
             "indexed": false,
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "Transfer",
-        "type": "event",
+        "type": "event"
       },
       {
         "inputs": [],
@@ -1430,116 +1554,116 @@ export const contractDefinitions = {
           {
             "internalType": "bytes32",
             "name": "",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "allowance",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "approve",
         "outputs": [
           {
             "internalType": "bool",
             "name": "",
-            "type": "bool",
-          },
+            "type": "bool"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "account",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "balanceOf",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "fraxIn_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "calculateAmountOut",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "uint256",
             "name": "amountIn_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "calculateFrxUsdOut",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1548,11 +1672,11 @@ export const contractDefinitions = {
           {
             "internalType": "address",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1561,18 +1685,18 @@ export const contractDefinitions = {
           {
             "internalType": "uint8",
             "name": "",
-            "type": "uint8",
-          },
+            "type": "uint8"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
         "name": "disableTrading",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1581,41 +1705,41 @@ export const contractDefinitions = {
           {
             "internalType": "bytes1",
             "name": "fields",
-            "type": "bytes1",
+            "type": "bytes1"
           },
           {
             "internalType": "string",
             "name": "name",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "string",
             "name": "version",
-            "type": "string",
+            "type": "string"
           },
           {
             "internalType": "uint256",
             "name": "chainId",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "address",
             "name": "verifyingContract",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "bytes32",
             "name": "salt",
-            "type": "bytes32",
+            "type": "bytes32"
           },
           {
             "internalType": "uint256[]",
             "name": "extensions",
-            "type": "uint256[]",
-          },
+            "type": "uint256[]"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1624,11 +1748,11 @@ export const contractDefinitions = {
           {
             "internalType": "contract IERC20",
             "name": "",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1637,34 +1761,34 @@ export const contractDefinitions = {
           {
             "internalType": "bool",
             "name": "",
-            "type": "bool",
-          },
+            "type": "bool"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "from_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "to_",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "amount_",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "masterTransferFrom",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1673,73 +1797,73 @@ export const contractDefinitions = {
           {
             "internalType": "string",
             "name": "",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
-          },
+            "type": "address"
+          }
         ],
         "name": "nonces",
         "outputs": [
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "owner",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "spender",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
             "name": "deadline",
-            "type": "uint256",
+            "type": "uint256"
           },
           {
             "internalType": "uint8",
             "name": "v",
-            "type": "uint8",
+            "type": "uint8"
           },
           {
             "internalType": "bytes32",
             "name": "r",
-            "type": "bytes32",
+            "type": "bytes32"
           },
           {
             "internalType": "bytes32",
             "name": "s",
-            "type": "bytes32",
-          },
+            "type": "bytes32"
+          }
         ],
         "name": "permit",
         "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1748,11 +1872,11 @@ export const contractDefinitions = {
           {
             "internalType": "string",
             "name": "",
-            "type": "string",
-          },
+            "type": "string"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [],
@@ -1761,78 +1885,65 @@ export const contractDefinitions = {
           {
             "internalType": "uint256",
             "name": "",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "stateMutability": "view",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "to",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "transfer",
         "outputs": [
           {
             "internalType": "bool",
             "name": "",
-            "type": "bool",
-          },
+            "type": "bool"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "function",
+        "type": "function"
       },
       {
         "inputs": [
           {
             "internalType": "address",
             "name": "from",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "address",
             "name": "to",
-            "type": "address",
+            "type": "address"
           },
           {
             "internalType": "uint256",
             "name": "value",
-            "type": "uint256",
-          },
+            "type": "uint256"
+          }
         ],
         "name": "transferFrom",
         "outputs": [
           {
             "internalType": "bool",
             "name": "",
-            "type": "bool",
-          },
+            "type": "bool"
+          }
         ],
         "stateMutability": "nonpayable",
-        "type": "function",
-      },
-      {
-        "inputs": [],
-        "name": "uri",
-        "outputs": [
-          {
-            "internalType": "string",
-            "name": "",
-            "type": "string",
-          },
-        ],
-        "stateMutability": "view",
-        "type": "function",
-      },
-    ],
-  },
+        "type": "function"
+      }
+    ]
+  }
 } as const;

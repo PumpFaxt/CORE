@@ -4,7 +4,7 @@ import { cn } from "../utils/utils";
 
 export default function () {
   return (
-    <nav className="fixed bottom-0 w-full bg-card/75 backdrop-blur-md border-t flex justify-around p-4">
+    <nav className="fixed bottom-0 w-full bg-card/80 backdrop-blur-lg border-t flex justify-around p-4">
       {navItems.map((item, key) => (
         <NavLink
           key={key}
@@ -31,6 +31,7 @@ const navItems: Array<{
 }> = [
   { icon: "rocket", label: "Launches", link: "/" },
   { icon: "message-square", label: "Chats", link: "/chats" },
+  { icon: "gem", label: "Rewards", link: "/rewards" },
   { icon: "plus-circle", label: "Create", link: "/create" },
   { icon: "wallet", label: "Portfolio", link: "/portfolio" },
 ];

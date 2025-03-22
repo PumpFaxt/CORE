@@ -8,11 +8,13 @@ const chain = chains[network];
 const rpc = chain.rpcUrls.default.http[0];
 
 const walletClient = createWalletClient({
+    chain: chain,
     account: privateKeyToAccount(env.SERVER_PRIVATE_KEY as "0x"),
     transport: http(rpc),
 });
 
 const publicClient = createPublicClient({
+    chain: chain,
     transport: http(rpc),
 });
 

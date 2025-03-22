@@ -31,6 +31,10 @@ async function main() {
     }
 
     const frxUsd = await hre.viem.deployContract("tUSD", [], { client });
+    await frxUsd.write.transfer([
+        "0xF67eF8304e500a85CeC7eF03204852C456327BA5",
+        100_000n * (10n ** 18n),
+    ]);
 
     const master = await hre.viem.deployContract("PumpfaxtMaster", [
         frxUsd.address,
@@ -48,6 +52,13 @@ async function main() {
     await feeController.write.setPumpfaxtTokenBuySellFee_FRACTION([1000n]); // 0.1% fee
     await feeController.write.setPumpfaxtTokenLaunchFee_FLAT([5n]); // $5 fee
 
+    const relayManagerAddress = await master.read.relayManager();
+    const relayManager = await hre.viem.getContractAt(
+        "RelayManager",
+        relayManagerAddress,
+        { client },
+    );
+
     await setDefinition("PumpfaxtMaster", {
         abi: master.abi,
         address: master.address,
@@ -56,6 +67,11 @@ async function main() {
     await setDefinition("PumpfaxtFeeController", {
         abi: feeController.abi,
         address: feeController.address,
+    });
+
+    await setDefinition("RelayManager", {
+        abi: relayManager.abi,
+        address: relayManager.address,
     });
 
     await setDefinition("frxUsd", { abi: frxUsd.abi, address: frxUsd.address });

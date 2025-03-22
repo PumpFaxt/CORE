@@ -1,4 +1,10 @@
-const envKeys = ["PRIVY_APP_ID", "SERVER_PRIVATE_KEY", "EVM_NETWORK", "DB_FILE_NAME"] as const;
+const envKeys = [
+    "PRIVY_APP_ID",
+    "PRIVY_APP_SECRET",
+    "SERVER_PRIVATE_KEY",
+    "EVM_NETWORK",
+    "DB_FILE_NAME",
+] as const;
 
 type ENV = Record<typeof envKeys[number], string>;
 
@@ -15,5 +21,6 @@ export function ensureEnv() {
         envKeys.map((key) => [key, Bun.env[key]]),
     ) as ENV;
 }
+ensureEnv();
 
 export default env;

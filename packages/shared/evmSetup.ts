@@ -7,10 +7,10 @@ let definitions: Record<string, Definition> = {};
 
 const filePrefix = "export const contractDefinitions = ";
 const fileSuffix = " as const;";
-const filePath = __dirname +
-    "/contractDefinitions.gen.ts";
-
 async function syncDefsFromLocal() {
+    const filePath = __dirname +
+        "/contractDefinitions.gen.ts";
+    
     const file = Bun.file(filePath);
     const text = await file.text();
 
@@ -30,6 +30,9 @@ async function syncDefsFromLocal() {
 }
 
 async function syncDefsToLocal() {
+    const filePath = __dirname +
+        "/contractDefinitions.gen.ts";
+    
     await Bun.write(
         filePath,
         filePrefix + JSON.stringify(definitions, null, 2) + fileSuffix,

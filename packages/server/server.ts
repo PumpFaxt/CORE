@@ -10,10 +10,25 @@ const html = await htmlFile.text();
 
 const app = new Hono();
 
-app.use(logger());
+const log = (...data: any[]) => console.log(...data);
+
+app.use(logger(log));
+app.use((ctx, next) => {
+    ctx.log = log;
+    return next();
+});
 
 app.route("api", api);
 
 app.get("*", (c) => c.html(html));
 
-export default app;
+export default {
+    ...app,
+    maxRequestBodySize: 4 * 1024 * 1024, // 4 MB
+};
+
+declare module "hono" {
+    interface Context {
+        log: (...data: any[]) => void;
+    }
+}

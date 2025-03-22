@@ -13,6 +13,11 @@ const feeController = getContract({
     ...contractDefinitions.PumpfaxtFeeController,
 });
 
+const relayManager = getContract({
+    client: evmClient,
+    ...contractDefinitions.RelayManager,
+});
+
 const frxUsd = getContract({
     client: evmClient,
     ...contractDefinitions.frxUsd,
@@ -25,5 +30,5 @@ const getPumpfaxtToken = (address: Address) =>
         address,
     });
 
-const contracts = { master, feeController, frxUsd, getPumpfaxtToken };
+const contracts = { master, feeController, relayManager, frxUsd, getPumpfaxtToken };
 export default contracts;

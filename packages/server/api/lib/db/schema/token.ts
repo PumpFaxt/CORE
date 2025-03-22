@@ -1,12 +1,14 @@
 import { sqliteTable as table } from "drizzle-orm/sqlite-core";
 import * as t from "drizzle-orm/sqlite-core";
-import { timestamps } from "./helpers";
+import { evmAddressType, timestamps } from "./helpers";
+import { users } from "./user";
 
-export const Tokens = table("tokens", {
+export const tokens = table("tokens", {
     id: t.int().notNull().primaryKey({ autoIncrement: true }),
-    address: t.text({ length: 42 }).notNull(),
-    creator: t.text({ length: 42 }).notNull(),
+    address: evmAddressType().notNull(),
+    creator: t.int().references((): t.AnySQLiteColumn => users.id).notNull(),
     name: t.text().notNull(),
+    symbol: t.text().notNull(),
     description: t.text(),
     imageUrl: t.text(),
     ...timestamps,

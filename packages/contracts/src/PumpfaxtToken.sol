@@ -15,7 +15,6 @@ contract PumpfaxtToken is ERC20, ERC20Permit {
     uint8 private immutable _decimals;
 
     address public creator;
-    string public uri;
     bool public isTrading = true;
 
 
@@ -30,8 +29,7 @@ contract PumpfaxtToken is ERC20, ERC20Permit {
     constructor(
         address creator_,
         string memory name_,
-        string memory symbol_,
-        string memory uri_
+        string memory symbol_
     ) ERC20(name_, symbol_) ERC20Permit(name_) {
         _master = PumpfaxtMaster(msg.sender);
 
@@ -39,7 +37,6 @@ contract PumpfaxtToken is ERC20, ERC20Permit {
         _decimals = _master.frxDecimals();
 
         creator = creator_;
-        uri = uri_;
 
         _mint(address(_master), _master.initialSupply() * (10 ** _decimals));
         _virtualReserve = _master.frxUsdTarget() * _master.frxDECIMALS();
