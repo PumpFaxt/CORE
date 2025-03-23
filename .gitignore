@@ -89,3 +89,5 @@ web_modules/
 *.njsproj
 *.sln
 *.sw?
+
+*.db
