@@ -6,6 +6,10 @@ import { users } from "../lib/db/schema/user";
 import { eq } from "drizzle-orm";
 
 const app = new Hono()
+    .get("/self", ensureUser, async (ctx) => {
+        const { user } = ctx.var;
+        return ctx.json({ user }, 200);
+    })
     .get("/:id", async (ctx) => {
         const { 0: user } = await db.select({
             id: users.address,

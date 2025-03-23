@@ -1,3 +1,4 @@
+import Chart from "../../../shared/components/Chart";
 import Icon from "../../../shared/components/Icon";
 import api from "../../../shared/hooks/api";
 
@@ -29,33 +30,38 @@ export default function (props: IProps) {
         <Icon name="globe" />
       </div>
 
-      <div className="">
-        <img
-          src="https://png.pngtree.com/png-vector/20221228/ourmid/pngtree-trading-candlestick-pattern-in-red-and-green-colors-png-image_6536057.png"
-          alt="chart"
-          className="w-full saturate-150 aspect-[10/7]"
-        />
-        <div className="flex rounded-full border justify-between p-[2px] text-sm">
-          <button className="flex-1 rounded-full bg-foreground/10">1H</button>
-          <button className="flex-1">4H</button>
-          <button className="flex-1">1D</button>
-          <button className="flex-1">1W</button>
-          <button className="flex-1">1M</button>
-          <button className="flex-1">3M</button>
-          <button className="flex-1">MAX</button>
-        </div>
-      </div>
+      <Chart />
 
       <div className="">
-        <h3 className="font-semibold text-lg my-2">Your Balance</h3>
+        <h3 className="font-semibold text-lg my-3">Your Balance</h3>
         <div className="flex items-center gap-x-2 font-semibold">
           <img
             src={coin.imageUrl}
             className="size-8 object-contain rounded-full border"
           />
-          <p>12,000,231</p>
-          <p className="text-green-500 ml-2">$21.00</p>
+          <p className="text-foreground/50">12,000,231</p>
+          <p className="text-secondary ml-2">$21.00</p>
         </div>
+      </div>
+
+      <figure className="h-[1px] bg-border w-full" />
+
+      <div className="">
+        <h4 className="font-semibold text-lg">About</h4>
+        <p className="text-xs text-foreground/50">{coin.description}</p>
+
+        <div className="flex justify-between">
+            <p></p>
+        </div>
+      </div>
+
+      <div className="flex sticky bottom-0 w-full gap-x-2 font-semibold">
+        <button className="bg-green-600 p-2 rounded-lg flex-1 flex items-center justify-center gap-x-1">
+          <Icon strokeWidth={2} name="coins" /> Buy
+        </button>
+        <button className="bg-red-600 p-2 rounded-lg flex-1 flex items-center justify-center gap-x-1">
+          <Icon strokeWidth={2} name="arrow-down-circle" /> Sell
+        </button>
       </div>
     </div>
   );

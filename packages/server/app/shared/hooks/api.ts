@@ -99,6 +99,20 @@ const api = {
             staleTime: 60 * MINUTE,
         });
     },
+
+    useUserSelfInfo: () => {
+        const privy = usePrivy();
+        return useQuery({
+            queryKey: ["user-self-info", { id: privy.user?.id }],
+            queryFn: async () => {
+                const res = await apiClient.users.self.$get();
+                const { user } = await res.json();
+                return user;
+            },
+            staleTime: 60 * MINUTE,
+            enabled: !!privy.user?.id,
+        });
+    },
 };
 
 export default api;

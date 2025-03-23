@@ -3,7 +3,7 @@ import { customType, integer } from "drizzle-orm/sqlite-core";
 import { getAddress, isAddress } from "viem";
 
 export const timestamps = {
-    createdAt: integer().$default(() => Date.now()),
+    createdAt: integer().notNull().$default(() => Date.now()),
     deletedAt: integer(),
 };
 
