@@ -47,6 +47,7 @@ export default function (props: IProps) {
           className={twInputStyle}
           name={label}
           placeholder={placeholder}
+          onChange={(e) => setVal(e.target.value)}
           id={label}
         />
       )}

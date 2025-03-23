@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useEffect } from "react";
 import { create } from "zustand";
 import { MINUTE } from "../config/constants";
+import apiClient from "../utils/apiClient";
 
 interface IGlobalState {
     privyAppId: string;
@@ -34,10 +34,8 @@ export const useServerConfig = () => {
     const serverStats = useQuery({
         queryKey: ["server-stats"],
         queryFn: async () => {
-            const res = await axios.get<{ privyAppId: string }>(
-                "/stats",
-            );
-            return res.data;
+            const res = await apiClient.stats.$get()
+            return res.json();
         },
         enabled: !globalStore.init,
         staleTime: 10 * MINUTE,

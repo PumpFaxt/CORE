@@ -5,67 +5,82 @@ import db from "../lib/db";
 import { tokens } from "../lib/db/schema/token";
 import ensureUser from "../middlewares/ensureUser";
 import s3 from "../lib/s3/client";
+import sharp from "sharp";
+import { z } from "zod";
+import { zValidator } from "@hono/zod-validator";
+import { zJsonStringSchema } from "../lib/utils";
 
-import sharp from "sharp"; // Image library
+const app = new Hono()
+    .get("/", async (ctx) => {
+        const results = await db.select().from(tokens).orderBy(tokens.createdAt)
+            .limit(50);
 
-const app = new Hono();
+        return ctx.json({ tokens: results });
+    })
+    .post(
+        "/new",
+        ensureUser,
+        zValidator(
+            "form",
+            z.object({
+                req: zJsonStringSchema,
+                description: z.string(),
+                image: z.instanceof(File),
+            }),
+        ),
+        async (ctx) => {
+            const { user } = ctx.var;
+            const { req, description, image } = ctx.req
+                .valid("form");
 
-app.post("/new", ensureUser, async (ctx) => {
-    const { user } = ctx.var;
+            const { 0: creator, 1: name, 2: symbol } = req;
 
-    const { req: metaRequest, description, image } = await ctx.req.parseBody();
-    if (
-        typeof metaRequest != "string" || typeof description != "string" ||
-        typeof image == "string"
-    ) {
-        return ctx.text("Missing request parameter", 400);
-    }
+            if (creator !== user.address) {
+                return ctx.text("Privy User not same as txn request", 401);
+            }
 
-    const req = JSON.parse(metaRequest);
+            try {
+                const txnHash = await contracts.master.write.metaLaunchToken(
+                    req,
+                );
+                const { logs: txnLogs } = await evmClient.public
+                    .getTransactionReceipt({
+                        hash: txnHash,
+                    });
+                const { address } = txnLogs[2];
 
-    const { 0: creator, 1: name, 2: symbol } = req;
+                const imageBuffer = await image.arrayBuffer();
+                const imageKey = `token-images/${address}.webp`;
 
-    if (creator !== user.address) {
-        return ctx.text("Privy User not same as txn request", 401);
-    }
+                const optimizedImage = await sharp(Buffer.from(imageBuffer))
+                    .resize({ width: 384, height: 384, fit: "inside" })
+                    .webp({ quality: 80 })
+                    .toBuffer();
 
-    try {
-        const txnHash = await contracts.master.write.metaLaunchToken(req);
-        const { logs: txnLogs } = await evmClient.public.getTransactionReceipt({
-            hash: txnHash,
-        });
-        const { address } = txnLogs[2];
+                const s3file = s3.file(imageKey);
 
-        const imageBuffer = await image.arrayBuffer();
-        const imageKey = `token-images/${address}.webp`;
+                await s3file.write(optimizedImage);
 
-        const optimizedImage = await sharp(Buffer.from(imageBuffer))
-            .resize({ width: 384, height: 384, fit: "inside" }) // Keep aspect ratio
-            .webp({ quality: 80 }) // Compress to WebP with 80% quality
-            .toBuffer();
+                await db.insert(tokens).values({
+                    address,
+                    name,
+                    symbol,
+                    description,
+                    imageUrl:
+                        "https://pub-9811e3cb27434c9595e2c1371b164905.r2.dev/" +
+                        imageKey,
+                    creator: user.id,
+                });
 
-        const s3file = s3.file(imageKey);
-
-        await s3file.write(optimizedImage);
-
-        db.insert(tokens).values({
-            address,
-            name,
-            symbol,
-            description,
-            imageUrl: "https://pub-9811e3cb27434c9595e2c1371b164905.r2.dev" +
-                imageKey,
-            creator: user.id,
-        });
-
-        return ctx.json({
-            message: "Token Launched",
-            address: address,
-        }, 201);
-    } catch (e) {
-        console.log(e);
-        return ctx.text("Error launching token", 500);
-    }
-});
+                return ctx.json({
+                    message: "Token Launched",
+                    address: address,
+                }, 201);
+            } catch (e) {
+                console.log(e);
+                return ctx.text("Error launching token", 500);
+            }
+        },
+    );
 
 export default app;

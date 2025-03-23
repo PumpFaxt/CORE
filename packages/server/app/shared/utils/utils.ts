@@ -17,7 +17,8 @@ export async function generateMetaTxRequest(
 ) {
     const { args, functionName } = parameters;
 
-    const address = privy.user.wallet.address;
+    const address = privy.user?.wallet?.address;
+
     if (!address || !isAddress(address)) {
         throw new Error("Invalid evm wallet address");
     }
@@ -45,4 +46,11 @@ export async function generateMetaTxRequest(
     ];
 
     return JSON.stringify(req);
+}
+
+export function truncateEvmAddress(address: string, length: number = 4): string {
+    if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
+        throw new Error("Invalid Ethereum address");
+    }
+    return `${address.slice(0, 6)}...${address.slice(-length)}`;
 }

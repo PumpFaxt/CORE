@@ -3,19 +3,20 @@ import Tabs from "../shared/components/Tabs";
 import Header from "../shared/components/Header";
 import { usePrivy } from "@privy-io/react-auth";
 import { cn } from "../shared/utils/utils";
-import axios from "axios";
 import { useEffect } from "react";
+import { setAuthToken } from "../shared/utils/apiClient";
+import { Toaster } from "sonner";
 
 export default function () {
   const privy = usePrivy();
 
   useEffect(() => {
-    if (privy.init && privy.authenticated) {
+    if (privy.ready && privy.authenticated) {
       privy.getAccessToken().then((token) => {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        token && setAuthToken(token);
       });
     }
-  }, [privy.init, privy.authenticated]);
+  }, [privy.ready, privy.authenticated]);
 
   return (
     <main className="h-screen flex flex-col relative">
@@ -31,6 +32,8 @@ export default function () {
       </div>
 
       <Tabs />
+
+      <Toaster richColors mobileOffset={{bottom: 64}} />
     </main>
   );
 }

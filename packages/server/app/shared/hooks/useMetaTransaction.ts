@@ -17,7 +17,10 @@ export function useMetaTransaction(
     const [result, setResult] = useState<string>();
 
     async function generateRequest() {
-        const address = privy.user.wallet.address;
+        const address = privy.user?.wallet?.address;
+        if (!nonce){
+            throw new Error("Unable to get nonce");
+        }
         if (!address || !isAddress(address)) {
             throw new Error("Invalid evm wallet address");
         }

@@ -3,10 +3,8 @@ import { customType, integer } from "drizzle-orm/sqlite-core";
 import { getAddress, isAddress } from "viem";
 
 export const timestamps = {
-    createdAt: integer({ mode: "timestamp" }).default(
-        sql`CURRENT_TIMESTAMP`,
-    ),
-    deleted_at: integer({ mode: "timestamp" }),
+    createdAt: integer().$default(() => Date.now()),
+    deletedAt: integer(),
 };
 
 export const evmAddressType = customType<{

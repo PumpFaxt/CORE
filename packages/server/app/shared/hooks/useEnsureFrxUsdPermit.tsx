@@ -26,7 +26,7 @@ export default function () {
     const localStorageKey = `pumpfaxt-preset-frxusd-permit-${user.address}@${spender}#${tokenAddress}`;
 
     const preset = localStorage.getItem(localStorageKey);
-    // if (preset === "true") return;
+    if (preset === "true") return;
 
     const provider = await user.getEthereumProvider();
     const owner = user.address as "0x";

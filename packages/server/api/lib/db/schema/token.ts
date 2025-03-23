@@ -10,8 +10,8 @@ export const tokens = table("tokens", {
     name: t.text().notNull(),
     symbol: t.text().notNull(),
     description: t.text(),
-    imageUrl: t.text(),
+    imageUrl: t.text().notNull().default(""), // replace with placeholder image
     ...timestamps,
 }, (table) => [
-    t.uniqueIndex("creator_idx").on(table.creator),
+    t.index("creator_idx").on(table.creator),
 ]);

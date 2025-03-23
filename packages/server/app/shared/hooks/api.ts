@@ -3,22 +3,16 @@ import axios from "axios";
 import { MINUTE } from "../config/constants";
 import { usePrivy } from "@privy-io/react-auth";
 import imageCompression from "browser-image-compression";
+import apiClient from "../utils/apiClient";
 
 const api = {
     useDummyCoins: () =>
         useQuery({
             queryKey: ["dummy", "coins"],
             queryFn: async () => {
-                const res = await axios.get<{
-                    coins: {
-                        name: string;
-                        ticker: string;
-                        address: string;
-                        imageUrl: string;
-                        description: string;
-                    }[];
-                }>("/dummy/coins");
-                return res.data.coins;
+                const res = await apiClient.dummy.coins.$get();
+                const { coins } = await res.json();
+                return coins;
             },
             staleTime: 10 * MINUTE,
         }),
@@ -26,12 +20,23 @@ const api = {
     useRelayNonce: () => {
         const privy = usePrivy();
         return useQuery({
-            queryKey: ["relay-nonce", privy.user.id],
+            queryKey: ["relay-nonce", { id: privy.user?.id }],
             queryFn: async () => {
-                const res = await axios.get<{
-                    nonce: string;
-                }>("/access/evm-nonce");
-                return res.data.nonce;
+                const res = await apiClient.access["evm-nonce"].$get();
+                const { nonce } = await res.json();
+                return nonce;
+            },
+            enabled: !!privy.user?.id,
+        });
+    },
+
+    useTokens: () => {
+        return useQuery({
+            queryKey: ["tokens"],
+            queryFn: async () => {
+                const res = await apiClient.tokens.$get();
+                const { tokens } = await res.json();
+                return tokens;
             },
         });
     },
@@ -58,15 +63,14 @@ const api = {
                 );
                 formData.append("image", compressedImage);
 
-                const res = await axios.post<
-                    { address: string; imageUrl: string }
-                >(
-                    "/tokens/new",
-                    formData,
-                    { headers: { "Content-Type": "multipart/form-data" } },
-                );
+                const { req, description } = args;
+                const res = await apiClient.tokens.new.$post({
+                    form: { req, description, image: compressedImage },
+                }, {
+                    // headers: { "Content-Type": "multipart/form-data" },
+                });
 
-                return res.data;
+                return await res.json();
             },
         });
     },
@@ -74,9 +78,25 @@ const api = {
     useFrxUsdPermit: () => {
         return useMutation({
             mutationFn: async (req: string) => {
-                const res = await axios.post("/access/frxusd-permit", { req });
-                return res.data;
+                const res = await apiClient.access["frxusd-permit"].$post({
+                    json: { req },
+                });
+                return await res.json();
             },
+        });
+    },
+
+    useUserById: (id: number) => {
+        return useQuery({
+            queryKey: ["user-info-route", { id }],
+            queryFn: async () => {
+                const res = await apiClient.users[":id"].$get({
+                    param: { id: id.toString() },
+                });
+                const { user } = await res.json();
+                return user;
+            },
+            staleTime: 60 * MINUTE,
         });
     },
 };
